@@ -4,7 +4,7 @@
   "description": "**The University of Melbourne** # INFO30005 – Web Information Technologies",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js"
+    "test": "node src/app.js"
   },
   "keywords": [],
   "author": "",
