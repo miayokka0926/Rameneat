@@ -1,0 +1,27 @@
+{
+  "name": "Deliverable2",
+  "version": "1.0.0",
+  "description": "**The University of Melbourne** # INFO30005 – Web Information Technologies",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.0",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/INFO30005-2021-SM1/project-t11-ramen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/INFO30005-2021-SM1/project-t11-ramen/issues"
+  },
+  "homepage": "https://github.com/INFO30005-2021-SM1/project-t11-ramen#readme"
+}
