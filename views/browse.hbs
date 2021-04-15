@@ -1,0 +1,16 @@
+<h1> Menu page </h1>
+<p> User can browse a list of foods </p>
+<ul>
+    </br>
+    {{#each snacks}}
+
+    <p>{{this.name}}</p>
+    <p>{{this.Snack_Price}}</p>
+    <a href="./snack/{{this.id}}" ><img src = {{this.img}} width = '60', height='60'></a> 
+    </br>
+    </br>
+    </br>
+    {{/each}}
+    
+</ul>
+<a href="/customer"> Go back to Customer Page </a>
