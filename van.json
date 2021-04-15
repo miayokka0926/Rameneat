@@ -1,0 +1,32 @@
+[
+    {
+        "name":"SuperVan",
+        "password":"Aurora",
+        "status":"Closed",
+        "location":"None"
+    },
+    {
+        "name":"MiniVan",
+        "password":"Eric",
+        "status":"Closed",
+        "location":"None"
+    },
+    {
+        "name":"BigVan",
+        "password":"Mia",
+        "status":"Closed",
+        "location":"None"
+    },
+    {
+        "name":"BlueVan",
+        "password":"Nancy",
+        "status":"Closed",
+        "location":"None"
+    },
+    {
+        "name":"JoVan",
+        "password":"Relax",
+        "status":"Closed",
+        "location":"None"
+    }
+]
