@@ -1,32 +1,22 @@
 [
     {
         "name":"SuperVan",
-        "password":"Aurora",
-        "status":"Closed",
-        "location":"None"
+        "foods":"Latte"
     },
     {
         "name":"MiniVan",
-        "password":"Eric",
-        "status":"Closed",
-        "location":"None"
+        "foods":"Flat White"
     },
     {
         "name":"BigVan",
-        "password":"Mia",
-        "status":"Closed",
-        "location":"None"
+        "foods":"Cake"
     },
     {
         "name":"BlueVan",
-        "password":"Nancy",
-        "status":"Closed",
-        "location":"None"
+        "foods":"Long Black"
     },
     {
         "name":"JoVan",
-        "password":"Relax",
-        "status":"Closed",
-        "location":"None"
+        "foods":"Cappucino"
     }
 ]
