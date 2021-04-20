@@ -38,8 +38,17 @@ const orderlistSchema = new mongoose.Schema({
     foods: {type: String, required: true, unique: true}
 })
 
+
+const userSchema = new mongoose.Schema({
+    name:  {type: String, required: true, unique: true},
+    password: {type: String, required: true, unique: true},
+    email: {type: String, required: true, unique: true}
+})
+
+
 // 将Schema全部转换为mongoose model并传出（用于app.js中）
+const User = mongoose.model('User', userSchema, 'User')
 const Snack = mongoose.model('Snacks', snackSchema, 'Snacks')
 const Van = mongoose.model('Vendor', vanSchema, 'Vendor')
 const Orderlist = mongoose.model('VanOrderlist', orderlistSchema, 'VanOrderlist')
-module.exports = {Snack, Van, Orderlist}
+module.exports = {User, Snack, Van, Orderlist}

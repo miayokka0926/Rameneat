@@ -12,12 +12,34 @@ app.use(bodyParser.urlencoded({extended:true}))
 const {Snack} = require('./db.js')
 const {Van} = require('./db.js')
 const {Orderlist} = require('./db.js')
+const {User} = require('./db.js')
 // 从此往上都是写代码前下载的各式各样的model，method（我也不理解是啥，反正从老师的demo中照搬能用就是了）
 
 // 主页面（主页面中内含两个链接，点击可进入Customer或Vendor端）
 app.get('/', async (req, res) => {
     res.render('FrontPage')
 })
+
+// customer login界面
+app.get('/customerLogin', async (req, res) => {
+    res.render('CustomerLogin')
+})
+
+
+
+// 从customer端登录面中下载vendor输入的数据进行与数据库匹配
+app.post('/vendor/status', async (req, res) =>{
+    const postInfo = req.body;
+    const User = await User.findOne({name: postInfo.name, password: password}).select('_id').lean();
+    if (User){
+        res.render('CustomerMenu')
+    }
+    else{
+        res.render('LoginFailure')
+    }    
+})
+
+
 
 // customer端主页面（内含菜单 和 个人信息编辑页面的链接）
 app.get('/customer', async (req, res) => {
@@ -106,4 +128,4 @@ app.get('/updateLatte', async (req, res) => {
 
 // 以下为运行Localhost的部分
 const port = process.env.PORT || 3000
-app.listen(port, () => {console.log('The library app is listening on port 3000!', port)})
+app.listen(port, () => {console.log('The website is listening on port 3000!', port)})
