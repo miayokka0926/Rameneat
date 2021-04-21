@@ -6,12 +6,12 @@ var OrderSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'Customer'
     },
-    vender: {
+    name: {
         type:Schema.Types.ObjectId,
         ref:'Vender'
     },
     
-    snacks: {
+    foods: {
         type:Array,
         default:[]
         

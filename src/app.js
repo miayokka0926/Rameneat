@@ -3,7 +3,18 @@ const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars')
 const app = express()
 
+
+app.use(express.json())  
+app.engine('hbs', exphbs({ defaultlayout: 'main', extname: 'hbs'}))
+app.set('view engine', 'hbs')
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json());
+
+app.use(bodyParser.json());
+
+app.get('/', async (req, res) => {
+    res.render('FrontPage')
+})
 
 const mongoose = require('mongoose')
 
@@ -20,6 +31,9 @@ db.once('open', () => {
 })
 
 
+app.get('/', function(req, res){
+    res.render('../views/detail.hbs');
+  });
 
 const customer = require('../routes/customer');
 app.use('/customer', customer);

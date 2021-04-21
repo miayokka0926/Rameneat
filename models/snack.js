@@ -7,7 +7,7 @@ var SnackSchema = new Schema({
         required: true,
     },
     
-    photo: {
+    img: {
         type:String,
         required: true,
         
