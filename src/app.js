@@ -16,17 +16,17 @@ const {Orderlist} = require('./db.js')
 
 // 主页面（主页面中内含两个链接，点击可进入Customer或Vendor端）
 app.get('/', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'HTML_Template/FrontPage.html'))
+    res.render('FrontPage')
 })
 
 // customer端主页面（内含菜单 和 个人信息编辑页面的链接）
 app.get('/customer', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'HTML_Template/CustomerMenu.html'))
+    res.render('CustomerMenu')
 })
 
 // vendor端登录面（需要vendor输入自己的vanName，设置的密码，以及粗略的地理位置输入）
 app.get('/vendor', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'HTML_Template/VendorLogin.html'))
+    res.render('VendorLogin')
 })
 
 // 从vendor端登录面中下载vendor输入的数据进行与数据库匹配
@@ -42,7 +42,7 @@ app.post('/vendor/status', async (req, res) =>{
         })
     }
     else{
-        res.sendFile(path.join(__dirname, 'HTML_Template/LoginFailure.html'))
+        res.render('LoginFailure')
     }    
 })
 
@@ -55,7 +55,7 @@ app.get('/vendor/orderlist/:vanName', async(req, res)=>{
 // 当Vendor在Status页面点击Closed，自动导航回Vendor登录界面，并将该Logout Vendor的数据库信息更新（营业状态：Closed, 粗略地址：None，精确坐标：9999）
 app.get('/vendor/:vanName', async(req, res) => {
     await Van.updateOne( {name: req.params.vanName}, {status: 'Closed', location: "None", geoLocation:{longtitude: 9999, latitude: 9999}})
-    res.sendFile(path.join(__dirname, 'HTML_Template/VendorLogin.html'))
+    res.render('VendorLogin')
 })
 
 // 选择Customer端进入，点击View the Menu链接，自动进入菜单页面，将所有的Snack的名字，价格，照片全部印出来
