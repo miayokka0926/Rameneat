@@ -1,14 +1,4 @@
-const mongoose = require('mongoose')
 
-let connectionURL = "mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/Snack_Database?retryWrites=true&w=majority"
-
-mongoose.connect(connectionURL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, dbName: 'Snack_Database'})
-const db = mongoose.connection
-
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => {
-    console.log('connected to Mongo')
-})
 // 以上全部都是Connecting MongoDB
 
 
