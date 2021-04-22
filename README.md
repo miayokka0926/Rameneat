@@ -94,7 +94,7 @@ app.listen(port, () => {console.log('The website is listening on port 3000!', po
 
 ## Here is an overview of what our Postman Collection is like
 
-<img src="deliverable2feature/collection.png"  width="300" >
+<img src="/deliverable2feature/collection.png"  width="300" >
 
 
 **Now Get ready to complete all the tasks:**
