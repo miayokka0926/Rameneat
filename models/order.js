@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var OrderSchema = new Schema({
-    name: {
+    customer: {
         type:Schema.Types.ObjectId,
         ref:'Customer'
     },
-    name: {
+    vendor: {
         type:Schema.Types.ObjectId,
         ref:'Vender'
     },
     
-    foods: {
+    snacks: {
         type:Array,
         default:[]
         

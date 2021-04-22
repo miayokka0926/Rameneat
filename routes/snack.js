@@ -9,4 +9,7 @@ router.get('/', snackController.snackListGet);
 //view detail
 router.get('/:id', snackController.snackDetailGet);
 
+//create new item
+router.post('/create', snackController.snackCreatePost);
+
 module.exports = router;

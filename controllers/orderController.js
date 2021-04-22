@@ -8,9 +8,9 @@ exports.orderListGet = function(req, res){
     if (req.params.vendorId.match(/^[0-9a-fA-F]{24}$/)) {
         Order.find( {vendor:req.params.vendorId, status: req.query.status }).then((orders) => {
             if (orders.length == 0) {
-                res.status(404).json({success: false, err: 'can not find any orders'})
+                res.status(404).json({success: false, err: 'The system can not find any orders'})
             } else {
-                res.status(200),json({success: true, orders: orders})
+                res.status(200).json({success: true, orders: orders})
             }
             
         })

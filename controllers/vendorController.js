@@ -38,27 +38,16 @@ exports.vendorRegisterPost = function(req, res){
 exports.vendorParkPost = function(req, res){
 
     
-    Vendor.findById(req.params.id).then((vendor)=>{
-        if(!vendor){
-            res.status(409).json({error: 'Vendor do not exist.'});
-        }else{
-           Vendor.findByIdAndUpdate(
-               req.params.id,
-               {
-                   Address:req.body.Address,
-                    parked: req.body.parked,
-                    location:{type:"Point", coordinates: req.body.location}
-                },
-                {new: true}, 
-                function(err,updatedVendor)  {
-                    if(err){
-                        res.status(404).json({success: false, err:err})
-                    }else{
-                        res.status(200).json({success: true, updatedVendor: updateVendor})
-                    }
-                }
-           )
+    Vendor.findByIdAndUpdate(req.params.id,
+        {Address: req.body.Address, parked: req.body.parked, location:{type: "Point", coordinates: req.body.location}},
+        {new : true},
+        function(err, updatedVendor){
+            if(err){
+                res.status(404).json({success: false, message: "vendirId is not found"});
+            }else {
+                res.status(200).json({success: true, updatedVendor:updatedVendor});
+            }
         }
-    })
-    
-}
+    );
+     
+};

@@ -10,7 +10,6 @@ exports.snackListGet = function(req, res){
         }
     })
    
-    
 };
 
 exports.snackDetailGet = function(req, res){
@@ -24,3 +23,29 @@ exports.snackDetailGet = function(req, res){
    
 };
 
+
+exports.snackCreatePost = function(req, res){
+    Snack.findOne({
+        name: req.body.name
+    }).then((snack)=> {
+        if (snack) {
+            res.status(409).json({error: "Item already exists"});
+        }else {
+            const snack = new Snack({
+                name: req.body.name,
+                img: req.body.img,
+                price: req.body.price,
+                description: req.body.description
+            });
+            snack.save((err, detail)=>{
+                if(err){
+                    res.status(400).json({success: false, err});
+                }else {
+                    res.status(200).json({success: true, detail});
+                }
+            });
+        }
+        
+    
+    })
+};

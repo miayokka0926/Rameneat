@@ -15,7 +15,11 @@ var SnackSchema = new Schema({
     price: {
         type: String,
         required: true,
+    },
+    description: {
+        type: String,
     }
+
 });
 
 Snack = mongoose.model("Snack", SnackSchema);
