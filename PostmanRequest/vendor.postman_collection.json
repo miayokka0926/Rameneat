@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "vendorRegister",
+			"name": "create a vendor",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -32,7 +32,7 @@
 			"response": []
 		},
 		{
-			"name": "updateStatus",
+			"name": "update vendor status",
 			"request": {
 				"method": "POST",
 				"header": [],

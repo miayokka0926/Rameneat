@@ -59,7 +59,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Outstanding Order",
+			"name": "get outstanding order",
 			"request": {
 				"method": "GET",
 				"header": [],
