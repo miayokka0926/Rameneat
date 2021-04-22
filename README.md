@@ -28,9 +28,10 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 
 | Name         |               Task               |                  State |
 | :----------- | :------------------------------: | ---------------------: |
-| Haoyue Wang  |            UI Mockup             |                   Done |
-| Huage Sun    |            App Mockup            |                   Done |
-| Yuxin Ma     | Front End & Back End One feature |                Testing |
+| Haoyue Wang  |  Coding and Database Definition  |                   Done |
+| Chi Zhang    |     Coding and Database Setup    |                   Done |
+| Huage Sun    |  Code Testing and Improvement    |                   Done |
+| Yuxin Ma     |  Code Testing and Improvement    |                   Done |
 | Zhirong Piao |          README Format           | Deliverable 2 Finished |
 
 ## General info
@@ -65,45 +66,34 @@ Project is created with:
 - MongoDB & Mongoose
 
 ## Code Implementation
+Here is a snippet of our app.js code
 
-You can include a code snippet here.
-
-```HTML
-<!--
-Example code from: https://www.w3schools.com/jsref/met_win_alert.asp
-__>
-
-<!DOCTYPE html>
-<html>
-<body>
-
-<p>Click the button to display an alert box.</p>
-
-<button onclick="myFunction()">Try it</button>
-
-<script>
-function myFunction() {
-  alert("Hello! I am an alert box!");
-}
-</script>
-
-</body>
-</html>
 ```
 
-## Adding Images (All images are stored in mongoDB as String Url style, all image src are from unsplash.com)
+//import routes information
+const customer = require('../routes/customer');
+app.use('/customer', customer);
 
-You can use images/gif hosted online:
+const vendor = require('../routes/vendor');
+app.use('/vendor', vendor);
 
-<p align="center">
-  <img src="https://github.com/Martin-Reinoso/sandpit-Profile/raw/main/Images_Readme/01.gif"  width="300" >
-</p>
+const snack = require('../routes/snack');
+app.use('/snack', snack);
 
-Or you can add your own images from a folder in your repo with the following code. The example has a folder `Gifs` with an image file `Q1-1.gif`:
+const order = require('../routes/order');
+app.use('/order', order);
+
+// execute localhost
+const port = process.env.PORT || 3000
+app.listen(port, () => {console.log('The website is listening on port 3000!', port)})
+
+```
+
+## (All images are stored in mongoDB as String Url style, all image src are from unsplash.com)
 
 ```HTML
 <p align="center">
-  <img src="Gifs/Q1-1.gif"  width="300" >
+  <img src="deliverable2feature/vendor registor.png"  width="300" >
 </p>
 ```
 
