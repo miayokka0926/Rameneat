@@ -29,7 +29,6 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 | Name         |               Task               |                  State |
 | :----------- | :------------------------------: | ---------------------: |
 | Haoyue Wang  |  Coding and Database Definition  |                   Done |
-| Chi Zhang    |     Coding and Database Setup    |                   Done |
 | Huage Sun    |  Code Testing and Improvement    |                   Done |
 | Yuxin Ma     |  Code Testing and Improvement    |                   Done |
 | Zhirong Piao |          README Format           | Deliverable 2 Finished |
@@ -53,8 +52,10 @@ Explnation of four postman json file.
 (4) vendor.postman_collection.json file contain two "POST" methods for create a new vendor (not needed in this deliverable) and method to updata vendor status (that is updating the information of location and operrating status (we use "parked" = true or false for representing whether the vendor is open or closed)).
 
 Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
+Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
-In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.
+In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
+Main Route Link: https://pacific-spire-87195.herokuapp.com
 
 ## Technologies
 
