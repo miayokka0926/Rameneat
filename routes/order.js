@@ -3,6 +3,8 @@ const router = express.Router();
 
 var orderController = require('../controllers/orderController');
 
+
+//create a new order
 router.post('/create', orderController.orderCreatePost);
 
 //view outstanding orders of vendor

@@ -6,10 +6,10 @@ var snackController = require('../controllers/snackController');
 //view menu
 router.get('/', snackController.snackListGet);
 
-//view detail
+//view snack detail
 router.get('/:id', snackController.snackDetailGet);
 
-//create new item
+//create new snacks
 router.post('/create', snackController.snackCreatePost);
 
 module.exports = router;

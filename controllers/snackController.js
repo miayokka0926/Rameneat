@@ -1,5 +1,5 @@
 
-var Snack = require('../models/snack');
+var Snack = require('../schemas/snack');
 
 exports.snackListGet = function(req, res){
     Snack.find().exec((err, snacks)=>{
@@ -24,6 +24,7 @@ exports.snackDetailGet = function(req, res){
 };
 
 
+//create a new snack and post on to the website & database
 exports.snackCreatePost = function(req, res){
     Snack.findOne({
         name: req.body.name

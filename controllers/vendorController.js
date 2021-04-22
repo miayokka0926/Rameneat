@@ -1,9 +1,10 @@
 const bcrypt=require('bcryptjs');
 
-var Vendor = require('../models/vendor');
+var Vendor = require('../schemas/vendor');
 
+
+//register a vendor and post the information to website & database
 exports.vendorRegisterPost = function(req, res){
-
     const{name, password} = req.body;
     Vendor.findOne({name: name}).then((vendor)=>{
         if(vendor){
@@ -13,6 +14,7 @@ exports.vendorRegisterPost = function(req, res){
                 name,
                 password
             })
+            //hash the password to improve security
             bcrypt.genSalt(6,(err,salt)=>{
                 bcrypt.hash(newVendor.password, salt, (err, hash)=>{
                     if(err) throw err;
@@ -35,17 +37,18 @@ exports.vendorRegisterPost = function(req, res){
 
 
 
-exports.vendorParkPost = function(req, res){
+//update vendor's parking status
+exports.vendorStatusPost = function(req, res){
 
     
     Vendor.findByIdAndUpdate(req.params.id,
         {Address: req.body.Address, parked: req.body.parked, location:{type: "Point", coordinates: req.body.location}},
         {new : true},
-        function(err, updatedVendor){
+        function(err, updated){
             if(err){
                 res.status(404).json({success: false, message: "vendirId is not found"});
             }else {
-                res.status(200).json({success: true, updatedVendor:updatedVendor});
+                res.status(200).json({success: true, updated:updated});
             }
         }
     );

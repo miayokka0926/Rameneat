@@ -1,12 +1,12 @@
+//import the resources
 const express = require('express')
 const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars')
 const app = express()
 
-
 app.use(bodyParser.json());
 
-
+//connect to mongoose database
 const mongoose = require('mongoose')
 
 let connectionURL = "mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/Snack_Database?retryWrites=true&w=majority"
@@ -21,7 +21,7 @@ db.once('open', () => {
     console.log('connected to Mongo')
 })
 
-
+//import routes information
 const customer = require('../routes/customer');
 app.use('/customer', customer);
 
@@ -34,6 +34,6 @@ app.use('/snack', snack);
 const order = require('../routes/order');
 app.use('/order', order);
 
-// 以下为运行Localhost的部分
+// execute localhost
 const port = process.env.PORT || 3000
 app.listen(port, () => {console.log('The website is listening on port 3000!', port)})

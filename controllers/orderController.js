@@ -1,9 +1,9 @@
 
-var Order = require('../models/order');
+var Order = require('../schemas/order');
 
 
 
-
+//Get order list from database
 exports.orderListGet = function(req, res){
     if (req.params.vendorId.match(/^[0-9a-fA-F]{24}$/)) {
         Order.find( {vendor:req.params.vendorId, status: req.query.status }).then((orders) => {
@@ -20,18 +20,18 @@ exports.orderListGet = function(req, res){
 
 
 
-
+//create an order an post on to the website & database
 exports.orderCreatePost = function(req, res){
     const order = new Order({
         customer: req.body.customer,
         vendor: req.body.vendor,
         snacks: req.body.snacks
     })
-   order.save((err, createdOrder)=>{
+   order.save((err, newOrder)=>{
        if (err){
            res.status(400).json({success:false, err:err})
        }else{
-           res.status(200).json({success:true, order:createdOrder})
+           res.status(200).json({success:true, order:newOrder})
        }
    })
     
