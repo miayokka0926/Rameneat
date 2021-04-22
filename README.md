@@ -89,11 +89,13 @@ app.listen(port, () => {console.log('The website is listening on port 3000!', po
 
 ```
 
-## (All images are stored in mongoDB as String Url style, all image src are from unsplash.com)
+(All images are stored in mongoDB as String Url style, all image src are from unsplash.com)
+
+## Here is an overview of what our Postman Collection is like
 
 ```HTML
 <p align="center">
-  <img src="deliverable2feature/vendor registor.png"  width="300" >
+  <img src="deliverable2feature/collection.png"  width="300" >
 </p>
 ```
 
