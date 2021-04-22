@@ -45,11 +45,16 @@ The coding part is presented in the main branch with commit id: 98b030d (Please 
 
 The testing route request methods are all included in the Postman exported json file, which includes Get methods for features 1, 2, 5 and Post method for features 3, 4, 6. By simply operating the request method in this json file, you could reach the data (or posh to update) from (or to) mongoDB's targeted collections (These exported json file are all stored in the github main branch folder "PostmanRequest")
 
-Explnation of four postman json file.
-(1) customer.postman_collection.json file contain an "POST" method for allowing customers to register in this app.
-(2) order.postman_collection.json file contain "POST" methods for create a order (feature 3 start order) and updata and order (feature 6 change to fulfill) in this app. A "GET" method is apply for allowing each vendor to access to their own outstanding orderlist.
-(3) snack.postman_collection.json file contain "POST" method for create a new snack (not needed in this deliverable). Contains "GET" method for requesting the menu snack list and "GET" method for requesting a single snack's detail data.
-(4) vendor.postman_collection.json file contain two "POST" methods for create a new vendor (not needed in this deliverable) and method to updata vendor status (that is updating the information of location and operrating status (we use "parked" = true or false for representing whether the vendor is open or closed)).
+Explnation of postman json file FoodVan (We includes 9 test request method with 6 "POST" and 3 "GET"):
+(1) "POST" customerRegister (not needed in this deliverable). Can be used for posting a new customer with his/her input information into database.
+(2) "POST" orderCreate. Can be used for creating a new order by customer and storing it into outstanding list collection for the specific vendor.
+(3) "POST" orderUpdata. Allows vendor to update the order status (eg. status change from "outstanding" to "fulfilled").
+(4) "GET" orderOutstandingGet. Allows the vendor to get their own outstanding order list from the database.
+(5) "POST" snackCreate (not needed in this deliverable). Allows to create a new snack and store it into database (may not needed in this project).
+(6) "GET" snackListGet. Get all the snacks from the pre-set dataset (menu) and present the menu list to customer.
+(7) "GET" snackDetailGet. Get one specific snack from menu list and displays its detail information.
+(8) "POST" venderCreate (not needed in this deliverable). Allows a new vendor owner to register the Van account.
+(9) "POST" venderStatusUpdate. Allows vendor owner to update their Van status (eg. change their current location and change parked (in here we use parked for representing the Van is open or closed) into true or false).
 
 Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
