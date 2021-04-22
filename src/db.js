@@ -1,14 +1,4 @@
-const mongoose = require('mongoose')
 
-let connectionURL = "mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/Snack_Database?retryWrites=true&w=majority"
-
-mongoose.connect(connectionURL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, dbName: 'Snack_Database'})
-const db = mongoose.connection
-
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => {
-    console.log('connected to Mongo')
-})
 // 以上全部都是Connecting MongoDB
 
 
@@ -38,8 +28,17 @@ const orderlistSchema = new mongoose.Schema({
     foods: {type: String, required: true, unique: true}
 })
 
+
+const userSchema = new mongoose.Schema({
+    name:  {type: String, required: true, unique: true},
+    password: {type: String, required: true, unique: true},
+    email: {type: String, required: true, unique: true}
+})
+
+
 // 将Schema全部转换为mongoose model并传出（用于app.js中）
+const User = mongoose.model('User', userSchema, 'User')
 const Snack = mongoose.model('Snacks', snackSchema, 'Snacks')
 const Van = mongoose.model('Vendor', vanSchema, 'Vendor')
 const Orderlist = mongoose.model('VanOrderlist', orderlistSchema, 'VanOrderlist')
-module.exports = {Snack, Van, Orderlist}
+module.exports = {User, Snack, Van, Orderlist}
