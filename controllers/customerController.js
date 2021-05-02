@@ -36,3 +36,31 @@ exports.customerRegisterPost = function(req, res){
     })
     
 }
+
+
+exports.customerLoginPost = function(req,res){
+    const{email, password} = req.body;
+    Customer.findOne({
+        email:email,
+    }).then ((customer)=>{
+        if (!customer){
+            res.status(200).json({success:false, error: "customer not registered!"});
+        }else {
+            bcrypt.compare(password, customer.password, (err, match)=>{
+                if (match) {
+                    res.status(200).json({
+                        success: true,
+                        customer:{
+                            id: customer.id,
+                            name: customer.name,
+                            email: customer.email,
+                        }
+                    })
+
+                }else {
+                    res.status(409).json({ error: err, message: "incorrect password!"})
+                }
+            })
+        }
+    })
+}

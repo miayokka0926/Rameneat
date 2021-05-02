@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const exphbs = require('express-handlebars')
 const app = express()
+const cors = require('cors')
 
 app.use(bodyParser.json());
 
@@ -20,6 +21,8 @@ db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
     console.log('connected to Mongo')
 })
+
+app.use(cors());
 
 //import routes information
 const customer = require('../routes/customer');
