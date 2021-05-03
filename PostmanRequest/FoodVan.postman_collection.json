@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "19f48a53-8c81-464a-a920-a2de7bbe0d32",
+		"name": "FoodVan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "customerRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Bob\",\r\n    \"email\": \"bobb@abc.com\",\r\n    \"password\": \"abc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}customer/register",
+					"host": [
+						"{{baseURL}}customer"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderCreate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer\" : \"{{customerID}}\",\r\n    \"vendor\" : \"{{vendorID}}\",\r\n    \"snacks\" : [{\"Latte\": 2}, {\"LongBlack\": 1}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}order/create",
+					"host": [
+						"{{baseURL}}order"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderUpdate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer\" : \"{{customerID}}\",\r\n    \"vendor\" : \"{{vendorID}}\",\r\n    \"snacks\" : [{\"Latte\": 2}, {\"LongBlack\": 3}],\r\n    \"status\" : \"fulfilled\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}order/608116c2c9e7bd7b3853d94b/update",
+					"host": [
+						"{{baseURL}}order"
+					],
+					"path": [
+						"608116c2c9e7bd7b3853d94b",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orderOutstandingGet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}order/{{VendorIDforOutstanding}}?status=outstanding",
+					"host": [
+						"{{baseURL}}order"
+					],
+					"path": [
+						"{{VendorIDforOutstanding}}"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "outstanding"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snackCreate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Fancy Biscuit\",\r\n    \"img\" : \"https://images.unsplash.com/photo-1610562275136-ff7ca2b5e97d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1002&q=80\",\r\n    \"price\" : \"6\",\r\n    \"description\" : \"cookies\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}snack/create",
+					"host": [
+						"{{baseURL}}snack"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snackListGet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}snack/",
+					"host": [
+						"{{baseURL}}snack"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snackDetailGet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}snack/{{snackDetail}}",
+					"host": [
+						"{{baseURL}}snack"
+					],
+					"path": [
+						"{{snackDetail}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "venderCreate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Super Van\",\r\n    \"password\": \"321\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}vendor/register",
+					"host": [
+						"{{baseURL}}vendor"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "venderStatusUpdate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Address\" : \" Melbourne Central\",\r\n    \"parked\" : true,\r\n    \"location\" : [40,140]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}vendor/park/{{VendorUpdate}}",
+					"host": [
+						"{{baseURL}}vendor"
+					],
+					"path": [
+						"park",
+						"{{VendorUpdate}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3000/"
+		},
+		{
+			"key": "VendorUpdate",
+			"value": "6080df2d1dbef719f8abc39a"
+		},
+		{
+			"key": "snackDetail",
+			"value": "60811387c9e7bd7b3853d942"
+		},
+		{
+			"key": "VendorIDforOutstanding",
+			"value": "6080df2d1dbef719f8abc39a"
+		},
+		{
+			"key": "customerID",
+			"value": "60811584c9e7bd7b3853d94a"
+		},
+		{
+			"key": "vendorID",
+			"value": "6080df2d1dbef719f8abc39a"
+		}
+	]
+}
