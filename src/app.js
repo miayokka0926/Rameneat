@@ -37,6 +37,16 @@ app.use('/snack', snack);
 const order = require('../routes/order');
 app.use('/order', order);
 
+
+//serve static assets
+if (process.env.NODE_ENV === 'production') {
+
+    app.use(express.static('client/build'));
+    app.get('*', (req, res)=>{
+        res.sendFile(path.resolve(__dirname,'client', 'build', 'index.html'));
+    })
+}
+
 // execute localhost
 const port = process.env.PORT || 3000
 app.listen(port, () => {console.log('The website is listening on port 3000!', port)})
