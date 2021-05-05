@@ -21,7 +21,7 @@ var VendorSchema = new Schema({
     
     password: {
         type:String,
-        required: true,
+        required: true
         
     },
     Address:{
@@ -31,6 +31,10 @@ var VendorSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    menu:{
+        type: String,
+        required: true
     }
 });
 

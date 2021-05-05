@@ -1,11 +1,12 @@
 
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Button} from 'react-bootstrap';
 import {Divider, Drawer, PageHeader} from 'antd';
 import axios from '../commons/axios';
 
 import OrderList from '../components/OrderList.js';
 import LeafletMap from '../components/LeafletMap.js';
+import Menu from '../components/Menu.js';
 
 
 function CustomerMain(props){
@@ -14,19 +15,23 @@ function CustomerMain(props){
     const handleDrawerShow=()=>setDrawerVisible(true);
     const [orders, setOrders] = useState([]);
     const [snacks, setSnacks] = useState([]);
-
+    const [menu, setMenu] = useState([]);
     const [title, setTitle] = useState('');
     const [options, setOptions] = useState([]);
+    
 
     useEffect(()=>{
         if (props.location.state.customer) {
             console.log(props.location.state.position)
             console.log(props.location.state.vendors)
             axios.get('/order?customer=' +props.location.state.customer.id).then(response =>{
+                console.log(response)
                 setOrders(response.data.allOrders)
+                setMenu(response.data.Menu)
             })
-            setTitle("Hi "+ props.location.state.customer.name)
-            setOptions([<Button variant="outline-primary" key="1" onClick={handleDrawerShow}>view Orders</Button>])
+            setTitle("Welcome back, "+ props.location.state.customer.name)
+            setOptions([<Button variant="outline-primary" key="1" onClick={handleDrawerShow}>view Orders</Button>,
+            <Button variant="outline-primary" key = "1" onClick = {handleDrawerShow}>Menu</Button>])
         } else {
             setTitle("Welcome!")
         }
@@ -35,17 +40,18 @@ function CustomerMain(props){
         })
     },[props.location.state.position, props.location.state.vendors, props.location.state.customer])
     return(
-        <>
+        <div>
             <PageHeader title = {title}
             extra = {options}></PageHeader>
-            <Drawer visible = {drawerVisible} closable={true} onClose={handleDrawerClose} width = {"60vw"}>
-                orders
+            <Drawer visible = {drawerVisible} closable={true} onClose={handleDrawerClose} width = {"40vw"}>
+                My orders
                 <Divider />
                 <OrderList orders = {orders} />
             </Drawer>
+            
             <LeafletMap center = {props.location.state.position} vendors={props.location.state.vendors}
                 snacks={snacks} customer={props.location.state.customer} />
-        </>
+        </div>
 
     )
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import {useState, useEffect} from 'react';
 import {Jumbotron, Button, OverlayTrigger, Tooltip, Modal, Form, FormControl} from 'react-bootstrap';
 import {message, Typography} from 'antd';
@@ -26,13 +25,14 @@ function App(props) {
       setLng(position.coords.longitude)
     })
     axios.get('/vendor?lat='+lat+'&lng='+lng).then(response => {
+      console.log(response)
       setVendors(response.data.vendors)
     })
   },[lat,lng])
 
 
   const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}> feature to be implemented </Tooltip>
+    <Tooltip id="button-tooltip" {...props}> feature opening soon </Tooltip>
   )
 
   const onLogin = () => {
@@ -45,26 +45,31 @@ function App(props) {
         })
       }else {
         message.error(response.data.error)
+        setShow(false);
       }
     }).catch(error =>{
-      setShow(false);
+      
       console.log(error.response.data.message)
       message.error(error.response.data.message)
     })
   }
 
   const onSkip = () => {
-    props.histry.push('/customer', {
+    props.history.push('/customer', {
       position: [lat, lng],
       vendors: vendors
     })
   }
 
+  const findPassword = (props) => {
+    <Tooltip id="button-tooltip" {...props}> feature opening soon </Tooltip>
+  }
+
   return (
-    <div style={{width: '40%', margin: 'auto',marginTop:'20%'}}>
+    <div style={{width: '60%', margin: 'auto',marginTop:'7%'}}>
       <Modal show = {show} onHide={handleClose} style={{marginTop:'2vh'}}>
         <Modal.Header closeButton>
-          <Modal.Title>Customer Login</Modal.Title>
+          <Modal.Title>Hi, please log in</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -82,6 +87,8 @@ function App(props) {
               onChange = {e=>setPassword(e.target.value)} />
             </Form.Group>
           </Form>
+          <Link onClick={findPassword}>Forget Password?</Link>
+          <p></p>
           <Link onClick={onSkip}>Skip</Link>
         </Modal.Body>
         <Modal.Footer>
@@ -89,9 +96,9 @@ function App(props) {
           <Button variant="primary" onClick={onLogin}>Login</Button>
         </Modal.Footer>
         </Modal>
-        <Jumbotron style={{background: 'white'}}>
+        <Jumbotron style={{background: 'orange'}}>
           <h1>Welcome to Ramen Eat!</h1>
-          <p>Choose one option to continue</p>
+          <p>I'm a ...</p>
           <p><Button variant="primary" onClick={handleShow}>Customer</Button>
           <OverlayTrigger placement="right" delay={{show:250, hide:400}} overlay={renderTooltip}>
             <Button variant="outline-primary" style={{marginLeft: "1vw"}}>Vendor</Button>

@@ -15,10 +15,10 @@ export default function OrderBrief(props) {
     const renderTooltip = (props) =>(
         <Tooltip id="button-tooltip" {...props}> still in progress</Tooltip>
     )
-
+    console.log(props.order)
     return (
         <div>
-            <Modal visible={modalVisible} title={"OrferId "+ props.order._id}
+            <Modal visible={modalVisible} title={"OrderId "+ props.order._id}
             onOk={handleClose} onCancel={handleClose}>
                 <p> Vendor: {props.order.vendor.name}</p>
                 <p>{snacks}</p>

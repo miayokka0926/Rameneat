@@ -12,7 +12,7 @@ var OrderSchema = new Schema({
     
     vendor: {
         type:Schema.Types.ObjectId,
-        ref:'Vender'
+        ref:'Vendor'
     },
     
     snacks: {
