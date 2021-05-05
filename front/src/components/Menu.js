@@ -24,9 +24,9 @@ export default function Menu(props) {
     const handleModalClose = () => setModalVisible(false);
 
     const onChange = (index, event) => {
-        let newArray = [...order];
-        newArray[index] = event;
-        setOrder(newArray);
+        let newOrder = [...order];
+        newOrder[index] = event;
+        setOrder(newOrder);
     }
 
     let history = useHistory();
@@ -72,19 +72,19 @@ export default function Menu(props) {
                 eventHandlers={{ click: handleModalShow }}></Marker>
 
             <Modal show={modalVisible} onHide={handleModalClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Menu({props.vendor.name})</Modal.Title>
+                <Modal.Header closeButton style={{color:"orange", display: "flex",justifyContent: 'right'}}>
+                    <Modal.Title style={{marginLeft:"36%"}} >Menu({props.vendor.name})</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {props.snacks.map((snack, index) => (
-                        <Card cover={<img alt="example" src={snack.img} />} style={{ marginBottom: "2vh" }} size={'small'} key={snack._id}>
-                            <Meta title={snack.name + "  $" + snack.price} />
-                            <InputNumber key={snack._id} min={0} defaultValue={0} style={{ marginLeft: "80%" }} onChange={e => onChange(index, e)} />
+                        <Card cover={<img alt="example" src={snack.img} />} style={{ marginBottom: "3vh" }} key={snack._id}>
+                            <Meta title={snack.name + "  $" + snack.price} style={{ marginLeft: "35%", marginBottom: "2vh", fontStyle:"italic" }} />
+                            <InputNumber key={snack._id} min={0} defaultValue={0} style={{ marginLeft: "37%" , color:"orange"}} onChange={e => onChange(index, e)} />
                         </Card>
                     ))}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant='primary' onClick={onSubmit}>
+                <Modal.Footer style={{display: "flex",justifyContent: 'right'}}>
+                    <Button style={{ backgroundColor: "orange", marginLeft:"36%" }}variant='primary' onClick={onSubmit}>
                         Submit Order
                     </Button>
                 </Modal.Footer>
