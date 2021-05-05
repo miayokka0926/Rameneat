@@ -9,4 +9,7 @@ router.post('/register', vendorController.vendorRegisterPost);
 //update vendor
 router.post('/park/:id', vendorController.vendorStatusPost);
 
+// GET request for five nearest vendors
+router.get('/', vendorController.vendorFiveGet);
+
 module.exports = router;

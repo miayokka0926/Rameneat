@@ -5,9 +5,9 @@
   "main": "src/app.js",
   "scripts": {
     "front": "npm start --prefix front",
-    "dev": "concurrently \"npm start\" \"npm run front\"",
+    "dev": "concurrently \"npm run server\" \"npm run front\"",
     "start": "node src/app.js",
-    "test": "nodemon src/app.js",
+    "server": "nodemon src/app.js",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
