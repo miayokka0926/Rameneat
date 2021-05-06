@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+//define the schema of an order
 var OrderSchema = new Schema({
+
     customer: {
         type:Schema.Types.ObjectId,
         ref:'Customer'
     },
+    
     vendor: {
         type:Schema.Types.ObjectId,
-        ref:'Vender'
+        ref:'Vendor'
     },
     
     snacks: {
@@ -16,16 +20,20 @@ var OrderSchema = new Schema({
         default:[]
         
     },
+
     status: {
         type: String,
         default: 'outstanding',
     },
+
     ratings: {
         type: Number,
     },
+
     comment: {
         type: String,
     }
+
 },{timestamps: true});
 
 

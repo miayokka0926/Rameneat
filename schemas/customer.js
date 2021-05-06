@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var VendorSchema = new Schema({
+//define a customer schema
+var CustomerSchema = new Schema({
     name:{
         type:String,
         
@@ -16,21 +17,17 @@ var VendorSchema = new Schema({
         }
         
     },
-    
-    password: {
+    email: {
         type:String,
         required: true,
         
     },
-    Address:{
-        type: String
-    },
-    parked:{
-        type: Boolean,
+    password: {
+        type:String,
         required: true,
-        default: false
+        
     }
 });
 
-Vendor = mongoose.model("Vendor", VendorSchema);
-module.exports = Vendor;
+Customer = mongoose.model("Customer", CustomerSchema);
+module.exports = Customer;

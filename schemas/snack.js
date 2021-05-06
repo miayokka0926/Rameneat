@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+//define the schema of a snack
 var SnackSchema = new Schema({
     name: {
         type:String,
