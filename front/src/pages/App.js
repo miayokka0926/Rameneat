@@ -36,6 +36,10 @@ function App(props) {
     <Tooltip id="button-tooltip" {...props}> feature opening soon </Tooltip>
   )
 
+  const renderTooltipCustomer = (props) => (
+        <Tooltip id="button-tooltip" {...props}> start your tasty journey</Tooltip>
+  )
+
   const onLogin = () => {
     axios.post('/customer/login', {email: email, password:password}).then(response=>{
       if (response.data.success){
@@ -102,15 +106,18 @@ function App(props) {
         <center>
         <img src={image} style={{width: '35vw', margin: 'auto'}} alt="logo"/>
         </center >
-        
+        <br /><br />
           <h1 style={{color:"orange"}}>Welcome to Ramen Eat!</h1>
           <br />
           <h6 style={{color: '#707070', opacity: '80%'}}>I'm a ...</h6>
           <p>
-            <Button variant="primary" onClick={handleShow} size="lg" block style={{width: '25w', color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C'}}>Customer</Button>
+          
+          <OverlayTrigger placement="right" delay={{show:250, hide:400}} overlay={renderTooltipCustomer}>
+          <Button variant="primary" onClick={handleShow} size="lg" block style={{width: '37vw', color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C'}}>Customer</Button>
+          </OverlayTrigger>
           <br />
           <OverlayTrigger placement="right" delay={{show:250, hide:400}} overlay={renderTooltip}>
-            <Button variant="primary" size="lg" block style={{width: '25vw',color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6'}}>Vendor</Button>
+          <Button variant="primary" size="lg" block style={{width: '37vw',color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6'}}>Vendor</Button>
           </OverlayTrigger>
           </p>
         </Jumbotron>
