@@ -31,11 +31,11 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 | Haoyue Wang  | Coding and Database Definition |                   Done |
 | Huage Sun    |  Code Testing and Improvement  |                   Done |
 | Yuxin Ma     |  Code Testing and Improvement  |                   Done |
-| Zhirong Piao |         README Format          | Deliverable 2 Finished |
+| Zhirong Piao | Commenting and code testing    | Deliverable 3 Finished |
 
 ## General info
 
-This is project is to build a web app which server for vending car's owner and customer. By developing the fron end for displaying and back end for storing the vendor's and customer's and snacks' information, we could easily extract and accept the request made by customer and owner (for example, for customer to order snacks from the provided menu list and for owner to receive the customer's order's information to prepare the meal). All the images are found in unsplash.com by copying the image url address and store for each snacks. All information of snacks are pre-set and store in mongoDB collection "snacks". Similarlly, the vnedor's information are pre-set and store in mongoDB as all the van owner are pre-listed by the developer in this project's requirement.
+This is project is to build a web app which server for vending car's owner and customer. By developing the fron end for displaying and back end for storing the vendor's and customer's and snacks' information, we could easily extract and accept the request made by customer and owner (for example, for customer to order snacks from the provided menu list and for owner to receive the customer's order's information to prepare the meal). All the images are found in unsplash.com by copying the image url address and store for each snacks. All information of snacks are pre-set and store in mongoDB collection "snacks". Similarlly, the vnedor's information are pre-set and store in mongoDB as all the van owner are pre-listed by the developer in this project's requirement. 
 
 # This is the brief explaination of Deliverable 2
 
@@ -53,6 +53,10 @@ Explnation of four postman json file.
 
 Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
+
+# This is the brief explaination of Deliverable 3
+
+Our team make the website viewable with this deliverable 3, along with client end UI design and backend database. Once customers get access to the web page, they will be able to view where the vendors are located. However, if they access our web page from other cities, they will have to drag the map manually to Melbourne to find vendors, as all of our vendors are located around Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and they will have options to either log in and make selections or just view it. If they successfully log in and submit an order, their order will be displayed under the "view Orders" icon. 
 
 ## Deploy in Heroku
 
@@ -104,6 +108,6 @@ app.listen(port, () => {console.log('The website is listening on port 3000!', po
 - [x] Read the Project handouts carefully
 - [x] User Interface (UI)mockup
 - [x] App server mockup
-- [ ] Front-end + back-end (one feature)
+- [x] Front-end + back-end (one feature)
 - [ ] Complete system + source code
 - [ ] Report on your work(+ test1 feature)
