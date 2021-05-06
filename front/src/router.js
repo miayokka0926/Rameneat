@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route} from "react-router-dom";
 import App from "./pages/App.js";
 import CustomerMain from "./pages/CustomerMain.js";
 
+// routes of the website.
 class Router extends React.Component{
     render(){
         return(

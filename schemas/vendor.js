@@ -4,37 +4,31 @@ const Schema = mongoose.Schema;
 
 //define the schema of a vendor
 var VendorSchema = new Schema({
-    name:{
-        type:String,
-        
+    name: {
+        type: String,
     },
     location: {
-        type:{
-            type:String,
-            enum:['Point']
+        type: {
+            type: String,
+            enum: ['Point']
         },
-        coordinates:{
-            type:[Number]
+        coordinates: {
+            type: [Number]
         }
-        
+
     },
-    
     password: {
-        type:String,
-        required: true
-        
+        type: String,
+        required: true,
+
     },
-    Address:{
+    Address: {
         type: String
     },
-    parked:{
+    parked: {
         type: Boolean,
         required: true,
         default: false
-    },
-    menu:{
-        type: String,
-        required: true
     }
 });
 
