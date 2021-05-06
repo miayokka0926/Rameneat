@@ -76,9 +76,9 @@ function App(props) {
   return (
 
     <div id="LogIn" style={{ width: '60%', margin: 'auto', marginTop: '2%' }}>
-      <Jumbotron style={{ width: '50%', backgroundColor: 'white', margin: 'auto' }}>
+      <Jumbotron style={{ width: '90%', backgroundColor: 'white', margin: 'auto' }}>
 
-        <center>
+        <center >
           <img src={image} style={{ width: '100%', margin: 'auto' }} alt="logo" />
         </center>
 
@@ -114,7 +114,7 @@ function App(props) {
                 <br />
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Please enter your email"
+                  <Form.Control style={{fontSize:12}} type="email" placeholder="Please enter your email"
                     onChange={e => setEmail(e.target.value)} />
                   <Form.Text className="text-muted">
                     Your info is secured with us.
@@ -122,7 +122,7 @@ function App(props) {
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
-                  <FormControl type="password" placeholder="Password"
+                  <FormControl style={{fontSize:12}} type="password" placeholder="Please enter your password"
                     onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
               </Form>
@@ -149,7 +149,7 @@ function App(props) {
               variant="primary"
               size="lg"
               block
-              style={{ color: '#707070', backgroundColor: '#F3F3F3', borderColor: '#F3F3F3' }}>
+              style={{  color: '#707070', backgroundColor: '#F3F3F3', borderColor: '#F3F3F3' }}>
               Vendor
             </Button>
           </OverlayTrigger>
