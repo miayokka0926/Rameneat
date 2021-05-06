@@ -8,7 +8,7 @@ export default function LeafletMap(props){
     
     return(
         <>
-            <Map center = {props.center} zoom={18} scrollWheelZoom = {false}
+            <Map center = {props.center} zoom={18} scrollWheelZoom = {true}
             style={{height:"90vh"}}>
                 <TileLayer
                 url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

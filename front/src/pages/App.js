@@ -4,8 +4,9 @@ import {message, Typography} from 'antd';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
-
+import image from '../logo.png';
 const {Link} = Typography;
+
 
 function App(props) {
 
@@ -69,7 +70,7 @@ function App(props) {
     <div style={{width: '60%', margin: 'auto',marginTop:'7%'}}>
       <Modal show = {show} onHide={handleClose} style={{marginTop:'2vh'}}>
         <Modal.Header closeButton>
-          <Modal.Title>Hi, please log in</Modal.Title>
+          <Modal.Title style={{color:'orange'}}>Hi, please log in</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -77,9 +78,7 @@ function App(props) {
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" placeholder="Please enter your email"
               onChange={e => setEmail(e.target.value)} />
-              <Form.Text className="text-muted">
-                Your email is secured with us.
-              </Form.Text>
+
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
@@ -87,21 +86,31 @@ function App(props) {
               onChange = {e=>setPassword(e.target.value)} />
             </Form.Group>
           </Form>
+          <OverlayTrigger placement="right" delay={{show:250, hide:400}} overlay={renderTooltip}>
           <Link onClick={findPassword}>Forget Password?</Link>
+          </OverlayTrigger>
           <p></p>
           <Link onClick={onSkip}>Skip</Link>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Close</Button>
-          <Button variant="primary" onClick={onLogin}>Login</Button>
+        
+          <Button variant="secondary" size="lg" block style={{width: '25vw',color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6'}}>Cancel</Button>
+          <Button variant="primary" onClick={onLogin} size="lg" block style={{width: '25vw',color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C'}}>Login</Button>
         </Modal.Footer>
         </Modal>
-        <Jumbotron style={{background: 'orange'}}>
-          <h1>Welcome to Ramen Eat!</h1>
-          <p>I'm a ...</p>
-          <p><Button variant="primary" onClick={handleShow}>Customer</Button>
+        <Jumbotron style={{width: '30%', backgroundColor: 'white', margin: 'auto', marginLeft:"15%", marginTop:'1%'}}>
+        <center>
+        <img src={image} style={{width: '35vw', margin: 'auto'}} alt="logo"/>
+        </center >
+        
+          <h1 style={{color:"orange"}}>Welcome to Ramen Eat!</h1>
+          <br />
+          <h6 style={{color: '#707070', opacity: '80%'}}>I'm a ...</h6>
+          <p>
+            <Button variant="primary" onClick={handleShow} size="lg" block style={{width: '25w', color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C'}}>Customer</Button>
+          <br />
           <OverlayTrigger placement="right" delay={{show:250, hide:400}} overlay={renderTooltip}>
-            <Button variant="outline-primary" style={{marginLeft: "1vw"}}>Vendor</Button>
+            <Button variant="primary" size="lg" block style={{width: '25vw',color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6'}}>Vendor</Button>
           </OverlayTrigger>
           </p>
         </Jumbotron>

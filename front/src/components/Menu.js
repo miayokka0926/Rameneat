@@ -71,11 +71,11 @@ export default function Menu(props) {
             <Marker key={props.id} position={props.position} icon={vendorIcon}
                 eventHandlers={{ click: handleModalShow }}></Marker>
 
-            <Modal show={modalVisible} onHide={handleModalClose}>
+                <Modal show={modalVisible} onHide={handleModalClose}>
                 <Modal.Header closeButton style={{color:"orange", display: "flex",justifyContent: 'right'}}>
                     <Modal.Title style={{marginLeft:"36%"}} >Menu({props.vendor.name})</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body >
                     {props.snacks.map((snack, index) => (
                         <Card cover={<img alt="example" src={snack.img} />} style={{ marginBottom: "3vh" }} key={snack._id}>
                             <Meta title={snack.name + "  $" + snack.price} style={{ marginLeft: "35%", marginBottom: "2vh", fontStyle:"italic" }} />

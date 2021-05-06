@@ -26,7 +26,7 @@ function CustomerMain(props) {
                 setOrders(response.data.allOrders)
             })
             setTitle("Welcome back, " + props.location.state.customer.name)
-            setOptions([<Button variant="outline-primary" key="1" onClick={handleDrawerShow}>view Orders</Button>])
+            setOptions([<Button variant="outline-light" key="1" style={{ fontSize: 15, backgroundColor: "#F4976C" }} onClick={handleDrawerShow}>view Orders</Button>])
         } else {
             setTitle("Welcome!")
         }
@@ -38,8 +38,8 @@ function CustomerMain(props) {
         <div>
             <PageHeader title={title}
                 extra={options}></PageHeader>
-            <Drawer visible={drawerVisible} closable={true} onClose={handleDrawerClose} width={"40vw"}>
-                My orders
+            <Drawer style={{ color: "orange" }} visible={drawerVisible} closable={true} onClose={handleDrawerClose} width={"70vw"}>
+                <h3 style={{ color: "#F4976C" }}>My orders</h3>
                 <Divider />
                 <OrderList orders={orders} />
             </Drawer>
