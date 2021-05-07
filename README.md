@@ -39,7 +39,7 @@ This is project is to build a web app which server for vending car's owner and c
 
 # This is the brief explaination of Deliverable 2
 
-This deliverable is for creating the brief mockup of the server side for both customer and owners by allowing them to get or post the data to the database (in here we use MongoDB). No front end design is included in this deliverable but only the raw json data would be presented in the live server (similarly if you sent the request method in Postman, it should onlyh retrun the json data for a clearer visualisation).
+This deliverable is for creating the brief mockup of the server side for both customer and owners by allowing them to get or post the data to the database (in here we use MongoDB). No front end design is included in this deliverable but only the raw json data would be presented in the live server (similarly if you sent the request method in Postman, it should only retrun the json data for a clearer visualisation).
 
 The coding part is presented in the main branch with commit id: 98b030d (Please notice that the newest commit only change the readme.md file, no code is changed)
 
@@ -59,8 +59,13 @@ Explnation of postman json file FoodVan (We includes 9 test request method with 
 Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
+
 ## This is a brief explanation of deliverable 3
 Our team make the website viewable with this deliverable 3, with the client end UI design and the support of the backend database. The first page allows visitors to either preview map and vendor menu by clicking on 'skip' or fill in their email and password to log in to submit orders. Either option will direct users to the .../customer page. Then, they will be able to view where the vendors are located and do further operations. However, if they access our web page from other cities, they will have to drag the map manually to Melbourne to find vendors, as all of our vendors are located near Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and users will be able to submit orders if they have successfully logged in. Otherwise, the system will direct them back to the log in page. If they successfully log in and submit an order, their orders will be displayed under the "view Orders" icon. 
+
+Our localhost address: http://localhost:5500/
+To run our code, type 'npm run dev' in the terminal.
+
 
 
 
