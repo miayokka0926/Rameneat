@@ -1,3 +1,4 @@
+// display menu when clicking on each vendor icon.
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, message, InputNumber, Row } from "antd";
@@ -8,36 +9,32 @@ import { Modal, Button } from "react-bootstrap";
 import axios from "../commons/axios";
 import image from "../components/logo.png";
 
+//Display vendor icon on the map. Once clicking on the icon, the menu will be rendered.
 const { Meta } = Card;
 export default function Menu(props) {
-
   const vendorIcon = new Icon({
     iconUrl: image,
     iconSize: [66, 66],
   });
-
+  //set up variables for components and function
   const [order, setOrder] = useState([]);
   const [modalVisible, setModalVisible] = useState(props.modalVisible);
   const handleModalShow = () => setModalVisible(true);
   const handleModalClose = () => setModalVisible(false);
 
-  const onChange = (index, event) => {
-    let newOrder = [...order];
-    newOrder[index] = event;
-    setOrder(newOrder);
-  };
-
+  //update an item of the menu
   const addItem = (index, event) => {
     let newOrder = [...order];
-    let value = newOrder[index]
+    let value = newOrder[index];
     if (value === undefined) {
-      newOrder[index] = 1
+      newOrder[index] = 1;
     } else {
-      newOrder[index]++
+      newOrder[index]++;
     }
     setOrder(newOrder);
   };
 
+  //decrease the item number
   const subtractItem = (index, event) => {
     let newOrder = [...order];
     if (newOrder[index] > 0) {
@@ -47,7 +44,7 @@ export default function Menu(props) {
   };
 
   let history = useHistory();
-
+  //place and submit an order
   const onSubmit = () => {
     if (!props.customer) {
       message.error("you need to log in to place an order");
@@ -63,6 +60,7 @@ export default function Menu(props) {
         }
       }
       console.log(submitOrder);
+      //set up error cases
       if (submitOrder.length === 0) {
         setModalVisible(false);
         message.error("You must enter at least one snack!");
@@ -84,7 +82,7 @@ export default function Menu(props) {
       }
     }
   };
-
+  //render the outcome
   return (
     <div>
       <Marker
@@ -118,13 +116,25 @@ export default function Menu(props) {
                   fontStyle: "italic",
                 }}
               />
-              <Row gutter={6} style={{ marginLeft: "27%" }} >
-                <Button onClick={e => addItem(index, e)} style={{ backgroundColor: "orange", marginRight: "1vw" }} >+</Button>
-                <InputNumber key={snack._id} min={0} defaultValue={0}
-                  // onChange={e => onChange(index, e)}
+              <Row gutter={6} style={{ marginLeft: "27%" }}>
+                <Button
+                  onClick={(e) => addItem(index, e)}
+                  style={{ backgroundColor: "orange", marginRight: "1vw" }}
+                >
+                  +
+                </Button>
+                <InputNumber
+                  key={snack._id}
+                  min={0}
+                  defaultValue={0}
                   value={order[index]}
                 />
-                <Button onClick={e => subtractItem(index, e)} style={{ backgroundColor: "orange", marginLeft: "1vw" }}>-</Button>
+                <Button
+                  onClick={(e) => subtractItem(index, e)}
+                  style={{ backgroundColor: "orange", marginLeft: "1vw" }}
+                >
+                  -
+                </Button>
               </Row>
             </Card>
           ))}
@@ -139,6 +149,6 @@ export default function Menu(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div >
+    </div>
   );
 }
