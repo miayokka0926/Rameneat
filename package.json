@@ -8,9 +8,8 @@
     "dev": "concurrently \"npm run server\" \"npm run front\"",
     "start": "node src/app.js",
     "server": "nodemon src/app.js",
-    "client-install": "npm install --prefix client",
-    "client": "npm start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "client-install": "npm install --prefix front",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix front && npm run build --prefix front"
   },
   "keywords": [],
   "author": "",

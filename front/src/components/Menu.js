@@ -1,17 +1,16 @@
-// display menu when clicking on each vendor icon.
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { InputNumber, Card, message } from "antd";
+import { Card, message, InputNumber, Row } from "antd";
 import { Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Modal, Button } from "react-bootstrap";
-import axios from "../commons/axios";
 
+import axios from "../commons/axios";
 import image from "../components/logo.png";
 
-//Display vendor icon on the map. Once clicking on the icon, the menu will be rendered.
 const { Meta } = Card;
 export default function Menu(props) {
+
   const vendorIcon = new Icon({
     iconUrl: image,
     iconSize: [66, 66],
@@ -28,8 +27,27 @@ export default function Menu(props) {
     setOrder(newOrder);
   };
 
+  const addItem = (index, event) => {
+    let newOrder = [...order];
+    let value = newOrder[index]
+    if (value === undefined) {
+      newOrder[index] = 1
+    } else {
+      newOrder[index]++
+    }
+    setOrder(newOrder);
+  };
+
+  const subtractItem = (index, event) => {
+    let newOrder = [...order];
+    if (newOrder[index] > 0) {
+      newOrder[index]--;
+    }
+    setOrder(newOrder);
+  };
+
   let history = useHistory();
-  // this function is used for submitting an order
+
   const onSubmit = () => {
     if (!props.customer) {
       message.error("you need to log in to place an order");
@@ -37,21 +55,18 @@ export default function Menu(props) {
     } else {
       var submitOrder = [];
       for (var i = 0; i < order.length; i++) {
-        if (Number.isFinite(order[i])) {
+        if (Number.isFinite(order[i]) && order[i] > 0) {
           submitOrder.push({
             name: props.snacks[i].name,
             qty: order[i],
           });
         }
       }
-      // if no selection has been made, an error message will be displayed.
       console.log(submitOrder);
       if (submitOrder.length === 0) {
         setModalVisible(false);
         message.error("You must enter at least one snack!");
-      }
-      // if the customer make selections, the shopping cart will be updated.
-      else {
+      } else {
         axios
           .post("/order/create", {
             customer: props.customer.id,
@@ -69,7 +84,7 @@ export default function Menu(props) {
       }
     }
   };
-  // The UI design of menu page, includes add and delete icon, submit and close button.
+
   return (
     <div>
       <Marker
@@ -103,13 +118,14 @@ export default function Menu(props) {
                   fontStyle: "italic",
                 }}
               />
-              <InputNumber
-                key={snack._id}
-                min={0}
-                defaultValue={0}
-                style={{ marginLeft: "37%", color: "orange" }}
-                onChange={(e) => onChange(index, e)}
-              />
+              <Row gutter={6} style={{ marginLeft: "27%" }} >
+                <Button onClick={e => addItem(index, e)} style={{ backgroundColor: "orange", marginRight: "1vw" }} >+</Button>
+                <InputNumber key={snack._id} min={0} defaultValue={0}
+                  // onChange={e => onChange(index, e)}
+                  value={order[index]}
+                />
+                <Button onClick={e => subtractItem(index, e)} style={{ backgroundColor: "orange", marginLeft: "1vw" }}>-</Button>
+              </Row>
             </Card>
           ))}
         </Modal.Body>
@@ -123,6 +139,6 @@ export default function Menu(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </div >
   );
 }

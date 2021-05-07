@@ -1,4 +1,3 @@
-// main log in page of the website
 import { useState, useEffect } from "react";
 import {
   Jumbotron,
@@ -25,7 +24,7 @@ function App(props) {
   const [vendors, setVendors] = useState([]);
 
   const [open, setOpen] = useState(false);
-  // get customer location oonce they get access to our website.
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       setLat(position.coords.latitude);
@@ -49,7 +48,7 @@ function App(props) {
        start your tasty journey
     </Tooltip>
   );
-  // ask customer to fillin their email and password once they click on login button.
+
   const onLogin = () => {
     axios
       .post("/customer/login", { email: email, password: password })
@@ -70,21 +69,21 @@ function App(props) {
         message.error(error.response.data.message);
       });
   };
-  // By clicking button 'skip', system allow a customer to view vendors and menu before log in.
+
   const onSkip = () => {
     props.history.push("/customer", {
       position: [lat, lng],
       vendors: vendors,
     });
   };
-  // message will be displayed if a customer place their mouse on 'forget password' icon.
+
   const findPassword = (props) => {
     <Tooltip id="button-tooltip" {...props}>
       {" "}
       feature opening soon{" "}
     </Tooltip>;
   };
-  // the UI design of log in page.
+
   return (
     <div id="LogIn" style={{ width: "60%", margin: "auto", marginTop: "2%" }}>
       <Jumbotron
@@ -161,13 +160,7 @@ function App(props) {
 
               <p>
                 {" "}
-                <OverlayTrigger
-                  placement="right"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={renderTooltip}
-                >
-                  <Link onClick={findPassword}>Forget Password?</Link>
-                </OverlayTrigger>{" "}
+                <Link onClick={findPassword}>Forget Password?</Link>{" "}
               </p>
               <p>
                 {" "}
