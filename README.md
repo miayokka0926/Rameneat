@@ -66,6 +66,14 @@ Our team make the website viewable with this deliverable 3, with the client end 
 Our localhost address: http://localhost:5500/
 To run our code, type 'npm run dev' in the terminal.
 
+To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
+Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
+
+dummy customer log in detail:
+email: bobb@abc.com
+
+password: abc
+
 
 
 
