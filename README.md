@@ -59,6 +59,11 @@ Explnation of postman json file FoodVan (We includes 9 test request method with 
 Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
+## This is a brief explanation of deliverable 3
+Our team make the website viewable with this deliverable 3, with the client end UI design and the support of backend database. Once customers get access to the web page, they will be able to view where the vendors are located. However, if they access our web page from other cities, they will have to drag the map manually to Melbourne to find vendors, as all of our vendors are located around Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and they will have options to either log in and make selections or just view it. If they successfully log in and submit an order, their order will be displayed under the "view Orders" icon. 
+
+
+
 
 ## Deploy in Heroku
 In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
