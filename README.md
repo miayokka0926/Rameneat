@@ -1,4 +1,4 @@
-f eafea**The University of Melbourne**
+**The University of Melbourne**
 
 # INFO30005 – Web Information Technologies
 
@@ -26,12 +26,12 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 
 ## Team Members
 
-| Name         |              Task              |                  State |
-| :----------- | :----------------------------: | ---------------------: |
-| Haoyue Wang  | Coding and Database Definition |                   Done |
-| Huage Sun    |  Code Testing and Improvement  |                   Done |
-| Yuxin Ma     |  Code Testing and Improvement  |                   Done |
-| Zhirong Piao |         README Format          | Deliverable 2 Finished |
+| Name         |               Task               |                  State |
+| :----------- | :------------------------------: | ---------------------: |
+| Haoyue Wang  |  Coding the webpage  |                   Done |
+| Huage Sun    |                UI Improvement    |                   Done |
+| Yuxin Ma     |  Code Testing and Comment    |                   Done |
+| Zhirong Piao |                                  | Deliverable 3 Finished |
 
 ## General info
 
@@ -39,38 +39,28 @@ This is project is to build a web app which server for vending car's owner and c
 
 # This is the brief explaination of Deliverable 2
 
-This deliverable is for creating the brief mockup of the server side for both customer and owners by allowing them to get or post the data to the database (in here we use MongoDB). No front end design is included in this deliverable but only the raw json data would be presented in the live server (similarly if you sent the request method in Postman, it should onlyh retrun the json data for a clearer visualisation).
+This deliverable is for creating the brief mockup of the server side for both customer and owners by allowing them to get or post the data to the database (in here we use MongoDB). No front end design is included in this deliverable but only the raw json data would be presented in the live server (similarly if you sent the request method in Postman, it should only retrun the json data for a clearer visualisation).
 
 The coding part is presented in the main branch with commit id: 98b030d (Please notice that the newest commit only change the readme.md file, no code is changed)
 
 The testing route request methods are all included in the Postman exported json file, which includes Get methods for features 1, 2, 5 and Post method for features 3, 4, 6. By simply operating the request method in this json file, you could reach the data (or posh to update) from (or to) mongoDB's targeted collections (These exported json file are all stored in the github main branch folder "PostmanRequest")
 
-Explnation of four postman json file.
-(1) customer.postman_collection.json file contain an "POST" method for allowing customers to register in this app.
-(2) order.postman_collection.json file contain "POST" methods for create a order (feature 3 start order) and updata and order (feature 6 change to fulfill) in this app. A "GET" method is apply for allowing each vendor to access to their own outstanding orderlist.
-(3) snack.postman_collection.json file contain "POST" method for create a new snack (not needed in this deliverable). Contains "GET" method for requesting the menu snack list and "GET" method for requesting a single snack's detail data.
-(4) vendor.postman_collection.json file contain two "POST" methods for create a new vendor (not needed in this deliverable) and method to updata vendor status (that is updating the information of location and operrating status (we use "parked" = true or false for representing whether the vendor is open or closed)).
+Explnation of postman json file FoodVan (We includes 9 test request method with 6 "POST" and 3 "GET"):
+(1) "POST" customerRegister (not needed in this deliverable). Can be used for posting a new customer with his/her input information into database.
+(2) "POST" orderCreate. Can be used for creating a new order by customer and storing it into outstanding list collection for the specific vendor.
+(3) "POST" orderUpdata. Allows vendor to update the order status (eg. status change from "outstanding" to "fulfilled").
+(4) "GET" orderOutstandingGet. Allows the vendor to get their own outstanding order list from the database.
+(5) "POST" snackCreate (not needed in this deliverable). Allows to create a new snack and store it into database (may not needed in this project).
+(6) "GET" snackListGet. Get all the snacks from the pre-set dataset (menu) and present the menu list to customer.
+(7) "GET" snackDetailGet. Get one specific snack from menu list and displays its detail information.
+(8) "POST" venderCreate (not needed in this deliverable). Allows a new vendor owner to register the Van account.
+(9) "POST" venderStatusUpdate. Allows vendor owner to update their Van status (eg. change their current location and change parked (in here we use parked for representing the Van is open or closed) into true or false).
 
 Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
-## Deploy in Heroku
-
-In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
-Main Route Link: https://pacific-spire-87195.herokuapp.com
-
-## Technologies
-
-Project is created with:
-
-- NodeJs 14.16.X
-- Ipsum version: 2.33
-- Ament library version: 999
-- MongoDB & Mongoose
-
 ## Code Implementation
-
-Here is a snippet of our app.js code
+Here is a snippet of our App.js code
 
 ```
 
@@ -99,11 +89,44 @@ app.listen(port, () => {console.log('The website is listening on port 3000!', po
 
 <img src="/deliverable2feature/collections.png"  width="300" >
 
-**Now Get ready to complete all the tasks:**
+
+## This is a brief explanation of deliverable 3
+Our team make the website viewable with this deliverable 3, with the client end UI design and the support of the backend database. The first page allows visitors to either preview map and vendor menu by clicking on 'skip' or fill in their email and password to log in to submit orders. Either option will direct users to the .../customer page. Then, they will be able to view where the vendors are located and to do further operations. If they click on one the the vans, they will be able to see the menu of that van and submit orders if they are logged in. If people access the web page from other cities, they will have to set position from browser or drag the map manually to Melbourne to find vendors, as all of our vendors are located near Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and users will be able to submit orders if they have successfully logged in. Otherwise, the system will direct them back to the log in page. If they successfully log in and submit an order, their orders will be displayed under the "view Orders" icon. 
+
+Our localhost address: http://localhost:5500/
+To run our code, type 'npm run dev' in the terminal.
+
+To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
+Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
+
+dummy customer log in detail:
+email: bobb@abc.com
+
+password: abc
+
+
+
+## Deploy in Heroku
+In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
+Main Route Link: https://pacific-spire-87195.herokuapp.com
+
+## Technologies
+
+Project is created with:
+
+- NodeJs 14.16.X
+- Ipsum version: 2.33
+- Ament library version: 999
+- MongoDB & Mongoose
+- React 17.0.2
+
+
+
+## Task Status
 
 - [x] Read the Project handouts carefully
 - [x] User Interface (UI)mockup
 - [x] App server mockup
-- [ ] Front-end + back-end (one feature)
+- [x] Front-end + back-end (one feature)
 - [ ] Complete system + source code
 - [ ] Report on your work(+ test1 feature)
