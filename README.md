@@ -60,8 +60,7 @@ Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "v
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
 ## This is a brief explanation of deliverable 3
-Our team make the website viewable with this deliverable 3, with the client end UI design and the support of backend database. Once customers get access to the web page, they will be able to view where the vendors are located. However, if they access our web page from other cities, they will have to drag the map manually to Melbourne to find vendors, as all of our vendors are located around Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and they will have options to either log in and make selections or just view it. If they successfully log in and submit an order, their order will be displayed under the "view Orders" icon. 
-
+Our team make the website viewable with this deliverable 3, with the client end UI design and the support of the backend database. The first page allows visitors to either preview map and vendor menu by clicking on 'skip' or fill in their email and password to log in to submit orders. Either option will direct users to the .../customer page. Then, they will be able to view where the vendors are located and do further operations. However, if they access our web page from other cities, they will have to drag the map manually to Melbourne to find vendors, as all of our vendors are located near Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and users will be able to submit orders if they have successfully logged in. Otherwise, the system will direct them back to the log in page. If they successfully log in and submit an order, their orders will be displayed under the "view Orders" icon. 
 
 
 
