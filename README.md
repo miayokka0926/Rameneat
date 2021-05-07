@@ -28,10 +28,10 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 
 | Name         |               Task               |                  State |
 | :----------- | :------------------------------: | ---------------------: |
-| Haoyue Wang  |  Coding and Database Definition  |                   Done |
-| Huage Sun    |  Code Testing and Improvement    |                   Done |
-| Yuxin Ma     |  Code Testing and Improvement    |                   Done |
-| Zhirong Piao |          README Format           | Deliverable 2 Finished |
+| Haoyue Wang  |  Coding the webpage  |                   Done |
+| Huage Sun    |                UI Improvement    |                   Done |
+| Yuxin Ma     |  Code Testing and Comment    |                   Done |
+| Zhirong Piao |                                  | Deliverable 3 Finished |
 
 ## General info
 
@@ -59,39 +59,8 @@ Explnation of postman json file FoodVan (We includes 9 test request method with 
 Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
-
-## This is a brief explanation of deliverable 3
-Our team make the website viewable with this deliverable 3, with the client end UI design and the support of the backend database. The first page allows visitors to either preview map and vendor menu by clicking on 'skip' or fill in their email and password to log in to submit orders. Either option will direct users to the .../customer page. Then, they will be able to view where the vendors are located and do further operations. However, if they access our web page from other cities, they will have to drag the map manually to Melbourne to find vendors, as all of our vendors are located near Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and users will be able to submit orders if they have successfully logged in. Otherwise, the system will direct them back to the log in page. If they successfully log in and submit an order, their orders will be displayed under the "view Orders" icon. 
-
-Our localhost address: http://localhost:5500/
-To run our code, type 'npm run dev' in the terminal.
-
-To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
-Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
-
-dummy customer log in detail:
-email: bobb@abc.com
-
-password: abc
-
-
-
-
-## Deploy in Heroku
-In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
-Main Route Link: https://pacific-spire-87195.herokuapp.com
-
-## Technologies
-
-Project is created with:
-
-- NodeJs 14.16.X
-- Ipsum version: 2.33
-- Ament library version: 999
-- MongoDB & Mongoose
-
 ## Code Implementation
-Here is a snippet of our app.js code
+Here is a snippet of our App.js code
 
 ```
 
@@ -121,11 +90,43 @@ app.listen(port, () => {console.log('The website is listening on port 3000!', po
 <img src="/deliverable2feature/collections.png"  width="300" >
 
 
-**Now Get ready to complete all the tasks:**
+## This is a brief explanation of deliverable 3
+Our team make the website viewable with this deliverable 3, with the client end UI design and the support of the backend database. The first page allows visitors to either preview map and vendor menu by clicking on 'skip' or fill in their email and password to log in to submit orders. Either option will direct users to the .../customer page. Then, they will be able to view where the vendors are located and to do further operations. If people access the web page from other cities, they will have to set position from browser or drag the map manually to Melbourne to find vendors, as all of our vendors are located near Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and users will be able to submit orders if they have successfully logged in. Otherwise, the system will direct them back to the log in page. If they successfully log in and submit an order, their orders will be displayed under the "view Orders" icon. 
+
+Our localhost address: http://localhost:5500/
+To run our code, type 'npm run dev' in the terminal.
+
+To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
+Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
+
+dummy customer log in detail:
+email: bobb@abc.com
+
+password: abc
+
+
+
+## Deploy in Heroku
+In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
+Main Route Link: https://pacific-spire-87195.herokuapp.com
+
+## Technologies
+
+Project is created with:
+
+- NodeJs 14.16.X
+- Ipsum version: 2.33
+- Ament library version: 999
+- MongoDB & Mongoose
+- React 17.0.2
+
+
+
+## Task Status
 
 - [x] Read the Project handouts carefully
 - [x] User Interface (UI)mockup
 - [x] App server mockup
-- [ ] Front-end + back-end (one feature)
+- [x] Front-end + back-end (one feature)
 - [ ] Complete system + source code
 - [ ] Report on your work(+ test1 feature)
