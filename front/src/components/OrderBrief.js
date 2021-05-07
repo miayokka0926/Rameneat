@@ -16,7 +16,6 @@ export default function OrderBrief(props) {
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}> still in progress</Tooltip>
     )
-
     // The UI design of order detail.
     return (
         <div>

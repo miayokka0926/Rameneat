@@ -7,11 +7,13 @@ import { Icon } from 'leaflet';
 import { Modal, Button } from 'react-bootstrap';
 import axios from '../commons/axios';
 
+
+
 import image from '../components/logo.png';
 
+//Display vendor icon on the map. Once clicking on the icon, the menu will be rendered.
 
 const { Meta } = Card;
-//Display vendor icon on the map. Once clicking on the icon, the menu will be rendered.
 export default function Menu(props) {
     const vendorIcon = new Icon({
         iconUrl: image,
@@ -50,8 +52,9 @@ export default function Menu(props) {
             if (submitOrder.length === 0) {
                 setModalVisible(false)
                 message.error("You must enter at least one snack!")
-            } 
+            }
             // if the customer make selections, the shopping cart will be updated.
+
             else {
                 axios.post('/order/create', {
                     customer: props.customer.id,
@@ -68,7 +71,6 @@ export default function Menu(props) {
             }
         }
     }
-
     // The UI design of menu page, includes add and delete icon, submit and close button.
     return (
         <div>

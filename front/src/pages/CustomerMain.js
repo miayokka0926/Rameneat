@@ -18,7 +18,6 @@ function CustomerMain(props) {
 
     const [title, setTitle] = useState('');
     const [options, setOptions] = useState([]);
-
     // display page header and 'view orders' button.
     useEffect(() => {
         if (props.location.state.customer) {
