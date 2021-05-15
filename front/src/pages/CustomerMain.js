@@ -1,24 +1,22 @@
 // customer main page, allow customers to view vendor location and its menu before login, and
 // allow customers to place and view orders after login.
 import { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
-import { Divider, Drawer, PageHeader } from "antd";
+//import { Button } from "react-bootstrap";
+//import { Divider, Drawer, PageHeader } from "antd";
 import axios from "../commons/axios";
 
-import OrderList from "../components/OrderList.js";
+//import OrderList from "../components/OrderList.js";
 import LeafletMap from "../components/LeafletMap.js";
 import Header from "../components/Header.js";
 
 
 function CustomerMain(props) {
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  const handleDrawerClose = () => setDrawerVisible(false);
-  const handleDrawerShow = () => setDrawerVisible(true);
+  //const [drawerVisible, setDrawerVisible] = useState(false);
+  //const handleDrawerClose = () => setDrawerVisible(false);
+  //const handleDrawerShow = () => setDrawerVisible(true);
   const [orders, setOrders] = useState([]);
   const [snacks, setSnacks] = useState([]);
 
-  const [title, setTitle] = useState("");
-  const [options, setOptions] = useState([]);
   // display page header and 'view orders' button.
   useEffect(() => {
     if (props.location.state.customer) {
@@ -29,20 +27,8 @@ function CustomerMain(props) {
         .then((response) => {
           setOrders(response.data.allOrders);
         });
-      setTitle("Welcome back, " + props.location.state.customer.name);
-      setOptions([
-        <Button
-          variant="outline-light"
-          key="1"
-          style={{ fontSize: 15, backgroundColor: "#F4976C" }}
-          onClick={handleDrawerShow}
-        >
-          view Orders
-        </Button>,
-      ]);
-    } else {
-      setTitle("Welcome!");
-    }
+      
+    } 
     axios.get("/snack").then((response) => {
       setSnacks(response.data.snacks);
     });
@@ -54,18 +40,10 @@ function CustomerMain(props) {
   //render out the page UI
   return (
     <div>
-      <PageHeader title={title} extra={options}></PageHeader>
-      <Drawer
-        style={{ color: "orange" }}
-        visible={drawerVisible}
-        closable={true}
-        onClose={handleDrawerClose}
-        width={"70vw"}
-      >
-        <h3 style={{ color: "#F4976C" }}>My orders</h3>
-        <Divider />
-        <OrderList orders={orders} />
-  </Drawer>
+      
+      <Header customer = {props.location.state.customer} 
+      orders = {orders}/>  
+
       <LeafletMap
         center={props.location.state.position}
         vendors={props.location.state.vendors}
