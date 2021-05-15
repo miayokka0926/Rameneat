@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Card, Modal } from "antd";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
+import TimeCountUp from '../components/TimeCountUp';
 
 const { Meta } = Card;
 // list order details
@@ -30,7 +31,7 @@ export default function OrderBrief(props) {
       <Modal
         style={{ backgroundColor: "orange" }}
         visible={modalVisible}
-        title={"Order Updated at " + props.order.updatedAt}
+        title={"Order updated at " + props.order.updatedAt}
         onOk={handleClose}
         onCancel={handleClose}
       >
@@ -56,7 +57,11 @@ export default function OrderBrief(props) {
         <Meta title={props.order.vendor.name} />
         <br />
         <Meta title={" status:  " + props.order.status} />
+
+        <TimeCountUp  updatedAt = {props.order.updatedAt}/> 
+
       </Card>
+
     </div>
   );
 }

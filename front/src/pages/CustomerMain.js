@@ -22,6 +22,7 @@ function CustomerMain(props) {
     if (props.location.state.customer) {
       console.log(props.location.state.position);
       console.log(props.location.state.vendors);
+
       axios
         .get("/order?customer=" + props.location.state.customer.id)
         .then((response) => {

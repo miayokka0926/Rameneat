@@ -5,6 +5,7 @@ import OrderList from "../components/OrderList.js";
 import { Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useHistory } from 'react-router-dom'
+
 export default function Header(props) {
 
     let history = useHistory();
@@ -15,9 +16,11 @@ export default function Header(props) {
     const [title, setTitle] = useState("");
     const [options, setOptions] = useState([]);
 
+    const [target, setTarget] = useState("");
     useEffect(() => {
         if ( props.customer && history.location.pathname === "/customer") {
             setTitle('Welcome, ' + props.customer.name + '!')
+            setTarget('customer');
             setOptions([
                 <Button
                     variant = "outline-light"
@@ -73,6 +76,9 @@ export default function Header(props) {
             ])
         }
     }, []);
+
+  
+
     return (
         <div>
         <PageHeader title={title} extra={options}></PageHeader>
@@ -85,7 +91,9 @@ export default function Header(props) {
             >
                 <h3 style={{ color: "#F4976C" }}>My orders</h3>
                 <Divider />
-                <OrderList orders={props.orders} />
+                <OrderList /*id = {props.customer.id} */
+                target = {target}
+                orders={props.orders} />
     </Drawer>
         </div>
     )
