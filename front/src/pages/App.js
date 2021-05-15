@@ -21,7 +21,7 @@ function App(props) {
   const [vendors, setVendors] = useState([]);
 
   const [open, setOpen] = useState(false);
-  // get customer location oonce they get access to our website.
+  // get customer location once they get access to our website.
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       setLat(position.coords.latitude)

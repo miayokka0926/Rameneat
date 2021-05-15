@@ -5,9 +5,9 @@
   "main": "src/app.js",
   "scripts": {
     "front": "npm start --prefix front",
-    "dev": "concurrently \"npm run server\" \"npm run front\"",
+    "dev": "concurrently \"npm start\" \"npm run front\"",
     "start": "node src/app.js",
-    "server": "nodemon src/app.js",
+    "test": "nodemon src/app.js",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
@@ -20,10 +20,8 @@
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "i": "^0.3.6",
     "mongoose": "^5.12.4",
-    "nodemon": "^2.0.7",
-    "react-bootstrap": "^1.5.2"
+    "nodemon": "^2.0.7"
   },
   "devDependencies": {},
   "repository": {
