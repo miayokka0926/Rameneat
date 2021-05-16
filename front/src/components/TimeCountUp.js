@@ -1,9 +1,10 @@
-// record time do discount
+// record time to do discount
 import React, { Component } from 'react'
 import { Typography } from 'antd';
+import { now } from 'mongoose';
 const { Text } = Typography;
 
-export default class Countup extends Component {
+export default class TimeCountup extends Component {
 
     constructor(props){
         super();
@@ -15,10 +16,16 @@ export default class Countup extends Component {
     
     tick(){
         let now = new Date()
-        let upd  = Date.parse(this.props.updateAt)
-        this.setState({min:parseInt((now - upd) / 60000) })
-        let secs = ((now - upd) - this.state.min * 60000) / 1000
-        this.setState({ sec: parseInt(secs) })
+        let upd  = Date.parse(this.props.updatedAt)
+        let mins = parseInt((now - upd) / 60000)
+
+        
+        let secs = parseInt(((now - Date.parse(this.props.updatedAt)) - mins * 60000) / 1000)
+        this.setState({min: mins})
+        this.setState({sec:secs})
+
+        //console.log(this.state.sec)
+        
     }
     //run tick() every sec
     componentDidMount(){
@@ -31,8 +38,11 @@ export default class Countup extends Component {
         clearInterval(this.timeID); // tear down timer so that interval start over.
     }
 
+    
 
     render() {
+
+
         
         return (
             <div>
