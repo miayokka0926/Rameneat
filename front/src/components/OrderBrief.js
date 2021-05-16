@@ -25,6 +25,7 @@ export default function OrderBrief(props) {
       still in progress
     </Tooltip>
   );
+  
   // The UI design of order detail.
   return (
     <div>

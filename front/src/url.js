@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === "production"){
     URLs = {
         baseURL: "/api",
         //heruku 的地址
-        socketURL: "", 
+        socketURL: "https://pacific-spire-87195.herokuapp.com/", 
     };
 }else{
     URLs = {

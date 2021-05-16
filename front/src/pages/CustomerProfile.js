@@ -5,6 +5,7 @@ export default function CustomerProfile() {
     return (
         <div>
             <Header />
+            
         </div>
     )
 }

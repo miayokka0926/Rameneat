@@ -91,7 +91,7 @@ export default function Header(props) {
             >
                 <h3 style={{ color: "#F4976C" }}>My orders</h3>
                 <Divider />
-                <OrderList /*id = {props.customer.id} */
+                <OrderList
                 target = {target}
                 orders={props.orders} />
     </Drawer>
