@@ -57,6 +57,7 @@ export default function OrderBrief(props) {
       >
         <Meta title={props.order.vendor.name} />
         <Meta title={" status:  " + props.order.status} />
+        <Meta title={snacks} />
         <TimeCountUp updatedAt={props.order.updatedAt} />
 
       </Card>

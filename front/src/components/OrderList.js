@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
 import axios from '../commons/axios.js';
-import URLs from '../url';
+// import URLs from '../url';
 import io from "socket.io-client";
 import { Empty, message } from 'antd';
 
@@ -11,12 +11,16 @@ import OrderBrief from "./OrderBrief.js";
 function Orders(props) {
 
   const [orders, setOrders] = useState([])
+  const [status, setStatus] = useState('')
   const id = props.id
 
   useEffect(() => {
+    if (props.status) {
+      setStatus(props.status)
+    }
     async function fetchData() {
-      axios.get("/order?" + props.target + "=" + id).then(response => {
-      // axios.get("/order?" + props.target + "=" + id + props.status).then(response => {
+      // axios.get("/order?" + props.target + "=" + id).then(response => {
+      axios.get("/order?" + props.target + "=" + id + props.status).then(response => {
         if (response.data.success) {
           setOrders(response.data.allOrders)
         } else {
@@ -60,29 +64,29 @@ export default class OrderList extends Component {
     }
   }
 
-  componentDidMount() {
-    const socket = io('${URLs.socketURL}/socket', { transports: ['websocket'] });
-    // const socket = io('/socket', { transports: ['websocket'] });
+  // componentDidMount() {
+  //   const socket = io('${URLs.socketURL}/socket', { transports: ['websocket'] });
+  //   // const socket = io('/socket', { transports: ['websocket'] });
 
-    socket.on("newOrder", (order) => {
-      console.log("insertion by customer");
-      this.setState({ orders: [...this.state.orders, order] });
+  //   socket.on("newOrder", (order) => {
+  //     console.log("insertion by customer");
+  //     this.setState({ orders: [...this.state.orders, order] });
 
-    });
+  //   });
 
-    socket.on("updateOrder", (id) => {
-      console.log("update by customer");
-      console.log(id)
-    });
+  //   socket.on("updateOrder", (id) => {
+  //     console.log("update by customer");
+  //     console.log(id)
+  //   });
 
-    socket.on("deleteOrder", (id) => {
-      console.log("delete by customer");
-      const updateOrders = this.state.orders.filter((order) => {
-        return order._id !== id;
-      });
-      this.setState({ orders: updateOrders });
-    });
-  }
+  //   socket.on("deleteOrder", (id) => {
+  //     console.log("delete by customer");
+  //     const updateOrders = this.state.orders.filter((order) => {
+  //       return order._id !== id;
+  //     });
+  //     this.setState({ orders: updateOrders });
+  //   });
+  // }
 
   render() {
     return (

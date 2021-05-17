@@ -18,7 +18,7 @@ export default function Header(props) {
     const [drawerVisible, setDrawerVisible] = useState(false);
     const handleDrawerClose = () => setDrawerVisible(false);
     const handleDrawerShow = () => setDrawerVisible(true);
-    const [orders] = useState([]);
+    // const [orders] = useState([]);
     const [title, setTitle] = useState("");
     const [options, setOptions] = useState([]);
 
@@ -84,9 +84,15 @@ export default function Header(props) {
                 </Button>
 
             ])
+        } else if (history.location.pathname === "/vendor") {
+            setTitle('Welcome to RAMEN EAT, ' + props.vendor.name + '!')
+            setTarget('vendor');
 
-        }
-        else {
+        } else if (history.location.pathname === "/orders") {
+            setTitle('Welcome to RAMEN EAT, ' + props.vendor.name + '!')
+            setTarget('vendor');
+
+        } else {
             setTitle("Welcome!");
             setOptions([
                 <Button
@@ -103,7 +109,7 @@ export default function Header(props) {
         }
     }, []);
 
-
+    console.log(props)
 
     return (
         <div>
@@ -115,12 +121,14 @@ export default function Header(props) {
                 onClose={handleDrawerClose}
                 width={"70vw"}>
 
-                <h3 style={{ color: "#F4976C" }}>My orders</h3>
+                {/* <h3 style={{ color: "#F4976C" }}>My orders</h3> */}
                 <Divider />
                 <OrderList
-                    id={props.customer.id} 
+                    id={props.id}
+                    // vendorId={props.vendorId}
+                    vendor={props.vendors}
                     target={target}
-                    orders={props.orders} />
+                    order={props.orders} />
             </Drawer>
         </div>
     )

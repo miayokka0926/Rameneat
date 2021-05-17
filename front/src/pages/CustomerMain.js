@@ -22,7 +22,7 @@ function CustomerMain(props) {
         .then(response => {
           setOrders(response.data.allOrders)
         });
-    } 
+    }
 
     axios.get("/snack").then(response => {
       setSnacks(response.data.snacks)
@@ -31,10 +31,12 @@ function CustomerMain(props) {
   //render out the page UI
   return (
     <div>
-      
-      <Header customer={props.location.state.customer} 
-      orders={orders}
-      vendors={props.location.state.vendors}/>  
+
+      <Header
+        id={props.location.state.customer.id}
+        customer={props.location.state.customer}
+        orders={orders}
+        vendors={props.location.state.vendors} />
 
 
       <LeafletMap

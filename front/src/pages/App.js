@@ -38,7 +38,7 @@ function App(props) {
 
 
   const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}> feature opening soon </Tooltip>
+    <Tooltip id="button-tooltip" {...props}> start your vendor </Tooltip>
   )
 
   const renderTooltipCustomer = (props) => (
@@ -145,7 +145,7 @@ function App(props) {
                 Your info is secured with us.
           </Form.Text>
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="formBasicPassword2">
               <Form.Label>Password</Form.Label>
               <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
                 onChange={e => setPassword(e.target.value)} />
