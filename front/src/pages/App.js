@@ -17,7 +17,7 @@ function App(props) {
   const [password, setPassword] = useState('');
 
   const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
+  const [lng, setLng] = useState('');   
   const [vendors, setVendors] = useState([]);
 
   const [open, setOpen] = useState(false);

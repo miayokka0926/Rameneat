@@ -12,7 +12,7 @@ export default function Header(props) {
     const [drawerVisible, setDrawerVisible] = useState(false);
     const handleDrawerClose = () => setDrawerVisible(false);
     const handleDrawerShow = () => setDrawerVisible(true);
-    const [orders] = useState([]);
+    //const [orders] = useState([]);
     const [title, setTitle] = useState("");
     const [options, setOptions] = useState([]);
 
@@ -32,7 +32,7 @@ export default function Header(props) {
                             customer: props.customer, 
                             orders: props.orders
                         });
-                    }}>My profile
+                    }}> Settings
                 </Button>,
                 <Button
                   variant="outline-light"

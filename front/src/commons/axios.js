@@ -7,5 +7,5 @@ const axios = baseUrl => {
     return instance;
 }
 
-export{ axios};
+export{ axios };
 export default axios();

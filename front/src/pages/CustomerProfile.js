@@ -1,13 +1,124 @@
 import React from 'react'
 import Header from "../components/Header.js";
+import { useState, useEffect } from "react";
+import { Card, Modal } from "antd";
+import Collapse from 'react-bootstrap/Collapse';
 
-export default function CustomerProfile() {
-    return (
+//import { Button } from "react-bootstrap";
+//import { Divider, Drawer, PageHeader } from "antd";
+//import axios from "../commons/axios";
+
+//import OrderList from "../components/OrderList.js"
+//import { useState, useEffect } from 'react';
+import { Jumbotron, Button, OverlayTrigger, Tooltip, Form, FormControl } from 'react-bootstrap';
+//import Collapse from 'react-bootstrap/Collapse';
+//import { message, Typography } from 'antd';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'antd/dist/antd.css';
+import image from '../pic/logo1.jpg';
+
+
+
+
+function CustomerProfile(props){
+    //const { Link } = Typography;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [open, setOpen] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const handleClose = () => setModalVisible(false);
+    const handleShow = () => setModalVisible(true);
+
+    const [setDrawerVisible] = useState(false);
+    const handleDrawerShow = () => setDrawerVisible(true);
+    const onUpdate=() => {
+
+    }
+
+    return(
+
         <div>
             <Header />
+                    
+            <Jumbotron style={{ width: '90%', backgroundColor: 'white', margin: 'auto' }}>
+
+                
+                <img src={image} style={{ width: '30%', margin: 'auto' }} alt="logo" />
+               
+
+                <br />
+
+                <h6>email: {props.location.state.customer.email}</h6>
+                <h6>name: {props.location.state.customer.name}</h6>
+                <h6>password: ***</h6>
+
+                <br />
+
+
+                <Button
+                  onClick={() => setOpen(!open)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={open}
+                  variant="outline-light"
+                  key="1"
+                  style={{ fontSize: 15, backgroundColor: "#F4976C" }}>
+                  change information
+                </Button>
+
+                <Collapse in={open}>
+                    <p>
+                    <Form>
+                        <br />
+
+                        <Form.Group >
+                        <Form.Label>new name</Form.Label>
+                        <FormControl style={{fontSize:10}} type="string" placeholder="Please update your name"
+                            onChange={e => setName(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicEmail">
+                        <Form.Label>new email</Form.Label>
+                        <Form.Control style={{fontSize:10}} type="email" placeholder="Please update your email"
+                            onChange={e => setEmail(e.target.value)} />
+                        
+                        </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                        <Form.Label>new password</Form.Label>
+                        <FormControl style={{fontSize:10}} type="password" placeholder="Please update your password"
+                            onChange={e => setPassword(e.target.value)} />
+                        </Form.Group>
+                    </Form>
+
+                    <Button
+                    variant="primary"
+                    //onClick={onLogin}
+                    size="lg"
+                    block
+                    style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6' }}>
+                    Update
+                    </Button>
+                    <Button
+                    variant="secondary"
+                    //onClick={onLogin}
+                    size="lg"
+                    block
+                    style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6' }}>
+                    Cancel
+                    </Button>
+                    </p>
+    
+                 </Collapse>
+
             
+            </Jumbotron>
+            
+
         </div>
-    )
+    );
 }
+
+
+export default CustomerProfile
+
 
 
