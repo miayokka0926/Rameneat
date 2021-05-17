@@ -120,7 +120,7 @@ export default function Header(props) {
                 <OrderList
                     id={props.customer.id} 
                     target={target}
-                    order={props.orders} />
+                    orders={props.orders} />
             </Drawer>
         </div>
     )

@@ -62,6 +62,7 @@ export default class OrderList extends Component {
 
   componentDidMount() {
     const socket = io('${URLs.socketURL}/socket', { transports: ['websocket'] });
+    // const socket = io('/socket', { transports: ['websocket'] });
 
     socket.on("newOrder", (order) => {
       console.log("insertion by customer");
@@ -86,7 +87,8 @@ export default class OrderList extends Component {
   render() {
     return (
       <div style={{ height: '100vh', width: '100%', margin: 'auto', "marginTop": "7%" }}>
-        <Orders id={this.props.id}
+        <Orders 
+          id={this.props.id}
           orders={this.state.orders}
           target={this.props.target}
           status={this.props.status} />

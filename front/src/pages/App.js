@@ -12,15 +12,18 @@ const { Link } = Typography;
 
 function App(props) {
 
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [vendors, setVendors] = useState([]);
+  const [name, setName] = useState('');
 
-  const [open, setOpen] = useState(false);
+  const [customerOpen, setCustomerOpen] = useState(false);
+  const [vendorOpen, setVendorOpen] = useState(false);
+
   // get customer location once they get access to our website.
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -42,7 +45,7 @@ function App(props) {
     <Tooltip id="button-tooltip" {...props}> start your tasty journey</Tooltip>
   )
   // ask customer to fillin their email and password once they click on login button.
-  const onLogin = () => {
+  const onCustomerLogin = () => {
     axios.post('/customer/login', { email: email, password: password }).then(response => {
       if (response.data.success) {
         props.history.push('/customer', {
@@ -52,12 +55,31 @@ function App(props) {
         })
       } else {
         message.error(response.data.error)
-        
+
       }
     }).catch(error => {
 
       console.log(error.response.data.message)
       message.error(error.response.data.message)
+    })
+  }
+  // ask vendor to fillin their name and password once they click on login button.
+  const onVendorLogin = () => {
+    axios.post('/vendor/login', { name: name, password: password }).then(response => {
+      if (response.data.success) {
+        // message.success('vendor login sevvess')
+        props.history.push('/vendor', {
+          vendor: response.data.vendor,
+          vendors: [],
+          position: [lat, lng]
+        })
+      } else {
+        message.error(response.data.error)
+
+      }
+    }).catch(error => {
+      console.log(error.response.data.error)
+      message.error(error.response.data.error)
     })
   }
   // By clicking button 'skip', system allow a customer to view vendors and menu before log in. 
@@ -71,6 +93,83 @@ function App(props) {
   const findPassword = (props) => {
     <Tooltip id="button-tooltip" {...props}> feature opening soon </Tooltip>
   }
+
+  const customerCollapse = (
+    <>
+      <Collapse in={customerOpen}>
+        <p>
+          <Form>
+            <br />
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control style={{ fontSize: 12 }} type="email" placeholder="Please enter your email"
+                onChange={e => setEmail(e.target.value)} />
+              <Form.Text className="text-muted">
+                Your info is secured with us.
+          </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
+                onChange={e => setPassword(e.target.value)} />
+            </Form.Group>
+          </Form>
+
+          <p> <Link onClick={findPassword}>Forget Password?</Link> </p>
+          <p> <Link onClick={onSkip}>Proceed without login</Link> </p>
+
+          <Button
+            variant="primary"
+            onClick={onCustomerLogin}
+            size="lg"
+            block
+            style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6' }}>
+            Login
+          </Button>
+        </p>
+      </Collapse>
+    </>
+  )
+
+  const vendorCollapse = (
+    <>
+      <Collapse in={vendorOpen}>
+        <p>
+          <Form>
+            <br />
+            <Form.Group controlId="formBasic">
+              <Form.Label>Vendor Name</Form.Label>
+              <Form.Control style={{ fontSize: 12 }} placeholder="Please enter your vendor name"
+                onChange={e => setName(e.target.value)} />
+              <Form.Text className="text-muted">
+                Your info is secured with us.
+          </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
+                onChange={e => setPassword(e.target.value)} />
+            </Form.Group>
+          </Form>
+
+          <p> <Link onClick={findPassword}>Forget Password?</Link> </p>
+          <p> <Link onClick={onSkip}>Proceed without login</Link> </p>
+
+          <Button
+            variant="primary"
+            onClick={onVendorLogin}
+            size="lg"
+            block
+            style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6' }}>
+            Login
+          </Button>
+        </p>
+      </Collapse>
+    </>
+  )
+
+
+
   // the UI design of log in page.
   return (
 
@@ -95,9 +194,9 @@ function App(props) {
         <p>
           <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltipCustomer}>
             <Button
-              onClick={() => setOpen(!open)}
+              onClick={() => setCustomerOpen(!customerOpen)}
               aria-controls="example-collapse-text"
-              aria-expanded={open}
+              aria-expanded={customerOpen}
               variant="primary"
               size="lg"
               block
@@ -107,52 +206,30 @@ function App(props) {
           </Button>
           </OverlayTrigger>
 
-          <Collapse in={open}>
-            <p>
-              <Form>
-                <br />
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control style={{fontSize:12}} type="email" placeholder="Please enter your email"
-                    onChange={e => setEmail(e.target.value)} />
-                  <Form.Text className="text-muted">
-                    Your info is secured with us.
-          </Form.Text>
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <FormControl style={{fontSize:12}} type="password" placeholder="Please enter your password"
-                    onChange={e => setPassword(e.target.value)} />
-                </Form.Group>
-              </Form>
-
-              <p> <Link onClick={findPassword}>Forget Password?</Link> </p>
-              <p> <Link onClick={onSkip}>Proceed without login</Link> </p>
-
-
-              <Button
-                variant="primary"
-                onClick={onLogin}
-                size="lg"
-                block
-                style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6' }}>
-                Login
-              </Button>
-            </p>
+          <Collapse>
+            {customerCollapse}
           </Collapse>
+
         </p>
 
 
         <div>
           <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
             <Button
+              onClick={() => setVendorOpen(!vendorOpen)}
+              aria-controls="example-collapse-text"
+              aria-expanded={vendorOpen}
               variant="primary"
               size="lg"
               block
-              style={{  color: '#707070', backgroundColor: '#F3F3F3', borderColor: '#F3F3F3' }}>
+              style={{ color: '#707070', backgroundColor: '#F3F3F3', borderColor: '#F3F3F3' }}>
               Vendor
             </Button>
           </OverlayTrigger>
+
+          <Collapse>
+            {vendorCollapse}
+          </Collapse>
         </div>
 
 
