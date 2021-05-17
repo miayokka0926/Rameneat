@@ -36,7 +36,7 @@ function CustomerMain(props) {
         id={props.location.state.customer.id}
         customer={props.location.state.customer}
         orders={orders}
-        vendors={props.location.state.vendors} />
+        vendors={props.location.state.vendors}/>
 
 
       <LeafletMap

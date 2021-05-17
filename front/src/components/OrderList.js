@@ -4,9 +4,7 @@ import axios from '../commons/axios.js';
 import io from "socket.io-client";
 import { Empty, message } from 'antd';
 
-
 import OrderBrief from "./OrderBrief.js";
-//import { response } from 'express';
 
 function Orders(props) {
 
@@ -18,9 +16,9 @@ function Orders(props) {
     if (props.status) {
       setStatus(props.status)
     }
+
     async function fetchData() {
-      // axios.get("/order?" + props.target + "=" + id).then(response => {
-      axios.get("/order?" + props.target + "=" + id + props.status).then(response => {
+      axios.get("/order?" + props.target + "=" + id + status).then(response => {
         if (response.data.success) {
           setOrders(response.data.allOrders)
         } else {
