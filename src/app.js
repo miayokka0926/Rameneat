@@ -96,3 +96,5 @@ if (process.env.NODE_ENV === 'production') {
 // execute localhost
 const port = process.env.PORT || 3000
 server.listen(port, () => { console.log('The website is listening on port 3000!', port) })
+
+module.exports = app;

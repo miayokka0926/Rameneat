@@ -1,4 +1,3 @@
-// This script is for each specific order that made by a customer.
 import React, { useState } from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Card, Modal } from "antd";
@@ -6,6 +5,7 @@ import { EyeOutlined, EditOutlined } from "@ant-design/icons";
 import TimeCountUp from '../components/TimeCountUp';
 
 const { Meta } = Card;
+
 // list order details
 export default function OrderBrief(props) {
   const snacks = props.order.snacks.map((snack, index) => (
@@ -25,7 +25,6 @@ export default function OrderBrief(props) {
       still in progress
     </Tooltip>
   );
-  
   // The UI design of order detail.
   return (
     <div>
@@ -56,10 +55,9 @@ export default function OrderBrief(props) {
         ]}
       >
         <Meta title={props.order.vendor.name} />
-        <br />
         <Meta title={" status:  " + props.order.status} />
-
-        <TimeCountUp  updatedAt = {props.order.updatedAt}/> 
+        <Meta title={snacks} />
+        <TimeCountUp updatedAt={props.order.updatedAt} />
 
       </Card>
 

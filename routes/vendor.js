@@ -6,6 +6,9 @@ var vendorController = require('../controllers/vendorController');
 //register a new vendor
 router.post('/register', vendorController.vendorRegisterPost);
 
+//vendor login
+router.post('/login', vendorController.vendorLoginPost);
+
 //update vendor
 router.post('/park/:id', vendorController.vendorStatusPost);
 

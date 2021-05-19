@@ -36,6 +36,34 @@ exports.vendorRegisterPost = function (req, res) {
 }
 
 
+exports.vendorLoginPost = function(req,res){
+    const{ name, password } = req.body;
+    Vendor.findOne({
+        name:name,
+    }).then ((vendor)=>{
+        if (!vendor){
+            res.status(404).json({ success:false, error: "vendor not registered!" });
+        }else {
+            bcrypt.compare(password, vendor.password, (err, match)=>{
+                if (match) {
+                    res.status(200).json({
+                        success: true,
+                        vendor:{
+                            id: vendor.id,
+                            name: vendor.name,
+                            password: password
+                        }
+                    })
+
+                }else {
+                    res.status(409).json({ error: err, message: "incorrect password!"})
+                }
+            })
+        }
+    })
+}
+
+
 
 //update vendor's parking status
 exports.vendorStatusPost = function (req, res) {

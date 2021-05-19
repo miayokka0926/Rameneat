@@ -42,8 +42,11 @@ function CustomerMain(props) {
   return (
     <div>
       
-      <Header customer = {props.location.state.customer} 
-      orders = {orders}/>  
+      <Header
+        id={props.location.state.customer.id}
+        customer={props.location.state.customer}
+        orders={orders}
+        vendors={props.location.state.vendors}/>
 
       <LeafletMap
         center={props.location.state.position}
