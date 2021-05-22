@@ -33,6 +33,14 @@ var OrderSchema = new Schema({
 
     comment: {
         type: String,
+    },
+
+    discount: {
+        type: Boolean,
+    },
+
+    total: {
+        type: Number,
     }
 
 },{timestamps: true});

@@ -35,8 +35,9 @@ function CustomerProfile(props) {
 
     //const [email, setEmail] = useState('');
     //const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    const [name, setName] = useState(props.location.state.customer.name);
     const [open, setOpen] = useState(false);
+    const [close, setClose] = useState(false);
     //const [modalVisible, setModalVisible] = useState(false);
     //const handleClose = () => setModalVisible(false);
     //const handleShow = () => setModalVisible(true);
@@ -54,8 +55,10 @@ function CustomerProfile(props) {
         axios.post('/customer/update', updateBody).then(response => {
             if (response.data.success) {
                 message.success("Customer detail updated successfully!")
+                console.log(name);
             } else {
                 message.error(response.data.error)
+                console.log(name);
             }
         })
     }
@@ -104,12 +107,17 @@ function CustomerProfile(props) {
                         <Form.Group controlId="formBasicEmail">
                         <Form.Label>new email</Form.Label>
                         <Form.Control style={{fontSize:10}} type="email" placeholder="Please update your email"
-                            onChange={e => setEmail(e.target.value)} />
+                            onVolumeChangeCapture={e => setEmail(e.target.value)} />
                         
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
                         <Form.Label>new password</Form.Label>
                         <FormControl style={{fontSize:10}} type="password" placeholder="Please update your password"
+                            onChange={e => setPassword(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                        <Form.Label>confirm new password</Form.Label>
+                        <FormControl style={{fontSize:10}} type="password" placeholder="Please confirm your password"
                             onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
                     </Form>
@@ -122,9 +130,10 @@ function CustomerProfile(props) {
                     style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6' }}>
                     Update
                     </Button>
+
                     <Button
                     variant="secondary"
-                    //onClick={onLogin}
+                    onClick={() => setClose(!close)}
                     size="lg"
                     block
                     style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6' }}>

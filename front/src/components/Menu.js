@@ -21,6 +21,8 @@ export default function Menu(props) {
   const [modalVisible, setModalVisible] = useState(props.modalVisible);
   const handleModalShow = () => setModalVisible(true);
   const handleModalClose = () => setModalVisible(false);
+  const handleClose = () => setModalVisible(false);
+  const handleShow = () => setModalVisible(true);
 
   //update an item of the menu
   const addItem = (index, event) => {
@@ -46,6 +48,7 @@ export default function Menu(props) {
   let history = useHistory();
   //place and submit an order
   const onSubmit = () => {
+    var total = 0
     if (!props.customer) {
       message.error("you need to log in to place an order");
       history.goBack();
@@ -56,10 +59,37 @@ export default function Menu(props) {
           submitOrder.push({
             name: props.snacks[i].name,
             qty: order[i],
+            price: props.snack[i].price
           });
-        }
+        }    
       }
+
+      for (var j=0; j<submitOrder.length; j++){
+        let update = total + submitOrder[j].price * submitOrder[j].qty
+        total = update
+      }
+
+
+      {/*<Modal
+      style={{ backgroundColor: "orange" }}
+      visible={modalVisible}
+      title={"Order placed at " + props.vendor.name}
+      onOk={handleClose}
+      onCancel={handleClose}
+    >
+      {/*<p style={{ fontSize: 30, color: "#F4976C" }}>
+        {" "}
+        Time: {props.order.placedAt}
+      </p>}
+      <p>{submitOrder}</p>
+
+      <Button onClick = {setModalVisible(false)}> confirm </Button>
+        
+    </Modal>*/}
+
       console.log(submitOrder);
+
+      
       //set up error cases
       if (submitOrder.length === 0) {
         setModalVisible(false);
@@ -70,6 +100,7 @@ export default function Menu(props) {
             customer: props.customer.id,
             vendor: props.vendor.id,
             snacks: submitOrder,
+            total: total,
           })
           .then((response) => {
             if (response.data.success) {
@@ -117,11 +148,12 @@ export default function Menu(props) {
                 }}
               />
               <Row gutter={6} style={{ marginLeft: "27%" }}>
+
                 <Button
-                  onClick={(e) => addItem(index, e)}
+                  onClick={(e) => subtractItem(index, e)}
                   style={{ backgroundColor: "orange", marginRight: "1vw" }}
                 >
-                  +
+                  -
                 </Button>
                 <InputNumber
                   key={snack._id}
@@ -130,10 +162,10 @@ export default function Menu(props) {
                   value={order[index]}
                 />
                 <Button
-                  onClick={(e) => subtractItem(index, e)}
+                  onClick={(e) => addItem(index, e)}
                   style={{ backgroundColor: "orange", marginLeft: "1vw" }}
                 >
-                  -
+                  +
                 </Button>
               </Row>
             </Card>

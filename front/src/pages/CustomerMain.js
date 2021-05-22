@@ -41,12 +41,12 @@ function CustomerMain(props) {
   //render out the page UI
   return (
     <div>
-      
+
       <Header
-        id={props.location.state.customer.id}
-        customer={props.location.state.customer}
-        orders={orders}
-        vendors={props.location.state.vendors}/>
+      //id={props.location.state.customer.id}
+      customer={props.location.state.customer}
+      orders={orders}
+      vendors={props.location.state.vendors}/>
 
       <LeafletMap
         center={props.location.state.position}
@@ -54,6 +54,8 @@ function CustomerMain(props) {
         snacks={snacks}
         customer={props.location.state.customer}
       />
+
+      
     </div>
   );
 }
