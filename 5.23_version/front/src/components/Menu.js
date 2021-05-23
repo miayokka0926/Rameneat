@@ -121,10 +121,10 @@ export default function Menu(props) {
               />
               <Row gutter={6} style={{ marginLeft: "27%" }}>
                 <Button
-                  onClick={(e) => addItem(index, e)}
+                  onClick={(e) => subtractItem(index, e)}
                   style={{ backgroundColor: "orange", marginRight: "1vw" }}
                 >
-                  +
+                  -
                 </Button>
                 <InputNumber
                   key={snack._id}
@@ -133,16 +133,24 @@ export default function Menu(props) {
                   value={order[index]}
                 />
                 <Button
-                  onClick={(e) => subtractItem(index, e)}
+                  onClick={(e) => addItem(index, e)}
                   style={{ backgroundColor: "orange", marginLeft: "1vw" }}
                 >
-                  -
+                  +
                 </Button>
               </Row>
             </Card>
           ))}
         </Modal.Body>
         <Modal.Footer style={{ display: "flex", justifyContent: "right" }}>
+
+        <Button
+            style={{ backgroundColor: "orange", marginLeft: "36%" }}
+            variant="primary"
+            onClick={onSubmit}
+          >
+            Submit Order
+        </Button>
 
           {/* <Button
           style={{ backgroundColor: "orange", marginLeft: "36%" }}
@@ -160,13 +168,7 @@ export default function Menu(props) {
           labore wes anderson cred nesciunt sapiente ea proident.
         
 
-          <Button
-            style={{ backgroundColor: "orange", marginLeft: "36%" }}
-            variant="primary"
-            onClick={onSubmit}
-          >
-            Submit Order
-          </Button>
+          
           </div>
 
           </Collapse> */}

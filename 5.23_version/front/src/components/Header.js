@@ -24,7 +24,22 @@ export default function Header(props) {
 
     const [target, setTarget] = useState("");
 
+    const [id, setId] = useState('')
+    const [customer, setCustomer] = useState('')
+
+
+
     useEffect(() => {
+        if (props.customer) {
+            setId(props.customer)
+            if (props.customer.id) {
+                setId(props.customer.id)
+            }
+        }
+
+
+
+
         if (props.customer && history.location.pathname === "/customer") {
             setTitle('Welcome to RAMEN EAT, ' + props.customer.name + '!')
             setTarget('customer');
@@ -124,7 +139,8 @@ export default function Header(props) {
                 {/* <h3 style={{ color: "#F4976C" }}>My orders</h3> */}
                 <Divider />
                 <OrderList
-                    id={props.id}
+                    customer={props.customer}
+                    id={id}
                     vendor={props.vendors}
                     target={target}
                     orders={props.orders}
