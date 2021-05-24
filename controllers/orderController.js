@@ -34,14 +34,15 @@ exports.orderCreatePost = function (req, res) {
 };
 
 
-exports.OrderUpdatePost = function (req, res) {
+exports.orderUpdatePost = function (req, res) {
     Order.findById(req.params.id).then((order) => {
         if (!order) {
             res.status(404).json({ err: 'order not found' })
         } else {
             Order.findByIdAndUpdate(
                 req.params.id,
-                { snacks: req.body.snacks, status: req.body.status },
+                req.body,
+                // { snacks: req.body.snacks, status: req.body.status },
                 { new: true },
                 function (err, updatedOrder) {
                     if (err) {

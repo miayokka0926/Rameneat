@@ -16,10 +16,11 @@ export default class TimeCountUp extends Component {
     tick(){
         let now = new Date()
         let upd  = Date.parse(this.props.updatedAt)
-        this.setState({ min:parseInt((now - upd) / 60000) })
+        this.setState({ min: parseInt((now - upd) / 60000) })
         let secs = ((now - upd) - this.state.min * 60000) / 1000
         this.setState({ sec: parseInt(secs) })
     }
+    
     //run tick() every sec
     componentDidMount(){
         this.timeID = setInterval(
@@ -37,7 +38,7 @@ export default class TimeCountUp extends Component {
         return (
             <div>
                 {/* can be altered */}
-                <Text strong = {true}> { 'time countup: ' + this.state.min + ' mins, ' + this.state.sec + ' secs'} </Text>
+                <Text strong = {true}> { 'Time Countup: ' + this.state.min + ' mins, ' + this.state.sec + ' secs'} </Text>
             </div>
         )
     }

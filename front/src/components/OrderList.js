@@ -10,22 +10,22 @@ function Orders(props) {
 
   const [orders, setOrders] = useState([])
   const [status, setStatus] = useState('')
-  // const id = props.id
-  const [id, setId] = useState('')
+  const id = props.id
+  // const [id, setId] = useState('')
 
 
   useEffect(() => {
     if (props.status) {
       setStatus(props.status)
     }
-    if (props.id) {
-      setId(props.id)
-  }
+    // if (props.id) {
+    //   setId(props.id)
+    // }
 
     async function fetchData() {
       axios.get("/order?" + props.target + "=" + id + status).then(response => {
         if (response.data.success) {
-          setOrders(response.data.allOrders)
+          setOrders(response.data.allOrders.sort((a, b) => b.updatedAt - a.updatedAt).reverse())
         } else {
           setOrders([])
           message.info("No outstanding order found");

@@ -11,24 +11,23 @@ function CustomerMain(props) {
   const [orders, setOrders] = useState([]);
   const [snacks, setSnacks] = useState([]);
 
-  const [id, setId] = useState('')
+  // const [id, setId] = useState('')
 
 
   // display page header and 'view orders' button.
   useEffect(() => {
 
-    if (props.id) {
-      setId(props.id)
-    }
-
+    // if (props.id) {
+    //   setId(props.id)
+    // }
 
     if (props.location.state.customer) {
 
       console.log(props.location.state.position)
       console.log(props.location.state.vendors)
       axios
-        // .get("/order?customer=" + props.location.state.customer.id)
-        .get("/order?customer=" + id)
+        .get("/order?customer=" + props.location.state.customer.id)
+        // .get("/order?customer=" + id)
         .then(response => {
           setOrders(response.data.allOrders)
         });
@@ -43,8 +42,8 @@ function CustomerMain(props) {
     <div>
 
       <Header
-        // id={props.location.state.customer.id}
-        id = {props.id}
+        id={props.location.state.customer.id}
+        // id = {props.id}
         customer={props.location.state.customer}
         orders={orders}
         vendors={props.location.state.vendors}/>

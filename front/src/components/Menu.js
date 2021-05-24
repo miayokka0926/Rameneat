@@ -6,6 +6,7 @@ import { Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Modal, Button } from "react-bootstrap";
 
+
 import axios from "../commons/axios";
 import image from "../components/logo.png";
 
@@ -118,10 +119,10 @@ export default function Menu(props) {
               />
               <Row gutter={6} style={{ marginLeft: "27%" }}>
                 <Button
-                  onClick={(e) => addItem(index, e)}
+                  onClick={(e) => subtractItem(index, e)}
                   style={{ backgroundColor: "orange", marginRight: "1vw" }}
                 >
-                  +
+                  -
                 </Button>
                 <InputNumber
                   key={snack._id}
@@ -130,10 +131,10 @@ export default function Menu(props) {
                   value={order[index]}
                 />
                 <Button
-                  onClick={(e) => subtractItem(index, e)}
+                  onClick={(e) => addItem(index, e)}
                   style={{ backgroundColor: "orange", marginLeft: "1vw" }}
                 >
-                  -
+                  +
                 </Button>
               </Row>
             </Card>

@@ -11,6 +11,6 @@ router.post('/create', orderController.orderCreatePost);
 router.get('/', orderController.orderListGet);
 
 //update order
-router.post('/:id/update', orderController.OrderUpdatePost);
+router.post('/:id/update', orderController.orderUpdatePost);
 
 module.exports = router;
