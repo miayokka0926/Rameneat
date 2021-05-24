@@ -120,6 +120,9 @@ function CustomerProfile(props) {
                         <FormControl style={{fontSize:10}} type="password" placeholder="Please confirm your password"
                             onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
+                        <Form.Group controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="I'm not a robot" />
+                        </Form.Group>
                     </Form>
                     
                     

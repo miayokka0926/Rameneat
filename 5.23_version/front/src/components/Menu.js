@@ -35,6 +35,28 @@ export default function Menu(props) {
       newOrder[index]++;
     }
     setOrder(newOrder);
+    console.log(newOrder);
+
+    var submitOrder = [];
+    var total  = 0;
+    for (var i = 0; i < newOrder.length; i++) {
+      
+      if (Number.isFinite(newOrder[i]) && newOrder[i] > 0) {
+        submitOrder.push({
+          name: props.snacks[i].name,
+          qty: newOrder[i],
+          price: props.snacks[i].price,
+        });
+        total += props.snacks[i].price * newOrder[i];
+      }
+    }
+    setSubmitOrder(submitOrder);
+    setTotal(total);
+    
+    console.log(total);
+
+
+
   };
 
   //decrease the item number
@@ -44,25 +66,50 @@ export default function Menu(props) {
       newOrder[index]--;
     }
     setOrder(newOrder);
+
+    var submitOrder = [];
+    var total = 0;
+    for (var i = 0; i < newOrder.length; i++) {
+      
+      if (Number.isFinite(newOrder[i]) && newOrder[i] > 0) {
+        submitOrder.push({
+          name: props.snacks[i].name,
+          qty: newOrder[i],
+          price: props.snacks[i].price,
+        });
+
+        total += total+props.snacks[i].price * newOrder[i];
+        
+    
+      }
+    }
+    setSubmitOrder(submitOrder);
+    setTotal(total);
+    console.log(total);
+    
+
   };
 
   let history = useHistory();
   //place and submit an order
   const onSubmit = () => {
     if (!props.customer) {
-      message.error("you need to log in to place an order");
+       message.error("you need to log in to place an order");
       history.goBack();
     } else {
       var submitOrder = [];
+      var total = 0;
       for (var i = 0; i < order.length; i++) {
         if (Number.isFinite(order[i]) && order[i] > 0) {
           submitOrder.push({
             name: props.snacks[i].name,
             qty: order[i],
           });
+         total += props.snacks[i].price * order[i];;
+          
         }
       }
-      console.log(submitOrder);
+    //   console.log(submitOrder);
       //set up error cases
       if (submitOrder.length === 0) {
         setModalVisible(false);
@@ -84,7 +131,25 @@ export default function Menu(props) {
           });
       }
     }
+
+    submitOrder = [];
+    setSubmitOrder(submitOrder);
+    console.log(submitOrder);
+
+    total = 0;
+    setTotal(total);
+    console.log(submitOrder);
   };
+
+  const snacks = submitOrder.map((snack, index) => (
+    <li key={snack.name}>
+      <h5>
+        {snack.name}; qty:{snack.qty}; item price:{snack.price}
+      </h5>
+    </li>
+  ));
+
+  
   //render the outcome
   return (
     <div>
@@ -143,38 +208,55 @@ export default function Menu(props) {
           ))}
         </Modal.Body>
         <Modal.Footer style={{ display: "flex", justifyContent: "right" }}>
+          
 
-        <Button
-            style={{ backgroundColor: "orange", marginLeft: "36%" }}
-            variant="primary"
-            onClick={onSubmit}
-          >
-            Submit Order
-        </Button>
-
-          {/* <Button
+          <Button 
           style={{ backgroundColor: "orange", marginLeft: "36%" }}
           variant="primary"
-          onClick={() => setOpen(open)}
+          onClick={() => setOpen(!open)}
           aria-controls="example-collapse-text"
           aria-expanded={open}>
             Confirm order
           </Button>
 
           <Collapse in={open}>
-        <div id="example-collapse-text">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-          terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-          labore wes anderson cred nesciunt sapiente ea proident.
+            
         
+          <p> 
+            <h5>your order : {snacks} </h5>
+            <h5>total: {total}    </h5>
+              
+            <h6>Change your mind? you can always scroll up and change your order! </h6>
+              
 
+              <Button
+              style={{ backgroundColor: "orange", marginLeft: "36%" }}
+              variant="primary"
+              onClick={onSubmit}
+            >
+              Submit Order
+              </Button> 
+          </p>
           
-          </div>
 
+        
+        
+          </Collapse>
+
+
+          {/* <Collapse in={open}>
+          {onConfirm}
+          <p>{submitOrder}</p>
+          <Button
+              style={{ backgroundColor: "orange", marginLeft: "36%" }}
+              variant="primary"
+              onClick={onSubmit}
+            >
+              Submit Order
+          </Button> 
           </Collapse> */}
 
-
-       
+          
         </Modal.Footer>
       </Modal>
     </div>

@@ -50,7 +50,7 @@ export default function Header(props) {
                         style={{ backgroundColor: "#F4976C", borderBottomColor: "#F4976C" }}
                         variant="outline-light"
                         key="0"
-                        title="Order from the nearest vendors">
+                        title="nearest vendors">
 
                         {props.vendors.map((vendor) => (
                             <Dropdown.Item title={vendor.name} >
