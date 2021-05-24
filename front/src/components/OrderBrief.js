@@ -2,7 +2,7 @@
 import React from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Badge, InputNumber, Card, notification, message, Rate, Divider, Input, Row } from "antd";
-import { EyeOutlined, EditOutlined } from "@ant-design/icons";
+import { EyeOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
 import { Modal, Button } from "react-bootstrap";
 import TimeCountUp from '../components/TimeCountUp';
 import axios from "../commons/axios.js";
@@ -34,19 +34,7 @@ export default class OrderBrief extends React.Component {
   handleEditClose = () => this.setState({ editModalVisible: false });
   handleEditShow = () => this.setState({ editModalVisible: true });
 
-  renderTooltip = (props) => {
-    if (this.props.order.status === "outstanding") {
-      return (<Tooltip id="button-tooltip" {...this.props}> Edit your order </Tooltip>)
-    } else if (this.props.order.status === "fulfilled") {
-      return (<Tooltip id="button-tooltip" {...this.props}> Can be picked up </Tooltip>)
-    } else {
-      return (<Tooltip id="button-tooltip" {...this.props}> Rate your experience </Tooltip>)
-    }
-  }
 
-  renderDetailTooltip = (props) => {
-    return (<Tooltip id="button-tooltip" {...this.props}> View order detail </Tooltip>)
-  }
 
   //update an item of the menu
   addItem = (index, event) => {
@@ -69,6 +57,54 @@ export default class OrderBrief extends React.Component {
     this.setState({ order: newOrder });
   };
 
+  onOrderMark = () => {
+    var statusToBeUpdated, discount;
+    var total = this.props.order.total;
+    if (this.props.order.status === "outstanding") {
+      statusToBeUpdated = "fulfilled"
+      if (this.state.diff > 15) {
+        discount = true;
+        total = total * 0.8
+      } else {
+        discount = false;
+      }
+      axios
+        .post("/order/" + this.props.order._id + "/update", {
+          total: total,
+          discount: discount,
+          status: statusToBeUpdated
+        })
+        .then((response) => {
+          if (response.data.success) {
+            message.success("Your order has been updated");
+            this.setState({ editModalVisible: false });
+          } else {
+            message.error("an error occurs when updating orders");
+          }
+        });
+    } else if (this.props.order.status === "fulfilled") {
+      statusToBeUpdated = "completed"
+      axios
+        .post("/order/" + this.props.order._id + "/update", {
+          status: statusToBeUpdated
+        })
+        .then((response) => {
+          if (response.data.success) {
+            message.success("Your order has been updated");
+            this.setState({ editModalVisible: false });
+          } else {
+            message.error("an error occurs when updating orders");
+          }
+        });
+    } else {
+      notification.open({
+        message: "Order is already completed!",
+        description: "The order is already completed",
+        duration: 3
+      });
+    }
+  }
+
   //place and submit an order
   onOrderSubmit = () => {
     var submitOrder = [];
@@ -83,7 +119,6 @@ export default class OrderBrief extends React.Component {
 
     //set up error cases
     if (submitOrder.length === 0) {
-      // setModalVisible(false);
       this.setState({ editModalVisible: false });
       message.error("You must enter at least one snack!");
     } else {
@@ -151,6 +186,7 @@ export default class OrderBrief extends React.Component {
   }
 
   handleEditOrder = () => {
+    console.log(this.state.diff)
     if (this.props.order.status === "outstanding" && this.state.diff <= 10) {
       this.setState({ editModalVisible: true });
     }
@@ -169,6 +205,66 @@ export default class OrderBrief extends React.Component {
     } else {
       console.log(this.props.order)
       this.setState({ editModalVisible: true });
+    }
+  }
+
+  renderTooltip = (props) => {
+    if (this.props.order.status === "outstanding") {
+      return (<Tooltip id="button-tooltip" {...this.props}> Edit your order </Tooltip>)
+    } else if (this.props.order.status === "fulfilled") {
+      return (<Tooltip id="button-tooltip" {...this.props}> Can be picked up </Tooltip>)
+    } else if (this.props.order.status === "completed" && window.location.pathname === '/customer') {
+      return (<Tooltip id="button-tooltip" {...this.props}> Rate your experience </Tooltip>)
+    } else {
+      return (<Tooltip id="button-tooltip" {...this.props}> Order finished </Tooltip>)
+    }
+  }
+
+  renderDetailTooltip = (props) => {
+    return (<Tooltip id="button-tooltip" {...this.props}> View order detail </Tooltip>)
+  }
+
+  renderActions = () => {
+    if (window.location.pathname === '/customer') {
+      return (
+        [
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 260, hide: 400 }}
+            overlay={this.renderDetailTooltip()}
+          >
+            <EyeOutlined onClick={() => this.handleShow()} />
+          </OverlayTrigger>,
+
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 260, hide: 400 }}
+            overlay={this.renderTooltip()}
+          >
+            <EditOutlined onClick={() => this.handleEditOrder()} />
+          </OverlayTrigger>
+        ]
+      )
+    } else if (window.location.pathname === '/orders') {
+      return (
+        [
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 260, hide: 400 }}
+            overlay={this.renderDetailTooltip()}
+          >
+            <EyeOutlined onClick={() => this.handleShow()} />
+          </OverlayTrigger>,
+
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 260, hide: 400 }}
+            overlay={this.renderTooltip()}
+          >
+            <CheckOutlined onClick={() => this.onOrderMark()} />
+          </OverlayTrigger>
+        ]
+      )
     }
   }
 
@@ -278,6 +374,9 @@ export default class OrderBrief extends React.Component {
                 {snack.name} x {snack.qty}
               </li>)}
             </p>
+            {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
+            {(this.props.order.ratings) ? <><p>Ratings: </p><Rate disabled value={this.props.order.ratings} /></> : <></>}
+            {(this.props.order.comment) ? <><p>Comment: </p><>{this.props.order.comment}</></> : <></>}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" style={{ backgroundColor: '#F4976C', borderColor: '#F4976C' }} onClick={() => this.handleClose()}>
@@ -289,43 +388,43 @@ export default class OrderBrief extends React.Component {
         {/* edit order */}
         <Modal
           show={this.state.editModalVisible}
-          onHide={() => this.handleEditClose()}
-        >
+          onHide={() => this.handleEditClose()}>
           {this.renderEditModalContent()}
         </Modal>
 
         {/* each order brief */}
-        <Card
-          style={{ backgroundColor: "#F4976C", margin: "14px" }}
-          actions={[
-            // <EyeOutlined onClick={() => this.handleShow()} />,
-            // <EditOutlined onClick={() => this.handleEditOrder()} />,
 
-            <OverlayTrigger
-            placement="bottom"
-            delay={{ show: 260, hide: 400 }}
-            overlay={this.renderDetailTooltip()}
-          >
-            <EyeOutlined onClick={() => this.handleShow()} />
-          </OverlayTrigger>,
-
-            <OverlayTrigger
-              placement="bottom"
-              delay={{ show: 260, hide: 400 }}
-              overlay={this.renderTooltip()}
-            >
-              <EditOutlined onClick={() => this.handleEditOrder()} />
-            </OverlayTrigger>
-
-
-          ]}
-        >
-          <Meta title={"Vendor: " + this.props.order.vendor.name} />
-          <Meta title={"Status:  " + this.props.order.status} />
-          {(this.props.order.status === "fulfilled") ? "order is fulfilled"
-            : (this.props.order.status === "completed") ? "order is completed"
-              : <TimeCountUp updatedAt={this.props.order.updatedAt} />}
-        </Card>
+        {this.props.order.discount ?
+          <Badge.Ribbon text="20% OFF BADGE 颜色需修改 " >
+            <Card style={{ backgroundColor: "#F4976C", margin: "14px" }}
+              actions={this.renderActions()} >
+              <Meta title={"Vendor: " + this.props.order.vendor.name} />
+              <Meta title={"Status: " + this.props.order.status} />
+              <Meta title={"Snacks: "} />
+              <Meta title={this.props.order.snacks.map((snack) => 
+                <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
+              <Meta title={"Price: $" + this.props.order.total} />
+              <Meta title={(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}/>
+              {/* {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>} */}
+              {(this.props.order.status === "fulfilled") ? "order is fulfilled"
+                : (this.props.order.status === "completed") ? "order is completed"
+                  : <TimeCountUp updatedAt={this.props.order.updatedAt} />}
+            </Card>
+          </Badge.Ribbon>
+          : <Card style={{ backgroundColor: "#F4976C", margin: "14px" }}
+            actions={this.renderActions()} >
+              <Meta title={"Vendor: " + this.props.order.vendor.name} />
+              <Meta title={"Status: " + this.props.order.status} />
+              <Meta title={"Snacks: "} />
+              <Meta title={this.props.order.snacks.map((snack) => 
+                <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
+              <Meta title={"Price: $" + this.props.order.total} />
+              <Meta title={(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}/>
+              {/* {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>} */}
+              {(this.props.order.status === "fulfilled") ? "order is fulfilled"
+                : (this.props.order.status === "completed") ? "order is completed"
+                  : <TimeCountUp updatedAt={this.props.order.updatedAt} />}
+            </Card>}
       </>
     )
   }

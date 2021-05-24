@@ -47,6 +47,7 @@ export default function Menu(props) {
   let history = useHistory();
   //place and submit an order
   const onSubmit = () => {
+    var total = 0;
     if (!props.customer) {
       message.error("you need to log in to place an order");
       history.goBack();
@@ -55,12 +56,18 @@ export default function Menu(props) {
       for (var i = 0; i < order.length; i++) {
         if (Number.isFinite(order[i]) && order[i] > 0) {
           submitOrder.push({
-            name: props.snacks[i].name,
-            qty: order[i],
+            "name": props.snacks[i].name,
+            "qty": order[i],
+            "price": props.snacks[i].price
           });
         }
       }
-      console.log(submitOrder);
+      for (var j = 0; j < submitOrder.length; j++) {
+        let update = total + submitOrder[j].price * submitOrder[j].qty
+        total = update
+      }
+
+      console.log(total);
       //set up error cases
       if (submitOrder.length === 0) {
         setModalVisible(false);
@@ -71,6 +78,7 @@ export default function Menu(props) {
             customer: props.customer.id,
             vendor: props.vendor.id,
             snacks: submitOrder,
+            total: total
           })
           .then((response) => {
             if (response.data.success) {

@@ -21,7 +21,8 @@ exports.orderCreatePost = function (req, res) {
     const order = new Order({
         customer: req.body.customer,
         vendor: req.body.vendor,
-        snacks: req.body.snacks
+        snacks: req.body.snacks,
+        total: req.body.total,
     })
     order.save((err, newOrder) => {
         if (err) {
