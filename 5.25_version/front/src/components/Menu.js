@@ -120,6 +120,7 @@ export default function Menu(props) {
             customer: props.customer.id,
             vendor: props.vendor.id,
             snacks: submitOrder,
+            total: total,
           })
           .then((response) => {
             if (response.data.success) {
@@ -153,7 +154,7 @@ export default function Menu(props) {
   const snacks = submitOrder.map((snack, index) => (
     <li key={snack.name}>
       <h5>
-        {snack.name}; qty:{snack.qty}; item price:{snack.price}
+        {snack.name}; qty:{snack.qty}; item price: $ {snack.price}
       </h5>
     </li>
   ));
@@ -233,8 +234,8 @@ export default function Menu(props) {
         
           <p> 
             <h5>your order : {snacks} </h5>
-            <h5>ordered from : {props.vendor.name}</h5>
-            <h5>total: {total}    </h5>
+            <h5>Ordered from : {props.vendor.name}</h5>
+            <h5>Total price: $ {total}    </h5>
             
               
             <h6>Change your mind? you can always scroll up and change your order! </h6>

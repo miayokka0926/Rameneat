@@ -18,7 +18,6 @@ export default function Header(props) {
     const [drawerVisible, setDrawerVisible] = useState(false);
     const handleDrawerClose = () => setDrawerVisible(false);
     const handleDrawerShow = () => setDrawerVisible(true);
-    // const [orders] = useState([]);
     const [title, setTitle] = useState("");
     const [options, setOptions] = useState([]);
 
@@ -124,7 +123,7 @@ export default function Header(props) {
         }
     }, []);
 
-    console.log(props)
+    // console.log(props)
 
     return (
         <div>

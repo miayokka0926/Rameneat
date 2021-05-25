@@ -33,6 +33,7 @@ mongoose.
     .catch((err) => console.log(err));
 
 const connection = mongoose.connection;
+mongoose.set('useFindAndModify', false);
 connection.once("open", () => {
     console.log("setting change streams");
     const orderChangeStream = connection.collection("orders").watch();
@@ -65,7 +66,7 @@ connection.once("open", () => {
     })
 })
 
-const db = mongoose.connection
+const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {

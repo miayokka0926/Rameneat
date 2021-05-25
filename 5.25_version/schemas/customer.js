@@ -3,10 +3,14 @@ const Schema = mongoose.Schema;
 
 //define a customer schema
 var CustomerSchema = new Schema({
-    name:{
+    givenName:{
+        type:String,
+    }, 
+    familyName:{
         type:String,
         
     },
+    
     location: {
         type:{
             type:String,

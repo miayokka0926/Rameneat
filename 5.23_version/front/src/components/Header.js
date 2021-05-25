@@ -24,8 +24,8 @@ export default function Header(props) {
 
     const [target, setTarget] = useState("");
 
-    const [id, setId] = useState('')
-    const [customer, setCustomer] = useState('')
+    const [id, setId] = useState('');
+    //const [customer, setCustomer] = useState('');
 
 
 
@@ -122,7 +122,7 @@ export default function Header(props) {
                 </Button>
             ])
         }
-    }, []);
+    }, [history, props.customer, props.orders]);
 
     console.log(props)
 
