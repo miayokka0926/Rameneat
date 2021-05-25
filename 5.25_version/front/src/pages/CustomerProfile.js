@@ -12,7 +12,7 @@ import image from '../pic/logo1.jpg';
 
 function CustomerProfile(props) {
 
-    const [givenName, setGivenName] = useState(props.location.state.customer.givenName);
+    const [name, setName] = useState(props.location.state.customer.givenName);
     const [familyName, setFamilyName] = useState(props.location.state.customer.familyName);
     const [password, setPassword] = useState(props.location.state.customer.password);
     const [open, setOpen] = useState(false);
@@ -22,7 +22,7 @@ function CustomerProfile(props) {
 
         // console.log();
         const updateBody = {
-            "givenName": givenName,
+            "name": name,
             "familyName": familyName,
             "email": props.location.state.customer.email,
             "password": password,
@@ -79,7 +79,7 @@ function CustomerProfile(props) {
                         <Form.Group >
                         <Form.Label>new given name </Form.Label>
                         <FormControl style={{fontSize:10}} type="string" placeholder="Please update you given name"
-                            onChange={e => setGivenName(e.target.value)} />
+                            onChange={e => setName(e.target.value)} />
                         </Form.Group>
                         <Form.Group>
                         <Form.Label>new family name </Form.Label>

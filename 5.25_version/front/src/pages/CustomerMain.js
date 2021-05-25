@@ -25,6 +25,7 @@ function CustomerMain(props) {
 
       console.log(props.location.state.position)
       console.log(props.location.state.vendors)
+      // console.log(props.location.state.customer.name)
       axios
         .get("/order?customer=" + props.location.state.customer.id)
         // .get("/order?customer=" + id)
