@@ -20,8 +20,8 @@ export default function Menu(props) {
   //set up variables for components and function
   const [order, setOrder] = useState([]);
   const [modalVisible, setModalVisible] = useState(props.modalVisible);
-  const handleModalShow = () => setModalVisible(true);
-  const handleModalClose = () => setModalVisible(false);
+  const handleModalShow = () => {setModalVisible(true)};
+  const handleModalClose = () => {setModalVisible(false); setOrder([]);}
 
   //update an item of the menu
   const addItem = (index, event) => {
@@ -90,6 +90,7 @@ export default function Menu(props) {
           });
       }
     }
+    setOrder([]);
   };
   //render the outcome
   return (
@@ -101,7 +102,7 @@ export default function Menu(props) {
         eventHandlers={{ click: handleModalShow }}
       ></Marker>
 
-      <Modal show={modalVisible} onHide={handleModalClose}>
+      <Modal show={modalVisible} onHide={ handleModalClose }>
         <Modal.Header
           closeButton
           style={{ color: "orange", display: "flex", justifyContent: "right" }}
@@ -159,5 +160,7 @@ export default function Menu(props) {
         </Modal.Footer>
       </Modal>
     </div>
+
   );
+
 }
