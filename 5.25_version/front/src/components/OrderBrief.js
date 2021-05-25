@@ -107,13 +107,18 @@ export default class OrderBrief extends React.Component {
   //place and submit an order
   onOrderSubmit = () => {
     var submitOrder = [];
+    var total = 0;
     for (var i = 0; i < this.state.order.length; i++) {
       if (Number.isFinite(this.state.order[i]) && this.state.order[i] > 0) {
         submitOrder.push({
           "name": this.state.menu[i].name,
           "qty": this.state.order[i],
+          "price":this.state.menu[i].price,
         });
+        this.total += this.state.menu[i].price * this.state.order[i];
+
       }
+      console.log(this.state.order[i]);
     }
 
     //set up error cases
@@ -125,6 +130,7 @@ export default class OrderBrief extends React.Component {
         .post("/order/" + this.props.order._id + "/update", {
           snacks: submitOrder,
           status: "outstanding",
+          total: total,
         })
         .then((response) => {
           if (response.data.success) {
@@ -299,8 +305,10 @@ export default class OrderBrief extends React.Component {
                   <InputNumber
                     key={snack._id}
                     min={0}
-                    defaultValue={0}
                     value={this.state.order[index]}
+                    // defaultValue = {(this.state.order[index] === "undefined") ? 0 :  this.state.order[index]}
+                    defaultValue={0}
+                    // value={this.state.order[index]}
                   />
                   <Button
                     onClick={(e) => this.addItem(index, e)}
@@ -348,6 +356,7 @@ export default class OrderBrief extends React.Component {
         </>
       )
     }
+
   }
 
 

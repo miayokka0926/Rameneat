@@ -12,15 +12,17 @@ import image from '../pic/logo1.jpg';
 
 function CustomerProfile(props) {
 
-    const [name, setName] = useState(props.location.state.customer.givenName);
+    const [name, setName] = useState(props.location.state.customer.name);
     const [familyName, setFamilyName] = useState(props.location.state.customer.familyName);
     const [password, setPassword] = useState(props.location.state.customer.password);
     const [open, setOpen] = useState(false);
+
     
     const onUpdate=() => {
 
 
-        // console.log();
+        // console.log(props.location.state.customer.name);
+        console.log(name);
         const updateBody = {
             "name": name,
             "familyName": familyName,
@@ -55,7 +57,7 @@ function CustomerProfile(props) {
                 <br />
 
                 <h6>email: {props.location.state.customer.email}</h6>
-                <h6>name: {props.location.state.customer.name}</h6>
+                <h6>name: {name}</h6>
                 <h6>password: *** </h6>
 
                 <br />
@@ -92,11 +94,11 @@ function CustomerProfile(props) {
                         <FormControl style={{fontSize:10}} placeholder="Please update your password"
                             onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
-                        <Form.Group controlId="formBasicPassword">
+                        {/* <Form.Group controlId="formBasicPassword">
                         <Form.Label>confirm new password</Form.Label>
                         <FormControl style={{fontSize:10}} placeholder="Please confirm your password"
                             onChange={e => setPassword(e.target.value)} />
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="I'm not a robot" />
                         </Form.Group>

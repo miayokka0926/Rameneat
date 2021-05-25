@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { MapContainer as Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useHistory } from 'react-router-dom';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { message } from 'antd';
 
 import axios from '../commons/axios.js';
+
 import Menu from './Menu.js';
+
 
 //render map
 export default function LeafletMap(props) {
@@ -33,13 +35,17 @@ export default function LeafletMap(props) {
 
     const onPark = () => {
         console.log(props.vendor.id, position.lat, position.lng)
-        axios.post('/vendor/park/' + props.vendor.id, {
-            location: [position.lat, position.lng],
-            textAddress: address
-        }).then(response => {
-            message.success("vendor now parked!")
-            history.push({ pathname: "/orders", state: { vendor: props.vendor } })
-        })
+        if (address){
+            axios.post('/vendor/park/' + props.vendor.id, {
+                location: [position.lat, position.lng],
+                textAddress: address
+            }).then(response => {
+                message.success("vendor now parked!")
+                history.push({ pathname: "/orders", state: { vendor: props.vendor } })
+            })
+
+        }
+        
     }
 
     const renderFiveVendors = props.vendors.map((vendor) => {
@@ -55,12 +61,23 @@ export default function LeafletMap(props) {
         </Marker>
     )
 
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Drag this pin to confirm location and start your business
+        </Tooltip>
+    );
+
+
     const renderVendorMarker = (
+        <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+    
         <Marker
             draggable={true}
             eventHandlers={eventHandlers}
             position={position}>
+        
         </Marker>
+    </OverlayTrigger>
     )
 
 
@@ -75,7 +92,7 @@ export default function LeafletMap(props) {
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control type="text" placeholder="Enter address"
+                            <Form.Control type="text" placeholder="you must enter a valid address"
                                 onChange={e => setAddress(e.target.value)} />
                             <Form.Text className="text=muted">
                                 Enter your address

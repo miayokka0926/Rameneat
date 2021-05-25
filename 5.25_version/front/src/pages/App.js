@@ -38,7 +38,7 @@ function App(props) {
 
 
   const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}> start your vendor </Tooltip>
+    <Tooltip id="button-tooltip" {...props}> start your business </Tooltip>
   )
 
   const renderTooltipCustomer = (props) => (

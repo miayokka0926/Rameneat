@@ -100,6 +100,7 @@ export default function Header(props) {
             ])
         } else if (history.location.pathname === "/vendor") {
             setTitle('Welcome to RAMEN EAT, ' + props.vendor.name + '!')
+            
             setTarget('vendor');
 
         } else if (history.location.pathname === "/orders") {

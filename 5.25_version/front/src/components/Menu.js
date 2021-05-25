@@ -105,7 +105,7 @@ export default function Menu(props) {
             name: props.snacks[i].name,
             qty: order[i],
           });
-         total += props.snacks[i].price * order[i];;
+         total += props.snacks[i].price * order[i];
           
         }
       }
