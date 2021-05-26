@@ -35,16 +35,18 @@ export default function LeafletMap(props) {
 
     const onPark = () => {
         console.log(props.vendor.id, position.lat, position.lng)
+        console.log(address)
         if (address){
             axios.post('/vendor/park/' + props.vendor.id, {
                 location: [position.lat, position.lng],
-                textAddress: address
+                Address: address
             }).then(response => {
                 message.success("vendor now parked!")
                 history.push({ pathname: "/orders", state: { vendor: props.vendor } })
             })
 
         }
+        console.log(props.vendor.Address)
         
     }
 
@@ -61,23 +63,23 @@ export default function LeafletMap(props) {
         </Marker>
     )
 
-    const renderTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-          Drag this pin to confirm location and start your business
-        </Tooltip>
-    );
+    // const renderTooltip = (props) => (
+    //     <Tooltip id="button-tooltip" {...props}>
+    //       Drag this pin to confirm location and start your business
+    //     </Tooltip>
+    // );
 
 
     const renderVendorMarker = (
-        <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-    
-        <Marker
+        
+        <Marker 
             draggable={true}
             eventHandlers={eventHandlers}
             position={position}>
+            <Popup>Drag this pin to confirm location and start your business</Popup>
         
         </Marker>
-    </OverlayTrigger>
+
     )
 
 

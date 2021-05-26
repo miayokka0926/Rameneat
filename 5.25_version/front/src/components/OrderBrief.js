@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useState }from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Badge, InputNumber, Card, notification, message, Rate, Divider, Input, Row } from "antd";
 import { EyeOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
@@ -11,7 +11,9 @@ const { Meta } = Card;
 const desc = ['very bad', 'bad', 'normal', 'good', 'very good'];
 const { TextArea } = Input;
 
+
 export default class OrderBrief extends React.Component {
+
 
   constructor(props) {
     super();
@@ -23,7 +25,8 @@ export default class OrderBrief extends React.Component {
       modalBody: <></>,
       diff: "",
       ratings: 0,
-      comment: ""
+      comment: "", 
+      total: 0
     }
   }
 
@@ -107,7 +110,6 @@ export default class OrderBrief extends React.Component {
   //place and submit an order
   onOrderSubmit = () => {
     var submitOrder = [];
-    var total = 0;
     for (var i = 0; i < this.state.order.length; i++) {
       if (Number.isFinite(this.state.order[i]) && this.state.order[i] > 0) {
         submitOrder.push({
@@ -130,7 +132,7 @@ export default class OrderBrief extends React.Component {
         .post("/order/" + this.props.order._id + "/update", {
           snacks: submitOrder,
           status: "outstanding",
-          total: total,
+          total: this.total,
         })
         .then((response) => {
           if (response.data.success) {
@@ -198,7 +200,7 @@ export default class OrderBrief extends React.Component {
     if (this.props.order.status === "fulfilled") {
       notification.open({
         message: "Order is ready for pickup",
-        description: "No further change is allowed for fulfilled orders! You can rate your experience.",
+        description: "No further change is allowed for fulfilled orders! You can rate your experience after picking up.",
         duration: 3
       });
     } else if (this.props.order.status === "outstanding" && this.state.diff > 10) {
@@ -207,19 +209,20 @@ export default class OrderBrief extends React.Component {
         description: "Changes allowed only within 10 minutes of placing the order!",
         duration: 3
       });
-    } else {
+    } 
+    else {
       console.log(this.props.order)
       this.setState({ editModalVisible: true });
     }
   }
 
   renderTooltip = (props) => {
-    if (this.props.order.status === "outstanding") {
+    if (this.props.order.status === "outstanding" && window.location.pathname === '/customer') {
       return (<Tooltip id="button-tooltip" {...this.props}> Edit your order </Tooltip>)
     } else if (this.props.order.status === "fulfilled") {
-      return (<Tooltip id="button-tooltip" {...this.props}> Can be picked up </Tooltip>)
+      return (<Tooltip id="button-tooltip" {...this.props}> Picked up </Tooltip>)
     } else if (this.props.order.status === "completed" && window.location.pathname === '/customer') {
-      return (<Tooltip id="button-tooltip" {...this.props}> Rate your experience </Tooltip>)
+      return (<Tooltip id="button-tooltip" {...this.props}> Click me to rate your experience </Tooltip>)
     } else {
       return (<Tooltip id="button-tooltip" {...this.props}> Order finished </Tooltip>)
     }
@@ -370,7 +373,7 @@ export default class OrderBrief extends React.Component {
           onHide={() => this.handleClose()}
         >
           <Modal.Header closeButton style={{ backgroundColor: "#F4976C" }}>
-            <Modal.Title>{"Order updated at " + this.props.order.updatedAt}</Modal.Title>
+            <Modal.Title>{"Order updated at " + Date(this.props.order.updatedAt)}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p style={{ fontSize: 30, color: "#F4976C" }}>
@@ -408,30 +411,35 @@ export default class OrderBrief extends React.Component {
               actions={this.renderActions()} >
               <Meta title={"Vendor: " + this.props.order.vendor.name} />
               <Meta title={"Status: " + this.props.order.status} />
-              <Meta title={"Snacks: "} />
+              <Meta title={"Snacks"} />
               <Meta title={this.props.order.snacks.map((snack) => 
                 <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
-              <Meta title={"Price: $" + this.props.order.total} />
+              <Meta title={"Price(before discount): $" + this.props.order.total * 1.25} />
               <Meta title={(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}/>
               {/* {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>} */}
-              {(this.props.order.status === "fulfilled") ? "order is fulfilled"
+              {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up."
                 : (this.props.order.status === "completed") ? "order is completed"
-                  : <TimeCountUp updatedAt={this.props.order.updatedAt} />}
+                  : <TimeCountUp updatedAt={this.props.order.updatedAt}
+                    />}
+              <Meta title={(window.location.pathname === '/orders') ? <p>Customer: {this.props.order.customer.name}</p> : <p>enjoy</p>}/>
+
             </Card>
           </Badge.Ribbon>
           : <Card style={{ backgroundColor: "#F4976C", margin: "14px" }}
             actions={this.renderActions()} >
               <Meta title={"Vendor: " + this.props.order.vendor.name} />
               <Meta title={"Status: " + this.props.order.status} />
+              <Meta title={"Customer: " + this.props.order.customer.name} />
               <Meta title={"Snacks: "} />
               <Meta title={this.props.order.snacks.map((snack) => 
                 <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
-              {/* <Meta title={"Price: $" + this.props.order.total} /> */}
+              
               <Meta title={(this.props.order.discount) ? <p>Total price(discount given): ${this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total price: ${this.props.order.total}</p>}/>
-              {/* {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>} */}
-              {(this.props.order.status === "fulfilled") ? "order is fulfilled"
+              {/* {(window.location.pathname === '/order') ? <p>Customer: {this.props.order.customer.name}</p> : <p>enjoy</p>} */}
+              {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up. "
                 : (this.props.order.status === "completed") ? "order is completed"
                   : <TimeCountUp updatedAt={this.props.order.updatedAt} />}
+              <Meta title={(window.location.pathname === '/orders') ? <p>Customer: {this.props.order.customer.name}</p> : <p>enjoy</p>}/>
             </Card>}
       </>
     )

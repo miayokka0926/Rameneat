@@ -36,9 +36,18 @@ export default class TimeCountUp extends Component {
         
         return (
             <div>
-                {/* can be altered */}
-                <Text strong = {true}> { 'time countup: ' + this.state.min + ' mins, ' + this.state.sec + ' secs'} </Text>
-            </div>
+
+            
+
+            {  
+                // can be written
+                (window.location.pathname === '/orders' && (14- this.state.min) >= 0) ? <Text strong = {true}> { 'time countdown until discount: ' + 
+                (14- this.state.min) + ' mins, ' + (60 - this.state.sec) + ' secs'} </Text>
+                : <Text strong = {true}> { 'time countup: ' + this.state.min + ' mins, ' + this.state.sec + ' secs'} </Text>
+                
+            } 
+
+          </div>
         )
     }
 }

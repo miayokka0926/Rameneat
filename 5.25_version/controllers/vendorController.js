@@ -56,7 +56,7 @@ exports.vendorLoginPost = function(req,res){
                     })
 
                 }else {
-                    res.status(409).json({ error: err, message: "incorrect password!"})
+                    res.status(409).json({ error: "incorrect password!"})
                 }
             })
         }
