@@ -219,9 +219,12 @@ export default class OrderBrief extends React.Component {
   renderTooltip = (props) => {
     if (this.props.order.status === "outstanding" && window.location.pathname === '/customer') {
       return (<Tooltip id="button-tooltip" {...this.props}> Edit your order </Tooltip>)
-    } else if (this.props.order.status === "fulfilled") {
+    } else if (this.props.order.status === "fulfilled" && window.location.pathname === '/orders') {
       return (<Tooltip id="button-tooltip" {...this.props}> Picked up </Tooltip>)
-    } else if (this.props.order.status === "completed" && window.location.pathname === '/customer') {
+    } else if(this.props.order.status === "fulfilled" && window.location.pathname === '/customer'){
+      return (<Tooltip id="button-tooltip" {...this.props}> this order is ready for pick up</Tooltip>)
+    }
+    else if (this.props.order.status === "completed" && window.location.pathname === '/customer') {
       return (<Tooltip id="button-tooltip" {...this.props}> Click me to rate your experience </Tooltip>)
     } else {
       return (<Tooltip id="button-tooltip" {...this.props}> Order finished </Tooltip>)

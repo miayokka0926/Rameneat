@@ -78,7 +78,7 @@ export default function Menu(props) {
           price: props.snacks[i].price,
         });
 
-        total += total+props.snacks[i].price * newOrder[i];
+        total += props.snacks[i].price * newOrder[i];
         
     
       }
@@ -135,11 +135,9 @@ export default function Menu(props) {
 
     submitOrder = [];
     setSubmitOrder(submitOrder);
-    console.log(submitOrder);
-
+    
     total = 0;
     setTotal(total);
-    console.log(submitOrder);
 
     setOpen(!open);
     

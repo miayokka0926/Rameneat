@@ -24,7 +24,7 @@ export default function Header(props) {
     const [target, setTarget] = useState("");
 
     const [id, setId] = useState('')
-    const [customer, setCustomer] = useState('')
+    // const [customer, setCustomer] = useState('')
 
 
 
