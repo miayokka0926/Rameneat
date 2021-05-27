@@ -18,11 +18,11 @@ function CustomerProfile(props) {
     const [open, setOpen] = useState(false);
 
     
+    console.log(props.location.state.customer.familyName)
     const onUpdate=() => {
 
 
-        // console.log(props.location.state.customer.name);
-        console.log(name);
+        console.log(familyName);
         const updateBody = {
             "name": name,
             "familyName": familyName,
@@ -57,8 +57,10 @@ function CustomerProfile(props) {
                 <br />
 
                 <h6>email: {props.location.state.customer.email}</h6>
-                <h6>name: {name}</h6>
+                <h6>given name: {name}</h6>
+                {/* <h6>family name: {(familyName) ? {familyName} : 'not set'} </h6> */}
                 <h6>password: *** </h6>
+                <h8> Do you like this? </h8>
 
                 <br />
 
@@ -99,9 +101,10 @@ function CustomerProfile(props) {
                         <FormControl style={{fontSize:10}} placeholder="Please confirm your password"
                             onChange={e => setPassword(e.target.value)} />
                         </Form.Group> */}
-                        <Form.Group controlId="formBasicCheckbox">
+                        {/* <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="I'm not a robot" />
-                        </Form.Group>
+                        </Form.Group> */}
+
                     </Form>
                     
                     
