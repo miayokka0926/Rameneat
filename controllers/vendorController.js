@@ -42,7 +42,7 @@ exports.vendorLoginPost = function(req,res){
         name:name,
     }).then ((vendor)=>{
         if (!vendor){
-            res.status(404).json({ success:false, error: "vendor not registered!" });
+            res.status(200).json({ success:false, error: "vendor not registered!" });
         }else {
             bcrypt.compare(password, vendor.password, (err, match)=>{
                 if (match) {
@@ -51,12 +51,12 @@ exports.vendorLoginPost = function(req,res){
                         vendor:{
                             id: vendor.id,
                             name: vendor.name,
-                            password: password
+                            password: password,
                         }
                     })
 
-                }else {
-                    res.status(409).json({ error: err, message: "incorrect password!"})
+                } else {
+                    res.status(409).json({ error: "incorrect password!"})
                 }
             })
         }
@@ -68,9 +68,12 @@ exports.vendorLoginPost = function(req,res){
 //update vendor's parking status
 exports.vendorStatusPost = function (req, res) {
 
-
     Vendor.findByIdAndUpdate(req.params.id,
-        { Address: req.body.Address, parked: req.body.parked, location: { type: "Point", coordinates: req.body.location } },
+        { 
+            Address: req.body.Address, 
+            parked: req.body.parked, 
+            location: { type: "Point", coordinates: req.body.location }
+        },
         { new: true },
         function (err, updated) {
             if (err) {

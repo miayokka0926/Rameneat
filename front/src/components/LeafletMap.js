@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from "react";
-import { MapContainer as Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer as Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import { useHistory } from 'react-router-dom';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, } from 'react-bootstrap';
 import { message } from 'antd';
 
 import axios from '../commons/axios.js';
+
 import Menu from './Menu.js';
+
 
 //render map
 export default function LeafletMap(props) {
@@ -32,14 +34,25 @@ export default function LeafletMap(props) {
     )
 
     const onPark = () => {
-        console.log(props.vendor.id, position.lat, position.lng)
-        axios.post('/vendor/park/' + props.vendor.id, {
-            location: [position.lat, position.lng],
-            textAddress: address
-        }).then(response => {
-            message.success("vendor now parked!")
-            history.push({ pathname: "/orders", state: { vendor: props.vendor } })
-        })
+        console.log(props.vendor.id, position)
+        console.log(address)
+        if (address) {
+            axios.post('/vendor/park/' + props.vendor.id, {
+                location: position,
+                Address: address,
+            }).then(response => {
+                if (response.data.success) {
+                    message.success("vendor now parked!")
+                    history.push({ pathname: "/orders", state: { vendor: props.vendor } })
+                }
+                else {
+                    message.error("an error occurs when parking");
+                }
+            })
+
+        }
+        console.log(props.vendor.location)
+
     }
 
     const renderFiveVendors = props.vendors.map((vendor) => {
@@ -51,16 +64,21 @@ export default function LeafletMap(props) {
 
     const renderCustomerMarker = (
         <Marker position={props.center} iconUrl={"https://static.thenounproject.com/png/780108-200.png"}>
-            <Popup>Current Location</Popup>
+            <Tooltip direction="bottom">Current Location</Tooltip>
         </Marker>
     )
 
+
     const renderVendorMarker = (
+
         <Marker
             draggable={true}
             eventHandlers={eventHandlers}
             position={position}>
+            <Tooltip direction="bottom">Drag this pin to confirm location and start your business</Tooltip>
+
         </Marker>
+
     )
 
 
@@ -75,7 +93,7 @@ export default function LeafletMap(props) {
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control type="text" placeholder="Enter address"
+                            <Form.Control type="text" placeholder="you must enter a valid address"
                                 onChange={e => setAddress(e.target.value)} />
                             <Form.Text className="text=muted">
                                 Enter your address

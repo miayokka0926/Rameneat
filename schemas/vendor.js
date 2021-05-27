@@ -7,6 +7,7 @@ var VendorSchema = new Schema({
     name: {
         type: String,
     },
+    
     location: {
         type: {
             type: String,
@@ -17,14 +18,17 @@ var VendorSchema = new Schema({
         }
 
     },
+
     password: {
         type: String,
         required: true,
 
     },
+
     Address: {
         type: String
     },
+
     parked: {
         type: Boolean,
         required: true,

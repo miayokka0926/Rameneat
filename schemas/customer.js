@@ -5,8 +5,15 @@ const Schema = mongoose.Schema;
 var CustomerSchema = new Schema({
     name:{
         type:String,
+        required: true,
+    }, 
+    
+    familyName:{
+        type:String,
+        required: true,
         
     },
+    
     location: {
         type:{
             type:String,

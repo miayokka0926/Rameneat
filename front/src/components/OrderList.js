@@ -10,17 +10,17 @@ function Orders(props) {
 
   const [orders, setOrders] = useState([])
   const [status, setStatus] = useState('')
-  const id = props.id
-  // const [id, setId] = useState('')
+  // const id = props.id
+  const [id, setId] = useState('')
 
 
   useEffect(() => {
     if (props.status) {
       setStatus(props.status)
     }
-    // if (props.id) {
-    //   setId(props.id)
-    // }
+    if (props.id) {
+      setId(props.id)
+  }
 
     async function fetchData() {
       axios.get("/order?" + props.target + "=" + id + status).then(response => {
@@ -104,4 +104,3 @@ export default class OrderList extends Component {
     )
   }
 }
-

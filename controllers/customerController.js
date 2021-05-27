@@ -72,12 +72,12 @@ exports.customerUpdatePost = function (req, res) {
             Customer.findOneAndUpdate(
                 { email: req.body.email },
                 {
-                    givenName: req.body.givenName,
+                    name: req.body.name,
                     familyName: req.body.familyName,
                     email: req.body.email,
                     password: hash
                 },
-                { new: true},
+                { new: true },
                 function (err, updateCustomer) {
                     if (err) {
                         res.status(404).json({ success: false, message: "your email does not exist" })

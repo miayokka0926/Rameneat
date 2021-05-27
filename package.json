@@ -10,7 +10,8 @@
     "server": "nodemon src/app.js",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "test": "mocha --timeout 30000 --exit"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +27,11 @@
     "react-bootstrap": "^1.5.2",
     "socket.io": "^4.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "request": "^2.88.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/INFO30005-2021-SM1/project-t11-ramen.git"

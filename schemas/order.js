@@ -18,7 +18,6 @@ var OrderSchema = new Schema({
     snacks: {
         type:Array,
         default:[]
-        
     },
 
     status: {
@@ -29,7 +28,6 @@ var OrderSchema = new Schema({
     ratings: {
         type: Number,
     },
-
 
     comment: {
         type: String,

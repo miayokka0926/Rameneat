@@ -5,6 +5,7 @@ import LeafletMap from "../components/LeafletMap.js";
 import Header from "../components/Header.js";
 
 export default function VendorPark(props) {
+    console.log(props)
     return (
         <div>
             <Header 

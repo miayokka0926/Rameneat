@@ -5,8 +5,7 @@ import { Card, message, InputNumber, Row } from "antd";
 import { Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Modal, Button } from "react-bootstrap";
-
-
+import Collapse from 'react-bootstrap/Collapse';
 import axios from "../commons/axios";
 import image from "../components/logo.png";
 
@@ -20,10 +19,13 @@ export default function Menu(props) {
   //set up variables for components and function
   const [order, setOrder] = useState([]);
   const [modalVisible, setModalVisible] = useState(props.modalVisible);
-  const handleModalShow = () => {setModalVisible(true)};
-  const handleModalClose = () => {setModalVisible(false); setOrder([]);}
+  const handleModalShow = () => setModalVisible(true);
+  const handleModalClose = () => {setModalVisible(false); setOrder([])};
+  const [open, setOpen] = useState(false);
+  const [total, setTotal] = useState('');
 
-  //update an item of the menu
+  const [submitOrder, setSubmitOrder] = useState([]);
+
   const addItem = (index, event) => {
     let newOrder = [...order];
     let value = newOrder[index];
@@ -33,6 +35,28 @@ export default function Menu(props) {
       newOrder[index]++;
     }
     setOrder(newOrder);
+    console.log(newOrder);
+
+    var submitOrder = [];
+    var total  = 0;
+    for (var i = 0; i < newOrder.length; i++) {
+      
+      if (Number.isFinite(newOrder[i]) && newOrder[i] > 0) {
+        submitOrder.push({
+          name: props.snacks[i].name,
+          qty: newOrder[i],
+          price: props.snacks[i].price,
+        });
+        total += props.snacks[i].price * newOrder[i];
+      }
+    }
+    setSubmitOrder(submitOrder);
+    setTotal(total);
+    
+    console.log(total);
+
+
+
   };
 
   //decrease the item number
@@ -42,32 +66,50 @@ export default function Menu(props) {
       newOrder[index]--;
     }
     setOrder(newOrder);
+
+    var submitOrder = [];
+    var total = 0;
+    for (var i = 0; i < newOrder.length; i++) {
+      
+      if (Number.isFinite(newOrder[i]) && newOrder[i] > 0) {
+        submitOrder.push({
+          name: props.snacks[i].name,
+          qty: newOrder[i],
+          price: props.snacks[i].price,
+        });
+
+        total += props.snacks[i].price * newOrder[i];
+        
+    
+      }
+    }
+    setSubmitOrder(submitOrder);
+    setTotal(total);
+    console.log(total);
+    
+
   };
 
   let history = useHistory();
   //place and submit an order
   const onSubmit = () => {
-    var total = 0;
     if (!props.customer) {
-      message.error("you need to log in to place an order");
+       message.error("you need to log in to place an order");
       history.goBack();
     } else {
       var submitOrder = [];
+      var total = 0;
       for (var i = 0; i < order.length; i++) {
         if (Number.isFinite(order[i]) && order[i] > 0) {
           submitOrder.push({
-            "name": props.snacks[i].name,
-            "qty": order[i],
-            "price": props.snacks[i].price
+            name: props.snacks[i].name,
+            qty: order[i],
           });
+         total += props.snacks[i].price * order[i];
+          
         }
       }
-      for (var j = 0; j < submitOrder.length; j++) {
-        let update = total + submitOrder[j].price * submitOrder[j].qty
-        total = update
-      }
-
-      console.log(total);
+    //   console.log(submitOrder);
       //set up error cases
       if (submitOrder.length === 0) {
         setModalVisible(false);
@@ -78,7 +120,7 @@ export default function Menu(props) {
             customer: props.customer.id,
             vendor: props.vendor.id,
             snacks: submitOrder,
-            total: total
+            total: total,
           })
           .then((response) => {
             if (response.data.success) {
@@ -90,8 +132,32 @@ export default function Menu(props) {
           });
       }
     }
+
+    submitOrder = [];
+    setSubmitOrder(submitOrder);
+    
+    total = 0;
+    setTotal(total);
+
+    setOpen(!open);
+    
+
     setOrder([]);
+
+
+
+    
   };
+
+  const snacks = submitOrder.map((snack, index) => (
+    <li key={snack.name}>
+      <h5>
+        {snack.name}; qty:{snack.qty}; item price: $ {snack.price}
+      </h5>
+    </li>
+  ));
+
+  
   //render the outcome
   return (
     <div>
@@ -102,7 +168,7 @@ export default function Menu(props) {
         eventHandlers={{ click: handleModalShow }}
       ></Marker>
 
-      <Modal show={modalVisible} onHide={ handleModalClose }>
+      <Modal show={modalVisible} onHide={handleModalClose}>
         <Modal.Header
           closeButton
           style={{ color: "orange", display: "flex", justifyContent: "right" }}
@@ -150,17 +216,49 @@ export default function Menu(props) {
           ))}
         </Modal.Body>
         <Modal.Footer style={{ display: "flex", justifyContent: "right" }}>
-          <Button
-            style={{ backgroundColor: "orange", marginLeft: "36%" }}
-            variant="primary"
-            onClick={onSubmit}
-          >
-            Submit Order
+          
+
+          <Button 
+          style={{ backgroundColor: "orange", marginLeft: "36%" }}
+          variant="primary"
+          onClick={() => setOpen(!open)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}>
+            Confirm order
           </Button>
+
+          <Collapse in={open}>
+            
+        
+          <p> 
+            <h5>your order : {snacks} </h5>
+            <h5>Ordered from : {props.vendor.name}</h5>
+            <h5>Total price: $ {total}    </h5>
+            
+              
+            <h6>Change your mind? you can always scroll up and change your order! </h6>
+              
+
+              <Button
+              style={{ backgroundColor: "orange", marginLeft: "36%" }}
+              variant="primary"
+              onClick={onSubmit}
+            >
+              Submit Order
+              </Button> 
+          </p>
+          
+
+        
+        
+          </Collapse>
+
+
+          
+          
         </Modal.Footer>
       </Modal>
     </div>
-
   );
-
 }
+  

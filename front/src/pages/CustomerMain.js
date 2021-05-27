@@ -25,6 +25,7 @@ function CustomerMain(props) {
 
       console.log(props.location.state.position)
       console.log(props.location.state.vendors)
+      // console.log(props.location.state.customer.name)
       axios
         .get("/order?customer=" + props.location.state.customer.id)
         // .get("/order?customer=" + id)
@@ -42,8 +43,8 @@ function CustomerMain(props) {
     <div>
 
       <Header
-        id={props.location.state.customer.id}
-        // id = {props.id}
+        // id={props.location.state.customer.id}
+        id = {props.id}
         customer={props.location.state.customer}
         orders={orders}
         vendors={props.location.state.vendors}/>
