@@ -40,13 +40,19 @@ This is project is to build a web app which server for vending car's owner and c
 The first page ask you to choose your identity.
 
 If you are a customer but do not want to log in:
+
 click 'Customer', then 'skip', you will be able to see vendors near you and their menu, but you are not able to submit order. There is a 'login' button on the top right of the page, that will direct you to login at anytime.
 
+
 If your are a non-registered customer but want to log in:
+
 Click 'Customer', then'sign up', submit your form and log in.
 
+
 If you are a registered customer and want to log in:
+
 Click 'Customer', then fillin your email and password, and log in.
+
 
 #### Then, in ../customer:
 you are able to: 
@@ -57,18 +63,25 @@ you are able to:
 5.  For any order that takes more than 15 mins to be marked fulfilled, 20% discount badge will be automatically added to vendor and customer's order list.
 
 If your are a vendor and do not want to login:
+
 click 'Vendor', then 'skip', you will be able to see where you are and login at any time.
 
+
 If your are a non-registered vendor but want to log in:
+
 Click 'Vendor', then'sign up', submit your form and log in.
 
+
 If you are a registered vendor and want to log in:
+
 Click 'Vendor', then fillin your name and password, and log in.
+
 
 #### Then, in ../vendor:
 you will be able to: 
 1. drag the pin to choose a location.
 2. click on that pin to confirm and fill in your address, this must be a valid string. Then by clicking submit, you will be directed to ../orders page. 
+
 
 #### Then, in ../orders:
 you will be able to:
@@ -78,21 +91,28 @@ you will be able to:
 
 
 ## Other information you may find useful:
-Our localhost address: http://localhost:5500/
+Our localhost address: http://localhost:5500/. 
+
 To run our code, type 'npm run dev' in the terminal.
+
 To run test, type 'npm run test' in the terminal.
 
+
 To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
+
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
 #### dummy log in detail:
 Customer:
-email: bobb@abc.com
-password: abc
+
+email: bobb@abc.com;
+password: abc;
 
 vendor:
-name: big van
-password: 123
+
+name: big van;
+password: 123;
+
 
 ## Deploy in Heroku
 In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
