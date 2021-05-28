@@ -14,7 +14,7 @@ function App(props) {
 
 
   const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
 
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
@@ -28,7 +28,7 @@ function App(props) {
   const [registerName, setRegisterName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [familyName, setFamilyName] = useState("");
-  const [password, setPassword] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
 
   // get customer location once they get access to our website.
   useEffect(() => {
@@ -95,10 +95,7 @@ function App(props) {
       vendors: vendors
     })
   }
-  // message will be displayed if a customer place their mouse on 'forget password' icon.
-  const findPassword = (props) => {
-    <Tooltip id="button-tooltip" {...props}> feature opening soon </Tooltip>
-  }
+
 
   const onCustomerRegister = (props) => {
     console.log(familyName);
@@ -106,7 +103,7 @@ function App(props) {
         "name": registerName,
         "familyName": familyName,
         "email": registerEmail,
-        "password": password,
+        "password": registerPassword,
     }
     axios.post('/customer/register', updateBody).then(response => {
         if (response.data.success) {
@@ -147,7 +144,7 @@ function App(props) {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Your password</Form.Label>
               <FormControl style={{ fontSize: 10 }} placeholder="Please enter your password"
-                onChange={e => setPassword(e.target.value)} />
+                onChange={e => setRegisterPassword(e.target.value)} />
             </Form.Group>
 
           </Form>
@@ -193,7 +190,7 @@ function App(props) {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
-                // onChange={e => setPassword(e.target.value)} 
+                onChange={e => setPassword(e.target.value)} 
                 />
             </Form.Group>
           </Form>
@@ -234,12 +231,11 @@ function App(props) {
             <Form.Group controlId="formBasicPassword2">
               <Form.Label>Password</Form.Label>
               <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
-                // onChange={e => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 />
             </Form.Group>
           </Form>
 
-          <p> <Link onClick={findPassword}>Forget Password?</Link> </p>
           <p> <Link onClick={onSkip}>Proceed without login</Link> </p>
 
           <Button
