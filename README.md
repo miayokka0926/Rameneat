@@ -37,15 +37,18 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 This is project is to build a web app which server for vending car's owner and customer. By developing the fron end for displaying and back end for storing the vendor's and customer's and snacks' information, we could easily extract and accept the request made by customer and owner (for example, for customer to order snacks from the provided menu list and for owner to receive the customer's order's information to prepare the meal). All the images are found in unsplash.com by copying the image url address and store for each snacks. All information of snacks are pre-set and store in mongoDB collection "snacks". Similarlly, the vnedor's information are pre-set and store in mongoDB as all the van owner are pre-listed by the developer in this project's requirement.
 
 ## This is a brief explaination os deliverable 4
-The first page ask you to choose your identity and process to the next page.
-#### If you are a customer but do not want to log in:
+The first page ask you to choose your identity.
+
+If you are a customer but do not want to log in:
 click 'Customer', then 'skip', you will be able to see vendors near you and their menu, but you are not able to submit order. There is a 'login' button on the top right of the page, that will direct you to login at anytime.
-#### If your are a non-registered customer but want to log in:
+
+If your are a non-registered customer but want to log in:
 Click 'Customer', then'sign up', submit your form and log in.
-#### If you are a registered customer and want to log in:
+
+If you are a registered customer and want to log in:
 Click 'Customer', then fillin your email and password, and log in.
 
-Then, in ../customer:
+#### Then, in ../customer:
 you are able to: 
 1. find the five nearest vendor by clicking the drop-downs, or you can find vendors on map. 
 2. Click on any vendor to submit an order. 
@@ -53,19 +56,21 @@ you are able to:
 4. View your orders. Edit your order within 10 mins. Rate and comment your order after pick up. 
 5.  For any order that takes more than 15 mins to be marked fulfilled, 20% discount badge will be automatically added to vendor and customer's order list.
 
-#### If your are a vendor and do not want to login:
+If your are a vendor and do not want to login:
 click 'Vendor', then 'skip', you will be able to see where you are and login at any time.
-#### If your are a non-registered vendor but want to log in:
+
+If your are a non-registered vendor but want to log in:
 Click 'Vendor', then'sign up', submit your form and log in.
-#### If you are a registered vendor and want to log in:
+
+If you are a registered vendor and want to log in:
 Click 'Vendor', then fillin your name and password, and log in.
 
-Then, in ../vendor:
+#### Then, in ../vendor:
 you will be able to: 
 1. drag the pin to choose a location.
 2. click on that pin to confirm and fill in your address, this must be a valid string. Then by clicking submit, you will be directed to ../orders page. 
 
-Then, in ../orders:
+#### Then, in ../orders:
 you will be able to:
 1. see outstanding, fulfilled and complete orders by time order.
 2. mark outstanding order -> fulfilled, fulfilled -> complete, by clicking on that eye button. Customer will be able to see that.
