@@ -71,7 +71,7 @@ export default function Header(props) {
                             });
                         }}>
                         My profile
-                </Button>
+                    </Button>
 
                     <Button
                         variant="outline-light"
@@ -80,7 +80,7 @@ export default function Header(props) {
                         onClick={handleDrawerShow}
                     >
                         view Orders
-                </Button>
+                    </Button>
                 </ButtonGroup>
             ]);
         } else if (history.location.pathname === "/profile") {
@@ -144,7 +144,7 @@ export default function Header(props) {
                     vendor={props.vendors}
                     target={target}
                     orders={props.orders}
-                    />
+                />
             </Drawer>
         </div>
     )

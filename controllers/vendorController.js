@@ -42,7 +42,7 @@ exports.vendorLoginPost = function(req,res){
         name:name,
     }).then ((vendor)=>{
         if (!vendor){
-            res.status(200).json({ success:false, error: "vendor not registered!" });
+            res.status(200).json({ error: "vendor not registered!" });
         }else {
             bcrypt.compare(password, vendor.password, (err, match)=>{
                 if (match) {

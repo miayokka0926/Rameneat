@@ -14,7 +14,7 @@ function App(props) {
 
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
 
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
@@ -23,6 +23,12 @@ function App(props) {
 
   const [customerOpen, setCustomerOpen] = useState(false);
   const [vendorOpen, setVendorOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+
+  const [registerName, setRegisterName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [familyName, setFamilyName] = useState("");
+  const [password, setPassword] = useState("");
 
   // get customer location once they get access to our website.
   useEffect(() => {
@@ -94,6 +100,82 @@ function App(props) {
     <Tooltip id="button-tooltip" {...props}> feature opening soon </Tooltip>
   }
 
+  const onCustomerRegister = (props) => {
+    console.log(familyName);
+    const updateBody = {
+        "name": registerName,
+        "familyName": familyName,
+        "email": registerEmail,
+        "password": password,
+    }
+    axios.post('/customer/register', updateBody).then(response => {
+        if (response.data.success) {
+            message.success("Customer detail uploaded successfully!")
+            // console.log(registerName);
+        } else {
+            message.error(response.data.error)
+            // console.log(registerName);
+        }
+    })
+    setRegisterOpen(!registerOpen);
+  }
+
+  const registerCollapse = (
+    <>
+      <Collapse in={registerOpen}>
+        <p>
+
+          <Form>
+            <br />
+            <h3 style={{ color: "#F4976C" }}>Welcome to RAMEN EAT!</h3>
+
+            <Form.Group >
+              <Form.Label>Email </Form.Label>
+              <FormControl style={{ fontSize: 10 }} type="email" placeholder="Please enter your email"
+                onChange={e => setRegisterEmail(e.target.value)} />
+            </Form.Group>
+            <Form.Group >
+              <Form.Label>Your first name </Form.Label>
+              <FormControl style={{ fontSize: 10 }} type="string" placeholder="Please enter your given name"
+                onChange={e => setRegisterName(e.target.value)} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Your family name </Form.Label>
+              <Form.Control style={{ fontSize: 10 }} type="string" placeholder="Please enter your family name"
+                onChange={e => setFamilyName(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Your password</Form.Label>
+              <FormControl style={{ fontSize: 10 }} placeholder="Please enter your password"
+                onChange={e => setPassword(e.target.value)} />
+            </Form.Group>
+
+          </Form>
+
+
+          <Button
+            style={{ color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C', marginLeft: "10%"  }}
+            variant="primary"
+            onClick={onCustomerRegister}
+          >
+            Submit
+      </Button>
+
+
+          <Button
+            style={{ color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C',  marginLeft: "30%"  }}
+            variant="primary"
+            onClick={() => setRegisterOpen(!registerOpen)}
+          >
+            Cancel
+      </Button>
+
+
+        </p>
+      </Collapse>
+    </>
+  )
+
   const customerCollapse = (
     <>
       <Collapse in={customerOpen}>
@@ -111,11 +193,15 @@ function App(props) {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
-                onChange={e => setPassword(e.target.value)} />
+                // onChange={e => setPassword(e.target.value)} 
+                />
             </Form.Group>
           </Form>
 
-          <p> <Link onClick={findPassword}>Forget Password?</Link> </p>
+          <p> <Link onClick={() => setRegisterOpen(!registerOpen)}>New user? </Link> </p>
+          <Collapse>
+            {registerCollapse}
+          </Collapse>
           <p> <Link onClick={onSkip}>Proceed without login</Link> </p>
 
           <Button
@@ -148,7 +234,8 @@ function App(props) {
             <Form.Group controlId="formBasicPassword2">
               <Form.Label>Password</Form.Label>
               <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
-                onChange={e => setPassword(e.target.value)} />
+                // onChange={e => setPassword(e.target.value)}
+                />
             </Form.Group>
           </Form>
 
