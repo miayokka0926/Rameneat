@@ -75,7 +75,7 @@ export default function LeafletMap(props) {
             draggable={true}
             eventHandlers={eventHandlers}
             position={position}>
-            <Tooltip direction="bottom">Drag this pin to confirm location and start your business</Tooltip>
+            <Tooltip direction="bottom">Drag this pin and click to confirm location and start your business</Tooltip>
 
         </Marker>
 
