@@ -28,83 +28,66 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 
 | Name         |               Task               |                  State |
 | :----------- | :------------------------------: | ---------------------: |
-| Haoyue Wang  |  Coding the webpage  |                   Done |
-| Huage Sun    |                UI Improvement    |                   Done |
-| Yuxin Ma     |  Code Testing and Comment    |                   Done |
-| Zhirong Piao |                                  | Deliverable 3 Finished |
+| Huage Sun    |        Register, vendor orders   |                   Done |
+| Yuxin Ma     |  Customer orders, customer menus |                   Done |
+| Zhirong Piao |  testing, debug                  | Deliverable 4 Finished |
 
 ## General info
 
 This is project is to build a web app which server for vending car's owner and customer. By developing the fron end for displaying and back end for storing the vendor's and customer's and snacks' information, we could easily extract and accept the request made by customer and owner (for example, for customer to order snacks from the provided menu list and for owner to receive the customer's order's information to prepare the meal). All the images are found in unsplash.com by copying the image url address and store for each snacks. All information of snacks are pre-set and store in mongoDB collection "snacks". Similarlly, the vnedor's information are pre-set and store in mongoDB as all the van owner are pre-listed by the developer in this project's requirement.
 
-# This is the brief explaination of Deliverable 2
+## This is a brief explaination os deliverable 4
+The first page ask you to choose your identity and process to the next page.
+#### If you are a customer but do not want to log in:
+click 'Customer', then 'skip', you will be able to see vendors near you and their menu, but you are not able to submit order. There is a 'login' button on the top right of the page, that will direct you to login at anytime.
+#### If your are a non-registered customer but want to log in:
+Click 'Customer', then'sign up', submit your form and log in.
+#### If you are a registered customer and want to log in:
+Click 'Customer', then fillin your email and password, and log in.
 
-This deliverable is for creating the brief mockup of the server side for both customer and owners by allowing them to get or post the data to the database (in here we use MongoDB). No front end design is included in this deliverable but only the raw json data would be presented in the live server (similarly if you sent the request method in Postman, it should only retrun the json data for a clearer visualisation).
+Then, in ../customer:
+you are able to: 
+1. find the five nearest vendor by clicking the drop-downs, or you can find vendors on map. 
+2. Click on any vendor to submit an order. 
+3. Change profile by clicking on 'My profile' --> ../profile.
+4. View your orders. Edit your order within 10 mins. Rate and comment your order after pick up. 
+5.  For any order that takes more than 15 mins to be marked fulfilled, 20% discount badge will be automatically added to vendor and customer's order list.
 
-The coding part is presented in the main branch with commit id: 98b030d (Please notice that the newest commit only change the readme.md file, no code is changed)
+#### If your are a vendor and do not want to login:
+click 'Vendor', then 'skip', you will be able to see where you are and login at any time.
+#### If your are a non-registered vendor but want to log in:
+Click 'Vendor', then'sign up', submit your form and log in.
+#### If you are a registered vendor and want to log in:
+Click 'Vendor', then fillin your name and password, and log in.
 
-The testing route request methods are all included in the Postman exported json file, which includes Get methods for features 1, 2, 5 and Post method for features 3, 4, 6. By simply operating the request method in this json file, you could reach the data (or posh to update) from (or to) mongoDB's targeted collections (These exported json file are all stored in the github main branch folder "PostmanRequest")
+Then, in ../vendor:
+you will be able to: 
+1. drag the pin to choose a location.
+2. click on that pin to confirm and fill in your address, this must be a valid string. Then by clicking submit, you will be directed to ../orders page. 
 
-Explnation of postman json file FoodVan (We includes 9 test request method with 6 "POST" and 3 "GET"):
-(1) "POST" customerRegister (not needed in this deliverable). Can be used for posting a new customer with his/her input information into database.
-(2) "POST" orderCreate. Can be used for creating a new order by customer and storing it into outstanding list collection for the specific vendor.
-(3) "POST" orderUpdata. Allows vendor to update the order status (eg. status change from "outstanding" to "fulfilled").
-(4) "GET" orderOutstandingGet. Allows the vendor to get their own outstanding order list from the database.
-(5) "POST" snackCreate (not needed in this deliverable). Allows to create a new snack and store it into database (may not needed in this project).
-(6) "GET" snackListGet. Get all the snacks from the pre-set dataset (menu) and present the menu list to customer.
-(7) "GET" snackDetailGet. Get one specific snack from menu list and displays its detail information.
-(8) "POST" venderCreate (not needed in this deliverable). Allows a new vendor owner to register the Van account.
-(9) "POST" venderStatusUpdate. Allows vendor owner to update their Van status (eg. change their current location and change parked (in here we use parked for representing the Van is open or closed) into true or false).
-
-Four collections are pre-set in mongoDB with "customers", "orders", "snacks", "vendors" (for the purpose of testing, we pre-set some data in customers as register and login are currently not needed in this deliverable 2). To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
-Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
-
-## Code Implementation
-Here is a snippet of our App.js code
-
-```
-
-//import routes information
-const customer = require('../routes/customer');
-app.use('/customer', customer);
-
-const vendor = require('../routes/vendor');
-app.use('/vendor', vendor);
-
-const snack = require('../routes/snack');
-app.use('/snack', snack);
-
-const order = require('../routes/order');
-app.use('/order', order);
-
-// execute localhost
-const port = process.env.PORT || 3000
-app.listen(port, () => {console.log('The website is listening on port 3000!', port)})
-
-```
-
-(All images are stored in mongoDB as String Url style, all image src are from unsplash.com)
-
-## Here is an overview of what our Postman Collection is like
-
-<img src="/deliverable2feature/collections.png"  width="300" >
+Then, in ../orders:
+you will be able to:
+1. see outstanding, fulfilled and complete orders by time order.
+2. mark outstanding order -> fulfilled, fulfilled -> complete, by clicking on that eye button. Customer will be able to see that.
+3. For any order that takes more than 15 mins to be marked fulfilled, 20% discount badge will be automatically added to vendor and customer's order list.
 
 
-## This is a brief explanation of deliverable 3
-Our team make the website viewable with this deliverable 3, with the client end UI design and the support of the backend database. The first page allows visitors to either preview map and vendor menu by clicking on 'skip' or fill in their email and password to log in to submit orders. Either option will direct users to the .../customer page. Then, they will be able to view where the vendors are located and to do further operations. If they click on one the the vans, they will be able to see the menu of that van and submit orders if they are logged in. If people access the web page from other cities, they will have to set position from browser or drag the map manually to Melbourne to find vendors, as all of our vendors are located near Melbourne Uni. After clicking on one specific vendor icon, the menu will be displayed and users will be able to submit orders if they have successfully logged in. Otherwise, the system will direct them back to the log in page. If they successfully log in and submit an order, their orders will be displayed under the "view Orders" icon. 
-
+## Other information you may find useful:
 Our localhost address: http://localhost:5500/
 To run our code, type 'npm run dev' in the terminal.
+To run test, type 'npm run test' in the terminal.
 
 To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=admin&replicaSet=atlas-jndjgo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
 
-dummy customer log in detail:
+#### dummy log in detail:
+Customer:
 email: bobb@abc.com
-
 password: abc
 
-
+vendor:
+name: big van
+password: 123
 
 ## Deploy in Heroku
 In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
@@ -128,5 +111,5 @@ Project is created with:
 - [x] User Interface (UI)mockup
 - [x] App server mockup
 - [x] Front-end + back-end (one feature)
-- [ ] Complete system + source code
-- [ ] Report on your work(+ test1 feature)
+- [x] Complete system + source code
+- [x] Report on your work(+ test1 feature)
