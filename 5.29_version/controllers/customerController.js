@@ -9,7 +9,7 @@ exports.customerRegisterPost = function (req, res) {
     const { name, email, password, familyName } = req.body;
     Customer.findOne({ email: email }).then((customer) => {
         if (customer) {
-            res.status(409).json({ succeess: false, error: 'Customer email already exists.' });
+            res.status(200).json({ succeess: false, error: 'Customer email already exists.' });
         } else {
             const newCustomer = new Customer({
                 name,
