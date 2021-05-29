@@ -3,6 +3,7 @@ import React from 'react'
 import LeafletMap from "../components/LeafletMap.js";
 import Header from "../components/Header.js";
 
+// park a vendor when click on the pin, and start business
 export default function VendorPark(props) {
     return (
         <div>

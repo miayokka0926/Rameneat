@@ -1,4 +1,4 @@
-import React , { useState }from "react";
+import React from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Badge, InputNumber, Card, notification, message, Rate, Divider, Input, Row } from "antd";
 import { EyeOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
@@ -38,7 +38,7 @@ export default class OrderBrief extends React.Component {
 
 
 
-  //update an item of the menu
+  //add an item of the menu
   addItem = (index, event) => {
     let newOrder = [...this.state.order];
     let value = newOrder[index];
@@ -58,6 +58,7 @@ export default class OrderBrief extends React.Component {
     }
     this.setState({ order: newOrder });
   };
+
 
   onOrderMark = () => {
     var statusToBeUpdated, discount;
@@ -191,6 +192,7 @@ export default class OrderBrief extends React.Component {
     this.setState({ comment: value });
   }
 
+  // handle edit icon (customer side)
   handleEditOrder = () => {
     console.log(this.state.diff)
     if (this.props.order.status === "outstanding" && this.state.diff <= 10) {
@@ -221,6 +223,7 @@ export default class OrderBrief extends React.Component {
     }
   }
 
+  // when put your mouse on edit icon, different messages will be displayed.
   renderTooltip = (props) => {
     if (this.props.order.status === "outstanding" && window.location.pathname === '/customer') {
       return (<Tooltip id="button-tooltip" {...this.props}> Edit your order </Tooltip>)
@@ -240,6 +243,7 @@ export default class OrderBrief extends React.Component {
     return (<Tooltip id="button-tooltip" {...this.props}> View order detail </Tooltip>)
   }
 
+  // the icons have different actions when clicking on them, based on your identity
   renderActions = () => {
     if (window.location.pathname === '/customer') {
       return (
@@ -284,6 +288,7 @@ export default class OrderBrief extends React.Component {
     }
   }
 
+  // edit order
   renderEditModalContent = () => {
     if (this.props.order.status === "outstanding") {
       return (
@@ -342,6 +347,7 @@ export default class OrderBrief extends React.Component {
         </>
       )
     } else {
+      
       return (
         <>
           {/* NEED UI CHANGE */}
@@ -391,7 +397,7 @@ export default class OrderBrief extends React.Component {
                 {snack.name} x {snack.qty}
               </li>)}
             </p>
-            {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
+            {(this.state.diff > 15 && this.props.order.status === "outstanding") ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
             {(this.props.order.ratings) ? <><p>Ratings: </p><Rate disabled value={this.props.order.ratings} /></> : <></>}
             {(this.props.order.comment) ? <><p>Comment: </p><>{this.props.order.comment}</></> : <></>}
           </Modal.Body>
@@ -411,7 +417,7 @@ export default class OrderBrief extends React.Component {
 
         {/* each order brief */}
 
-        {this.props.order.discount ?
+        {this.state.diff > 15 && this.props.order.status === "outstanding" ?
           <Badge.Ribbon text="20% OFF " >
             <Card style={{ backgroundColor: "#F4976C", margin: "14px" }}
               actions={this.renderActions()} >
@@ -421,8 +427,7 @@ export default class OrderBrief extends React.Component {
               <Meta title={this.props.order.snacks.map((snack) => 
                 <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
               <Meta title={"Price(before discount): $" + this.props.order.total * 1.25} />
-              <Meta title={(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}/>
-              {/* {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>} */}
+              <Meta title={(this.state.diff > 15 ) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}/>
               {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up."
                 : (this.props.order.status === "completed") ? "order is completed"
                   : <TimeCountUp updatedAt={this.props.order.updatedAt}
@@ -439,7 +444,7 @@ export default class OrderBrief extends React.Component {
               <Meta title={this.props.order.snacks.map((snack) => 
                 <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
               
-              <Meta title={(this.props.order.discount) ? <p>Total price(discount given): ${this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total price: ${this.props.order.total}</p>}/>
+              <Meta title={(this.state.diff > 15) ? <p>Total price(discount given): ${this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total price: ${this.props.order.total}</p>}/>
               {/* {(window.location.pathname === '/order') ? <p>Customer: {this.props.order.customer.name}</p> : <p>enjoy</p>} */}
               {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up. "
                 : (this.props.order.status === "completed") ? "order is completed"

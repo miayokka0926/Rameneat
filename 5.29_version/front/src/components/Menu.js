@@ -23,9 +23,9 @@ export default function Menu(props) {
   const handleModalClose = () => {setModalVisible(false); setOrder([])};
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState('');
-
   const [submitOrder, setSubmitOrder] = useState([]);
 
+  // once + is clicked 
   const addItem = (index, event) => {
     let newOrder = [...order];
     let value = newOrder[index];
@@ -59,7 +59,7 @@ export default function Menu(props) {
 
   };
 
-  //decrease the item number
+  //once - is clicked
   const subtractItem = (index, event) => {
     let newOrder = [...order];
     if (newOrder[index] > 0) {
@@ -91,6 +91,7 @@ export default function Menu(props) {
   };
 
   let history = useHistory();
+
   //place and submit an order
   const onSubmit = () => {
     if (!props.customer) {
@@ -109,7 +110,7 @@ export default function Menu(props) {
           
         }
       }
-    //   console.log(submitOrder);
+
       //set up error cases
       if (submitOrder.length === 0) {
         setModalVisible(false);
@@ -158,7 +159,7 @@ export default function Menu(props) {
   ));
 
   
-  //render the outcome
+
   return (
     <div>
       <Marker
@@ -246,15 +247,9 @@ export default function Menu(props) {
             >
               Submit Order
               </Button> 
-          </p>
-          
-
+          </p>       
         
-        
-          </Collapse>
-
-
-          
+          </Collapse>    
           
         </Modal.Footer>
       </Modal>

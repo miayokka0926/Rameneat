@@ -32,7 +32,6 @@ function CustomerProfile(props) {
         axios.post('/customer/update', updateBody).then(response => {
             if (response.data.success) {
                 message.success("Customer detail updated successfully!")
-                // console.log(name);
             } else {
                 message.error(response.data.error)
         
@@ -58,8 +57,8 @@ function CustomerProfile(props) {
 
                 <h6>email: {props.location.state.customer.email}</h6>
                 <h6>given name: {name}</h6>
-                {/* <h6>family name: {(familyName) ? {familyName} : 'not set'} </h6> */}
                 <h6>password: *** </h6>
+                
                 <h8> Do you like this? </h8>
 
                 <br />
@@ -116,8 +115,6 @@ function CustomerProfile(props) {
                     >
                     Cancel
                     </Button>
-
-
                     </p>
                 </Collapse>
 

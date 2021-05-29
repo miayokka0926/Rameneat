@@ -117,7 +117,7 @@ function App(props) {
     })
     setRegisterOpen(!registerOpen);
   }
-
+  // collapse will open when you click on register
   const registerCollapse = (
     <>
       <Collapse in={registerOpen}>
@@ -156,7 +156,7 @@ function App(props) {
             variant="primary"
             onClick={onCustomerRegister}
           >
-            Submit
+            sign up
       </Button>
 
 
@@ -167,13 +167,12 @@ function App(props) {
           >
             Cancel
       </Button>
-
-
         </p>
       </Collapse>
     </>
   )
 
+  // collpase will open if you click 'Customer'
   const customerCollapse = (
     <>
       <Collapse in={customerOpen}>
@@ -215,6 +214,7 @@ function App(props) {
     </>
   )
 
+  // collapse will open if you click on 'Vendor'
   const vendorCollapse = (
     <>
       <Collapse in={vendorOpen}>
@@ -253,8 +253,6 @@ function App(props) {
   )
 
 
-
-  // the UI design of log in page.
   return (
 
     <div id="LogIn" style={{ width: '60%', margin: 'auto', marginTop: '2%' }}>

@@ -20,11 +20,8 @@ export default function Header(props) {
     const handleDrawerShow = () => setDrawerVisible(true);
     const [title, setTitle] = useState("");
     const [options, setOptions] = useState([]);
-
     const [target, setTarget] = useState("");
-
     const [id, setId] = useState('')
-    // const [customer, setCustomer] = useState('')
 
 
 
@@ -37,8 +34,7 @@ export default function Header(props) {
         }
 
 
-
-
+        // display different headers under different conditions
         if (props.customer && history.location.pathname === "/customer") {
             setTitle('Welcome to RAMEN EAT, ' + props.customer.name + '!')
             setTarget('customer');
@@ -124,7 +120,6 @@ export default function Header(props) {
         }
     }, []);
 
-    // console.log(props)
 
     return (
         <div>
@@ -136,7 +131,6 @@ export default function Header(props) {
                 onClose={handleDrawerClose}
                 width={"70vw"}>
 
-                {/* <h3 style={{ color: "#F4976C" }}>My orders</h3> */}
                 <Divider />
                 <OrderList
                     customer={props.customer}

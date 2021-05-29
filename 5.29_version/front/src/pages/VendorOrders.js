@@ -2,11 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-
 import Header from '../components/Header.js';
 import OrderList from '../components/OrderList.js';
 
-
+// display vendor orders
 export default function VendorOrders(props) {
 
     const [target, setTarget] = useState('');

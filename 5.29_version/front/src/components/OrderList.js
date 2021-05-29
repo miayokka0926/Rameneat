@@ -8,7 +8,6 @@ function Orders(props) {
 
   const [orders, setOrders] = useState([])
   const [status, setStatus] = useState('')
-  // const id = props.id
   const [id, setId] = useState('')
 
 
@@ -43,6 +42,7 @@ function Orders(props) {
     )
   })
 
+  
   return (
     <div>
       {
