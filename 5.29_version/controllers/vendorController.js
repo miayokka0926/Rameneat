@@ -23,7 +23,6 @@ exports.vendorRegisterPost = function (req, res) {
                         res.json({
                             vendor: {
                                 name: vendor.name,
-
                                 password: vendor.password
                             }
                         })

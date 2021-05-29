@@ -37,21 +37,29 @@ export default function LeafletMap(props) {
         console.log(props.vendor.id, position)
         console.log(address)
         if (address) {
+            console.log(position)
             axios.post('/vendor/park/' + props.vendor.id, {
-                location: position,
-                Address: address,
+                "location" : [position.lat, position.lng],
+                "Address" : address,
+                "parked": true,
             }).then(response => {
-                if (response.data.success) {
-                    message.success("vendor now parked!")
-                    history.push({ pathname: "/orders", state: { vendor: props.vendor } })
-                }
-                else {
-                    message.error("an error occurs when parking");
-                }
+                // if (response.data.success) {
+                //     // console.log('Im here');
+                //     message.success("vendor now parked!")
+                //     history.push({ pathname: "/orders", state: { vendor: props.vendor } })
+                // }
+                // else {
+                //     // console.log('Im here');
+                //     message.error("an error occurs when parking");
+                // }
+                message.success("vendor now parked!")
+                history.push({ pathname: "/orders", state: { vendor: props.vendor } })
             })
 
+        } else{
+            message.error("Enter a valid address!");
         }
-        console.log(props.vendor.location)
+        // console.log(props.vendor.location)
 
     }
 
