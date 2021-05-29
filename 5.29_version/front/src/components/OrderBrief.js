@@ -60,6 +60,8 @@ export default class OrderBrief extends React.Component {
   };
 
 
+
+  // vendor mark order
   onOrderMark = () => {
     var statusToBeUpdated, discount;
     var total = this.props.order.total;
@@ -118,7 +120,8 @@ export default class OrderBrief extends React.Component {
           "qty": this.state.order[i],
           "price":this.state.menu[i].price,
         });
-        this.state.total += this.state.menu[i].price * this.state.order[i];
+        this.setState({total: this.state.menu[i].price * this.state.order[i]});
+        // this.state.total += this.state.menu[i].price * this.state.order[i];
       }
       console.log(this.state);
     }
@@ -146,6 +149,7 @@ export default class OrderBrief extends React.Component {
   }
 
 
+  // customer submit comments 
   onCommentSubmit = () => {
     axios
       .post("/order/" + this.props.order._id + "/update", {
@@ -162,10 +166,14 @@ export default class OrderBrief extends React.Component {
       })
   }
 
+  // get time
   tick() {
     let now = new Date().getTime()
     let upd = Date.parse(this.props.order.updatedAt)
     this.setState({ diff: ((now - upd) / 60000) })
+    if (this.state.diff > 15){
+      this.setState({ discount: true});
+    }
   }
 
   componentDidMount() {
@@ -322,9 +330,8 @@ export default class OrderBrief extends React.Component {
                     key={snack._id}
                     min={0}
                     value={this.state.order[index]}
-                    // defaultValue = {(this.state.order[index] === "undefined") ? 0 :  this.state.order[index]}
                     defaultValue={0}
-                    // value={this.state.order[index]}
+                
                   />
                   <Button
                     onClick={(e) => this.addItem(index, e)}
@@ -385,7 +392,7 @@ export default class OrderBrief extends React.Component {
           onHide={() => this.handleClose()}
         >
           <Modal.Header closeButton style={{ backgroundColor: "#F4976C" }}>
-            <Modal.Title>{"Order updated at " + this.props.order.updatedAt}</Modal.Title>
+            <Modal.Title>{"Order updated at " + this.props.order.createdAt}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p style={{ fontSize: 30, color: "#F4976C" }}>
@@ -394,10 +401,10 @@ export default class OrderBrief extends React.Component {
             </p>
             <p>{this.props.order.snacks.map((snack) =>
               <li key={snack.name} style={{ fontSize: 20 }}>
-                {snack.name} x {snack.qty}
+                {snack.name} x {snack.qty} {/*price: ${snack.price} */}
               </li>)}
             </p>
-            {(this.state.diff > 15 && this.props.order.status === "outstanding") ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
+            {(this.state.discount) ? <p>Total(discount given): {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
             {(this.props.order.ratings) ? <><p>Ratings: </p><Rate disabled value={this.props.order.ratings} /></> : <></>}
             {(this.props.order.comment) ? <><p>Comment: </p><>{this.props.order.comment}</></> : <></>}
           </Modal.Body>
@@ -417,7 +424,7 @@ export default class OrderBrief extends React.Component {
 
         {/* each order brief */}
 
-        {this.state.diff > 15 && this.props.order.status === "outstanding" ?
+        {this.state.discount && this.props.order.status === "outstanding" ?
           <Badge.Ribbon text="20% OFF " >
             <Card style={{ backgroundColor: "#F4976C", margin: "14px" }}
               actions={this.renderActions()} >
@@ -427,7 +434,7 @@ export default class OrderBrief extends React.Component {
               <Meta title={this.props.order.snacks.map((snack) => 
                 <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
               <Meta title={"Price(before discount): $" + this.props.order.total * 1.25} />
-              <Meta title={(this.state.diff > 15 ) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}/>
+              <Meta title={(this.state.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}/>
               {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up."
                 : (this.props.order.status === "completed") ? "order is completed"
                   : <TimeCountUp updatedAt={this.props.order.updatedAt}
@@ -444,7 +451,7 @@ export default class OrderBrief extends React.Component {
               <Meta title={this.props.order.snacks.map((snack) => 
                 <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
               
-              <Meta title={(this.state.diff > 15) ? <p>Total price(discount given): ${this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total price: ${this.props.order.total}</p>}/>
+              <Meta title={(this.state.discount) ? <p>Total price(discount given): ${this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total price: ${this.props.order.total}</p>}/>
               {/* {(window.location.pathname === '/order') ? <p>Customer: {this.props.order.customer.name}</p> : <p>enjoy</p>} */}
               {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up. "
                 : (this.props.order.status === "completed") ? "order is completed"
