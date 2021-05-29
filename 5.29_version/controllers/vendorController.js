@@ -68,11 +68,11 @@ exports.vendorLoginPost = function(req,res){
 //update vendor's parking status
 exports.vendorStatusPost = function (req, res) {
 
-
     Vendor.findByIdAndUpdate(req.params.id,
-        { Address: req.body.Address, 
+        { 
+            Address: req.body.Address, 
             parked: req.body.parked, 
-            location: { type: "Point", coordinates: req.body.location } 
+            location: { type: "Point", coordinates: req.body.location }
         },
         { new: true },
         function (err, updated) {

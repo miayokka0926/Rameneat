@@ -26,6 +26,7 @@ describe("customer profile integration test", () => {
             },
             function (error, response, body) {
                 expect(app.response.statusCode).to.equal(200);
+                
                 // expect(body.name).to.equal(Mia);
                 // console.log(response.status);
                 

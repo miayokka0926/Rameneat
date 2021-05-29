@@ -5,7 +5,7 @@ import Header from '../components/Header.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import Collapse from 'react-bootstrap/Collapse';
-import { Jumbotron, Button, Form, FormControl, Col, Row } from 'react-bootstrap';
+import { Jumbotron, Button, Form, FormControl} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import image from '../pic/logo1.jpg';

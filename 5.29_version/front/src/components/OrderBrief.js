@@ -379,12 +379,12 @@ export default class OrderBrief extends React.Component {
           onHide={() => this.handleClose()}
         >
           <Modal.Header closeButton style={{ backgroundColor: "#F4976C" }}>
-            <Modal.Title>{"Order updated at " + Date(this.props.order.updatedAt)}</Modal.Title>
+            <Modal.Title>{"Order updated at " + this.props.order.updatedAt}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p style={{ fontSize: 30, color: "#F4976C" }}>
               {" "}
-              Vendor: {this.props.order.vendor.name}
+              Vendor: {this.props.order.vendor.name + ' (' + this.props.order.vendor.Address+')'}
             </p>
             <p>{this.props.order.snacks.map((snack) =>
               <li key={snack.name} style={{ fontSize: 20 }}>
@@ -435,7 +435,6 @@ export default class OrderBrief extends React.Component {
             actions={this.renderActions()} >
               <Meta title={"Vendor: " + this.props.order.vendor.name} />
               <Meta title={"Status: " + this.props.order.status} />
-              <Meta title={"Customer: " + this.props.order.customer.name} />
               <Meta title={"Snacks: "} />
               <Meta title={this.props.order.snacks.map((snack) => 
                 <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
