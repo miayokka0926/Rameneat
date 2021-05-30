@@ -23,7 +23,6 @@ exports.vendorRegisterPost = function (req, res) {
                         res.json({
                             vendor: {
                                 name: vendor.name,
-
                                 password: vendor.password
                             }
                         })
@@ -42,7 +41,7 @@ exports.vendorLoginPost = function(req,res){
         name:name,
     }).then ((vendor)=>{
         if (!vendor){
-            res.status(200).json({ error: "vendor not registered!" });
+            res.status(200).json({ success:false, error: "vendor not registered!" });
         }else {
             bcrypt.compare(password, vendor.password, (err, match)=>{
                 if (match) {
@@ -52,10 +51,11 @@ exports.vendorLoginPost = function(req,res){
                             id: vendor.id,
                             name: vendor.name,
                             password: password,
+                            Address: vendor.Address
                         }
                     })
 
-                } else {
+                }else {
                     res.status(409).json({ error: "incorrect password!"})
                 }
             })

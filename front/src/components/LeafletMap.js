@@ -1,11 +1,10 @@
+
 import React, { useState, useMemo } from "react";
 import { MapContainer as Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import { useHistory } from 'react-router-dom';
 import { Button, Form, Modal, } from 'react-bootstrap';
 import { message } from 'antd';
-
 import axios from '../commons/axios.js';
-
 import Menu from './Menu.js';
 
 
@@ -33,28 +32,38 @@ export default function LeafletMap(props) {
         [],
     )
 
+    //  vendor park
     const onPark = () => {
         console.log(props.vendor.id, position)
         console.log(address)
         if (address) {
+            console.log(position)
             axios.post('/vendor/park/' + props.vendor.id, {
-                location: position,
-                Address: address,
+                "location" : [position.lat, position.lng],
+                "Address" : address,
+                "parked": true,
             }).then(response => {
-                if (response.data.success) {
-                    message.success("vendor now parked!")
-                    history.push({ pathname: "/orders", state: { vendor: props.vendor } })
-                }
-                else {
-                    message.error("an error occurs when parking");
-                }
+                // if (response.data.success) {
+                //     // console.log('Im here');
+                //     message.success("vendor now parked!")
+                //     history.push({ pathname: "/orders", state: { vendor: props.vendor } })
+                // }
+                // else {
+                //     // console.log('Im here');
+                //     message.error("an error occurs when parking");
+                // }
+                message.success("vendor now parked!")
+                history.push({ pathname: "/orders", state: { vendor: props.vendor } })
             })
 
+        } else{
+            message.error("Enter a valid address!");
         }
-        console.log(props.vendor.location)
+        // console.log(props.vendor.location)
 
     }
 
+    // get nearest five vendor aand render them on map.
     const renderFiveVendors = props.vendors.map((vendor) => {
         return (
             <Menu key={vendor.id} position={vendor.location} snacks={props.snacks}
@@ -62,6 +71,7 @@ export default function LeafletMap(props) {
         )
     })
 
+    
     const renderCustomerMarker = (
         <Marker position={props.center} iconUrl={"https://static.thenounproject.com/png/780108-200.png"}>
             <Tooltip direction="bottom">Current Location</Tooltip>
@@ -84,7 +94,7 @@ export default function LeafletMap(props) {
 
     return (
         <div>
-
+            {/* submit vendor address */}
             <Modal show={show} onHide={handleClose} style={{ marginTop: "2vh" }} >
                 <Modal.Header closeButton>
                     <Modal.Title>Vendor Parking</Modal.Title>
@@ -126,4 +136,3 @@ export default function LeafletMap(props) {
 
 
 }
-

@@ -5,49 +5,46 @@ const { Text } = Typography;
 
 export default class TimeCountUp extends Component {
 
-    constructor(props){
+    constructor(props) {
         super();
         this.state = {
             min: "",
             sec: ""
         }
     }
-    
-    tick(){
+
+    tick() {
         let now = new Date()
-        let upd  = Date.parse(this.props.updatedAt)
-        this.setState({ min:parseInt((now - upd) / 60000) })
+        let upd = Date.parse(this.props.updatedAt)
+        this.setState({ min: parseInt((now - upd) / 60000) })
         let secs = ((now - upd) - this.state.min * 60000) / 1000
         this.setState({ sec: parseInt(secs) })
     }
     //run tick() every sec
-    componentDidMount(){
+    componentDidMount() {
         this.timeID = setInterval(
             () => this.tick(), 1000); //update DOM everySec
-        
+
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(this.timeID); // tear down timer so that interval start over.
     }
 
 
     render() {
-        
+
         return (
             <div>
 
-            
+                {
+                    (window.location.pathname === '/orders' && (14 - this.state.min) >= 0)
+                        ? <p><Text style={{ fontSize: 20 }} strong={true}>
+                            {'Time countdown until discount: ' + (14 - this.state.min) + ' mins, ' + (60 - this.state.sec) + ' secs'} </Text></p>
+                        : <p><Text style={{ fontSize: 20 }} strong={true}> {'Time countup: ' + this.state.min + ' mins, ' + this.state.sec + ' secs'} </Text></p>
+                }
 
-            {  
-                // can be written
-                (window.location.pathname === '/orders' && (14- this.state.min) >= 0) ? <Text strong = {true}> { 'time countdown until discount: ' + 
-                (14- this.state.min) + ' mins, ' + (60 - this.state.sec) + ' secs'} </Text>
-                : <Text strong = {true}> { 'time countup: ' + this.state.min + ' mins, ' + this.state.sec + ' secs'} </Text>
-                
-            } 
-
-          </div>
+            </div>
         )
     }
 }

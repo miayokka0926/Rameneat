@@ -1,7 +1,5 @@
 import React, { useState, useEffect, Component } from 'react';
 import axios from '../commons/axios.js';
-// import URLs from '../url';
-import io from "socket.io-client";
 import { Empty, message } from 'antd';
 
 import OrderBrief from "./OrderBrief.js";
@@ -10,7 +8,6 @@ function Orders(props) {
 
   const [orders, setOrders] = useState([])
   const [status, setStatus] = useState('')
-  // const id = props.id
   const [id, setId] = useState('')
 
 
@@ -20,7 +17,7 @@ function Orders(props) {
     }
     if (props.id) {
       setId(props.id)
-  }
+    }
 
     async function fetchData() {
       axios.get("/order?" + props.target + "=" + id + status).then(response => {
@@ -32,10 +29,12 @@ function Orders(props) {
         }
       }).catch(error => {
         setOrders([]);
+        // console.log(error.response.data.error)
+        // message.error(error.response.data.error)
       })
     }
     fetchData()
-  }, [id, orders, props.target, props.status])
+  }, [id, orders, props.target, props.status, props.id, status])
 
   const renderOrders = orders.map((order) => {
     return (
@@ -44,6 +43,7 @@ function Orders(props) {
         order={order} />
     )
   })
+
 
   return (
     <div>
@@ -67,39 +67,16 @@ export default class OrderList extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   const socket = io('${URLs.socketURL}/socket', { transports: ['websocket'] });
-  //   // const socket = io('/socket', { transports: ['websocket'] });
 
-  //   socket.on("newOrder", (order) => {
-  //     console.log("insertion by customer");
-  //     this.setState({ orders: [...this.state.orders, order] });
-
-  //   });
-
-  //   socket.on("updateOrder", (id) => {
-  //     console.log("update by customer");
-  //     console.log(id)
-  //   });
-
-  //   socket.on("deleteOrder", (id) => {
-  //     console.log("delete by customer");
-  //     const updateOrders = this.state.orders.filter((order) => {
-  //       return order._id !== id;
-  //     });
-  //     this.setState({ orders: updateOrders });
-  //   });
-  // }
 
   render() {
     return (
       <div style={{ height: '100vh', width: '100%', margin: 'auto', "marginTop": "7%" }}>
-        <Orders 
-          id={this.props.id}
-          orders={this.state.orders}
-          target={this.props.target}
-          status={this.props.status} />
-
+              <Orders
+                id={this.props.id}
+                orders={this.state.orders}
+                target={this.props.target}
+                status={this.props.status} />
       </div>
     )
   }

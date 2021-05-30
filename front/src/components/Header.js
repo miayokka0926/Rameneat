@@ -20,11 +20,8 @@ export default function Header(props) {
     const handleDrawerShow = () => setDrawerVisible(true);
     const [title, setTitle] = useState("");
     const [options, setOptions] = useState([]);
-
     const [target, setTarget] = useState("");
-
     const [id, setId] = useState('')
-    // const [customer, setCustomer] = useState('')
 
 
 
@@ -35,10 +32,9 @@ export default function Header(props) {
                 setId(props.customer.id)
             }
         }
+        
 
-
-
-
+        // display different headers under different conditions
         if (props.customer && history.location.pathname === "/customer") {
             setTitle('Welcome to RAMEN EAT, ' + props.customer.name + '!')
             setTarget('customer');
@@ -49,12 +45,12 @@ export default function Header(props) {
                         style={{ backgroundColor: "#F4976C", borderBottomColor: "#F4976C" }}
                         variant="outline-light"
                         key="0"
-                        title="nearest vendors">
+                        title="Nearest vendors">
 
                         {props.vendors.map((vendor) => (
-                            <Dropdown.Item title={vendor.name} >
+                            <Dropdown.ItemText title={vendor.name} >
                                 {vendor.name}
-                            </Dropdown.Item>
+                            </Dropdown.ItemText>
                         ))}
 
                     </DropdownButton>
@@ -71,7 +67,7 @@ export default function Header(props) {
                             });
                         }}>
                         My profile
-                    </Button>
+                </Button>
 
                     <Button
                         variant="outline-light"
@@ -80,7 +76,7 @@ export default function Header(props) {
                         onClick={handleDrawerShow}
                     >
                         view Orders
-                    </Button>
+                </Button>
                 </ButtonGroup>
             ]);
         } else if (history.location.pathname === "/profile") {
@@ -100,10 +96,10 @@ export default function Header(props) {
             ])
         } else if (history.location.pathname === "/vendor") {
             setTitle('Welcome to RAMEN EAT, ' + props.vendor.name + '!')
+            
             setTarget('vendor');
 
         } else if (history.location.pathname === "/orders") {
-            console.log(props)
             setTitle('Welcome to RAMEN EAT, ' + props.vendor.name + '!')
             setTarget('vendor');
 
@@ -122,9 +118,7 @@ export default function Header(props) {
                 </Button>
             ])
         }
-    }, []);
-
-    // console.log(props)
+    }, [history, props.customer, props.orders, props.vendor, props.vendors]);
 
     return (
         <div>
@@ -136,7 +130,6 @@ export default function Header(props) {
                 onClose={handleDrawerClose}
                 width={"70vw"}>
 
-                {/* <h3 style={{ color: "#F4976C" }}>My orders</h3> */}
                 <Divider />
                 <OrderList
                     customer={props.customer}
@@ -144,7 +137,7 @@ export default function Header(props) {
                     vendor={props.vendors}
                     target={target}
                     orders={props.orders}
-                />
+                    />
             </Drawer>
         </div>
     )

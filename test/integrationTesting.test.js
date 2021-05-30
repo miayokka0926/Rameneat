@@ -1,15 +1,16 @@
+// test customer profile is changed successfully
 const expect = require('chai').expect;
 const request = require('request');
 const app = require('../src/app');
 
-const baseUrl = "http://localhost:5500/profile"
+
+const baseUrl = "http://localhost:3000/"
 
 const testCustomerProfile = {
     validBody: {
-        "name": 'Mia',
-        "familyName": 'Ma',
-        "password": '123'
-
+        name: 'Mia',
+        familyName: 'Ma',
+        password: '123'
     }
 }
 
@@ -25,8 +26,9 @@ describe("customer profile integration test", () => {
                 json: true,
             },
             function (error, response, body) {
-                // expect(response.statusCode).to.equal(200);
-                expect(body.name).to.equal(Mia);
+                expect(app.response.statusCode).to.equal(200);
+                //  expect(body.name).to.equal('Mia');
+                
                 if (error) done(error);
                 else done();
             }

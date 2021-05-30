@@ -48,7 +48,7 @@ function App(props) {
   )
 
   const renderTooltipCustomer = (props) => (
-    <Tooltip id="button-tooltip" {...props}> start your tasty journey</Tooltip>
+    <Tooltip id="button-tooltip" {...props}> start your tasty journey</Tooltip>
   )
   // ask customer to fillin their email and password once they click on login button.
   const onCustomerLogin = () => {
@@ -99,24 +99,30 @@ function App(props) {
 
   const onCustomerRegister = (props) => {
     console.log(familyName);
-    const updateBody = {
+    if (registerName && familyName && registerEmail && registerPassword) {
+      const updateBody = {
         "name": registerName,
         "familyName": familyName,
         "email": registerEmail,
         "password": registerPassword,
-    }
-    axios.post('/customer/register', updateBody).then(response => {
+      }
+      axios.post('/customer/register', updateBody).then(response => {
         if (response.data.success) {
-            message.success("Customer detail uploaded successfully!")
-            // console.log(registerName);
+          message.success("Customer detail uploaded successfully!")
+          // console.log(registerName);
         } else {
-            message.error(response.data.error)
-            // console.log(registerName);
+          message.error(response.data.error)
+  
+          // console.log(registerName);
         }
-    })
-    setRegisterOpen(!registerOpen);
+      })
+      setRegisterOpen(!registerOpen);
+    } else {
+      message.error("Enter completed information")
+    }
+    
   }
-
+  // collapse will open when you click on register
   const registerCollapse = (
     <>
       <Collapse in={registerOpen}>
@@ -124,7 +130,7 @@ function App(props) {
 
           <Form>
             <br />
-            <h3 style={{ color: "#F4976C" }}>Welcome to RAMEN EAT!</h3>
+            <h3 style={{ color: "#F4976C" }}>Register here</h3>
 
             <Form.Group >
               <Form.Label>Email </Form.Label>
@@ -151,28 +157,28 @@ function App(props) {
 
 
           <Button
-            style={{ color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C', marginLeft: "10%"  }}
+            style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6', marginLeft: "20%" }}
             variant="primary"
             onClick={onCustomerRegister}
           >
-            Submit
+            Sign up
       </Button>
 
 
           <Button
-            style={{ color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C',  marginLeft: "30%"  }}
+            style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6', marginLeft: "30%" }}
             variant="primary"
             onClick={() => setRegisterOpen(!registerOpen)}
           >
             Cancel
       </Button>
-
-
+          <br />
         </p>
       </Collapse>
     </>
   )
 
+  // collpase will open if you click 'Customer'
   const customerCollapse = (
     <>
       <Collapse in={customerOpen}>
@@ -190,15 +196,11 @@ function App(props) {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
-                onChange={e => setPassword(e.target.value)} 
-                />
+                onChange={e => setPassword(e.target.value)}
+              />
             </Form.Group>
           </Form>
 
-          <p> <Link onClick={() => setRegisterOpen(!registerOpen)}>New user? </Link> </p>
-          <Collapse>
-            {registerCollapse}
-          </Collapse>
           <p> <Link onClick={onSkip}>Proceed without login</Link> </p>
 
           <Button
@@ -214,6 +216,7 @@ function App(props) {
     </>
   )
 
+  // collapse will open if you click on 'Vendor'
   const vendorCollapse = (
     <>
       <Collapse in={vendorOpen}>
@@ -232,7 +235,7 @@ function App(props) {
               <Form.Label>Password</Form.Label>
               <FormControl style={{ fontSize: 12 }} type="password" placeholder="Please enter your password"
                 onChange={e => setPassword(e.target.value)}
-                />
+              />
             </Form.Group>
           </Form>
 
@@ -252,8 +255,6 @@ function App(props) {
   )
 
 
-
-  // the UI design of log in page.
   return (
 
     <div id="LogIn" style={{ width: '60%', margin: 'auto', marginTop: '2%' }}>
@@ -272,6 +273,14 @@ function App(props) {
 
         <p>
           <h6 style={{ color: '#707070', opacity: '50%' }}>I'm a...</h6>
+        </p>
+
+        <p>
+          <Link onClick={() => setRegisterOpen(!registerOpen)} style={{ fontSize: 17 }}>New user? </Link>
+
+          <Collapse>
+            {registerCollapse}
+          </Collapse>
         </p>
 
         <p>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Badge, InputNumber, Card, notification, message, Rate, Divider, Input, Row } from "antd";
 import { EyeOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
@@ -12,8 +12,8 @@ const desc = ['very bad', 'bad', 'normal', 'good', 'very good'];
 const { TextArea } = Input;
 
 
-
 export default class OrderBrief extends React.Component {
+
 
   constructor(props) {
     super();
@@ -37,8 +37,7 @@ export default class OrderBrief extends React.Component {
   handleEditShow = () => this.setState({ editModalVisible: true });
 
 
-
-  //update an item of the menu
+  //add an item of the menu
   addItem = (index, event) => {
     let newOrder = [...this.state.order];
     let value = newOrder[index];
@@ -59,22 +58,26 @@ export default class OrderBrief extends React.Component {
     this.setState({ order: newOrder });
   };
 
+
+
+  // vendor mark order
   onOrderMark = () => {
     var statusToBeUpdated, discount;
-    var total = this.props.order.total;
+    // var total = this.props.order.total;
     if (this.props.order.status === "outstanding") {
       statusToBeUpdated = "fulfilled"
-      if (this.state.diff > 15) {
+      if (this.state.discount) {
         discount = true;
-        total = total * 0.8
-      } else {
+        // total = total * 0.8
+      }
+      else {
         discount = false;
       }
       axios
         .post("/order/" + this.props.order._id + "/update", {
-          total: total,
-          discount: discount,
-          status: statusToBeUpdated
+          status: statusToBeUpdated,
+          discount: discount
+          // total: total
         })
         .then((response) => {
           if (response.data.success) {
@@ -102,7 +105,7 @@ export default class OrderBrief extends React.Component {
       notification.open({
         message: "Order is already completed!",
         description: "The order is already completed",
-        duration: 4
+        duration: 3
       });
     }
   }
@@ -118,8 +121,11 @@ export default class OrderBrief extends React.Component {
           "price": this.state.menu[i].price,
         });
         this.state.total += this.state.menu[i].price * this.state.order[i];
+        // this.setState({ total: this.state.menu[i].price * this.state.order[i] });
+        // this.state.total += this.state.menu[i].price * this.state.order[i];
       }
       console.log(this.state);
+      console.log(this.state.total)
     }
 
     //set up error cases
@@ -145,6 +151,7 @@ export default class OrderBrief extends React.Component {
   }
 
 
+  // customer submit comments 
   onCommentSubmit = () => {
     axios
       .post("/order/" + this.props.order._id + "/update", {
@@ -161,10 +168,15 @@ export default class OrderBrief extends React.Component {
       })
   }
 
+  // get time
   tick() {
     let now = new Date().getTime()
     let upd = Date.parse(this.props.order.updatedAt)
     this.setState({ diff: ((now - upd) / 60000) })
+
+    if (this.state.diff > 15) {
+      this.setState({ discount: true });
+    }
   }
 
   componentDidMount() {
@@ -191,8 +203,9 @@ export default class OrderBrief extends React.Component {
     this.setState({ comment: value });
   }
 
+  // handle edit icon (customer side)
   handleEditOrder = () => {
-    console.log(this.props.order.ratings)
+    console.log(this.state.diff)
     if (this.props.order.status === "outstanding" && this.state.diff <= 10) {
       this.setState({ editModalVisible: true });
     }
@@ -221,6 +234,7 @@ export default class OrderBrief extends React.Component {
     }
   }
 
+  // when put your mouse on edit icon, different messages will be displayed.
   renderTooltip = (props) => {
     if (this.props.order.status === "outstanding" && window.location.pathname === '/customer') {
       return (<Tooltip id="button-tooltip" {...this.props}> Edit your order </Tooltip>)
@@ -240,6 +254,7 @@ export default class OrderBrief extends React.Component {
     return (<Tooltip id="button-tooltip" {...this.props}> View order detail </Tooltip>)
   }
 
+  // the icons have different actions when clicking on them, based on your identity
   renderActions = () => {
     if (window.location.pathname === '/customer') {
       return (
@@ -249,7 +264,7 @@ export default class OrderBrief extends React.Component {
             delay={{ show: 260, hide: 400 }}
             overlay={this.renderDetailTooltip()}
           >
-            <EyeOutlined onClick={() => this.handleShow()} />
+            <EyeOutlined key="detail" onClick={() => this.handleShow()} />
           </OverlayTrigger>,
 
           <OverlayTrigger
@@ -257,7 +272,7 @@ export default class OrderBrief extends React.Component {
             delay={{ show: 260, hide: 400 }}
             overlay={this.renderTooltip()}
           >
-            <EditOutlined onClick={() => this.handleEditOrder()} />
+            <EditOutlined key="edit" onClick={() => this.handleEditOrder()} />
           </OverlayTrigger>
         ]
       )
@@ -269,7 +284,7 @@ export default class OrderBrief extends React.Component {
             delay={{ show: 260, hide: 400 }}
             overlay={this.renderDetailTooltip()}
           >
-            <EyeOutlined onClick={() => this.handleShow()} />
+            <EyeOutlined key="detail" onClick={() => this.handleShow()} />
           </OverlayTrigger>,
 
           <OverlayTrigger
@@ -277,13 +292,14 @@ export default class OrderBrief extends React.Component {
             delay={{ show: 260, hide: 400 }}
             overlay={this.renderTooltip()}
           >
-            <CheckOutlined onClick={() => this.onOrderMark()} />
+            <CheckOutlined key="mark" onClick={() => this.onOrderMark()} />
           </OverlayTrigger>
         ]
       )
     }
   }
 
+  // edit order
   renderEditModalContent = () => {
     if (this.props.order.status === "outstanding") {
       return (
@@ -316,10 +332,9 @@ export default class OrderBrief extends React.Component {
                   <InputNumber
                     key={snack._id}
                     min={0}
-                    defaultValue={0}
                     value={this.state.order[index]}
-                  // defaultValue = {(this.state.order[index] === "undefined") ? 0 :  this.state.order[index]}
-                  // value={this.state.order[index]}
+                    defaultValue={0}
+
                   />
                   <Button
                     onClick={(e) => this.addItem(index, e)}
@@ -342,25 +357,33 @@ export default class OrderBrief extends React.Component {
         </>
       )
     } else {
+
       return (
         <>
-          {/* NEED UI CHANGE */}
-          <Modal.Header closeButton>
+          <Modal.Header closeButton style={{ backgroundColor: "#F4976C" }}>
             <Modal.Title>{"OrderId: " + this.props.order._id}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Vendor: {this.props.order.vendor.name}</p>
-            <p>Snacks: {this.props.order.snacks.map((snack) => <li key={snack.name}>{snack.name} x {snack.qty}</li>)}</p>
-            <h6>Rate your experience with us</h6>
-            <p>Ratings:</p><Rate tooltips={desc} onChange={(e) => this.ratingsChange(e)} />
-            {this.state.ratings ? <span className="ant-rate-text"> {desc[this.state.ratings - 1]} </span> : ''}
-            <p>Comment</p><TextArea rows={4} onChange={(e) => this.commentChange(e.target.value)} />
+            <p style={{ fontSize: 30, color: "#F4976C" }}>
+              {" "}
+              Vendor: {this.props.order.vendor.name}
+            </p>
+            <p style={{ fontSize: 20 }}>Location: {this.props.order.vendor.Address}</p>
+            <p>{this.props.order.snacks.map((snack) =>
+              <li key={snack.name} style={{ fontSize: 20 }}>
+                {snack.name} x {snack.qty}
+              </li>)}
+            </p>
+            <Divider>Rate your experience with us</Divider>
+            <p>You ratings:</p><Rate tooltips={desc} onChange={(e) => this.ratingsChange(e)} />
+            {this.state.ratings ? <span className="ant-rate-text">{desc[this.state.ratings - 1]}</span> : ''}
+            <p>Your comment</p><TextArea rows={4} onChange={(e) => this.commentChange(e.target.value)} />
 
           </Modal.Body>
           <Modal.Footer>
-            决定是否可以更新多次
-            <Button variant="primary" onClick={() => this.onCommentSubmit()}> Submit  </Button>
-
+            <Button style={{ color: '#FBE8A6', backgroundColor: '#F4976C', borderColor: '#F4976C' }} variant="primary" onClick={() => this.onCommentSubmit()}>
+              Submit
+            </Button>
           </Modal.Footer>
         </>
       )
@@ -379,21 +402,22 @@ export default class OrderBrief extends React.Component {
           onHide={() => this.handleClose()}
         >
           <Modal.Header closeButton style={{ backgroundColor: "#F4976C" }}>
-            <Modal.Title>{"Order updated at " + Date(this.props.order.updatedAt)}</Modal.Title>
+            <Modal.Title>{"Order updated at " + this.props.order.createdAt}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p style={{ fontSize: 30, color: "#F4976C" }}>
               {" "}
               Vendor: {this.props.order.vendor.name}
             </p>
+            <p style={{ fontSize: 20 }}>Location: {this.props.order.vendor.Address}</p>
             <p>{this.props.order.snacks.map((snack) =>
               <li key={snack.name} style={{ fontSize: 20 }}>
                 {snack.name} x {snack.qty}
               </li>)}
             </p>
-            {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>}
-            {(this.props.order.ratings) ? <><p>Ratings: </p><Rate disabled value={this.props.order.ratings} /></> : <></>}
-            {(this.props.order.comment) ? <><p>Comment: </p><>{this.props.order.comment}</></> : <></>}
+            {(this.state.discount) ? <p style={{ fontSize: 20 }}>Total (discount given): ${this.props.order.total} * 0.8 = ${this.props.order.total * 0.8}</p> : <p style={{ fontSize: 20 }}>Total: ${this.props.order.total}</p>}
+            {(this.props.order.ratings) ? <><p style={{ fontSize: 20 }}>Ratings: </p><Rate disabled value={this.props.order.ratings} /></> : <></>}
+            {(this.props.order.comment) ? <><p style={{ fontSize: 20 }}>Comment: </p><>{this.props.order.comment}</></> : <></>}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" style={{ backgroundColor: '#F4976C', borderColor: '#F4976C' }} onClick={() => this.handleClose()}>
@@ -411,42 +435,47 @@ export default class OrderBrief extends React.Component {
 
         {/* each order brief */}
 
-        {this.props.order.discount ?
-          <Badge.Ribbon text="20% OFF BADGE 颜色需修改 " >
-            <Card style={{ backgroundColor: "#F4976C", margin: "14px" }}
-              actions={this.renderActions()} >
-              <Meta title={"Vendor: " + this.props.order.vendor.name} />
-              <Meta title={"Status: " + this.props.order.status} />
-              <Meta title={"Snacks"} />
-              <Meta title={this.props.order.snacks.map((snack) =>
-                <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
-              <Meta title={"Price(before discount): $" + this.props.order.total * 1.25} />
-              <Meta title={(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>} />
-              {/* {(this.props.order.discount) ? <p>Total: {this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total: {this.props.order.total}</p>} */}
-              {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up."
-                : (this.props.order.status === "completed") ? "order is completed"
-                  : <TimeCountUp updatedAt={this.props.order.updatedAt}
-                  />}
-              <Meta title={(window.location.pathname === '/orders') ? <p>Customer: {this.props.order.customer.name}</p> : <p>Enjoy!</p>} />
-            </Card>
-          </Badge.Ribbon>
+        {this.state.discount 
+        // && this.props.order.status === "outstanding" 
+        ?
 
-          : <Card style={{ backgroundColor: "#F4976C", margin: "14px" }}
+          <Card style={{ width: "90%", backgroundColor: "#FBE8A6", margin: "1%", align: "center" }}
+            hoverable={false}
+            actions={this.renderActions()} >
+
+            <Meta title={"Vendor: " + this.props.order.vendor.name} />
+            <Meta title={"Status: " + this.props.order.status} />
+            <Meta title={"Snacks: "} />
+            <Meta title={this.props.order.snacks.map((snack) =>
+              <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
+            <Meta title={"Price(before discount): $" + this.props.order.total} />
+            <Badge status="warning" text="20% OFF" style={{ fontSize: 20, margin: "5px" }} />
+            <Meta title={(this.state.discount) ? <p>Total: {this.props.order.total} * 0.8 = ${this.props.order.total * 0.8}</p> : <p>Total: ${this.props.order.total}</p>} />
+            {(this.props.order.status === "fulfilled") ? <p style={{ fontSize: 20 }}>The order is fulfilled and is ready to pick up. </p>
+              : (this.props.order.status === "completed") ? <p style={{ fontSize: 20 }}>The order is completed. </p>
+                : <TimeCountUp updatedAt={this.props.order.updatedAt}
+                />}
+            <Meta title={(window.location.pathname === '/orders') ? <p>Customer: {this.props.order.customer.name}</p> : <p>Enjoy!</p>} />
+          </Card>
+
+
+          :
+          <Card style={{ width: "90%", backgroundColor: "#FBE8A6", margin: "1%", align: "center" }}
+            hoverable={false}
             actions={this.renderActions()} >
             <Meta title={"Vendor: " + this.props.order.vendor.name} />
             <Meta title={"Status: " + this.props.order.status} />
-            <Meta title={"Customer: " + this.props.order.customer.name} />
             <Meta title={"Snacks: "} />
             <Meta title={this.props.order.snacks.map((snack) =>
               <li key={snack.name}>{snack.name} x {snack.qty}</li>)} />
 
-            <Meta title={(this.props.order.discount) ? <p>Total price(discount given): ${this.props.order.total * 1.25} * 0.8 = {this.props.order.total}</p> : <p>Total price: ${this.props.order.total}</p>} />
-            {/* {(window.location.pathname === '/order') ? <p>Customer: {this.props.order.customer.name}</p> : <p>enjoy</p>} */}
-            {(this.props.order.status === "fulfilled") ? "order is fulfilled and is ready to pick up. "
-              : (this.props.order.status === "completed") ? "order is completed"
+            <Meta title={(this.state.discount) ? <p>Total price (discount given): ${this.props.order.total} * 0.8 = ${this.props.order.total * 0.8}</p> : <p>Total price: ${this.props.order.total}</p>} />
+            {(this.props.order.status === "fulfilled") ? <p style={{ fontSize: 20 }}>The order is fulfilled and is ready to pick up. </p>
+              : (this.props.order.status === "completed") ? <p style={{ fontSize: 20 }}>The order is completed. </p>
                 : <TimeCountUp updatedAt={this.props.order.updatedAt} />}
-            <Meta title={(window.location.pathname === '/orders') ? <p>Customer: {this.props.order.customer.name}</p> : <p>Enjoy!</p>} />
-          </Card>}
+            <Meta title={(window.location.pathname === '/orders') ? <p style={{ fontSize: 20 }}>Customer: {this.props.order.customer.name}</p> : <p style={{ fontSize: 20 }}>Enjoy!</p>} />
+          </Card>
+        }
       </>
     )
   }

@@ -6,18 +6,19 @@ const Schema = mongoose.Schema;
 var OrderSchema = new Schema({
 
     customer: {
-        type:Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:'Customer'
     },
     
     vendor: {
-        type:Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:'Vendor'
     },
     
     snacks: {
         type:Array,
         default:[]
+        
     },
 
     status: {
@@ -28,6 +29,7 @@ var OrderSchema = new Schema({
     ratings: {
         type: Number,
     },
+
 
     comment: {
         type: String,

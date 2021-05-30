@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { message } from 'antd'
+import { Divider, message } from 'antd'
 import axios from '../commons/axios.js'
 import Header from '../components/Header.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import Collapse from 'react-bootstrap/Collapse';
-import { Jumbotron, Button, Form, FormControl } from 'react-bootstrap';
+import { Jumbotron, Button, Form, FormControl} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import image from '../pic/logo1.jpg';
@@ -21,7 +21,8 @@ function CustomerProfile(props) {
     console.log(props.location.state.customer.familyName)
     const onUpdate=() => {
 
-        console.log(familyName);
+
+        console.log(props);
         const updateBody = {
             "name": name,
             "familyName": familyName,
@@ -31,14 +32,13 @@ function CustomerProfile(props) {
         axios.post('/customer/update', updateBody).then(response => {
             if (response.data.success) {
                 message.success("Customer detail updated successfully!")
-                // console.log(name);
             } else {
                 message.error(response.data.error)
-                // console.log(name);
+        
             }
-        })
 
         setOpen(!open)
+        })
     }
 
   
@@ -55,14 +55,11 @@ function CustomerProfile(props) {
 
                 <br />
 
-                <h6>email: {props.location.state.customer.email}</h6>
-                <h6>given name: {name}</h6>
-                {/* <h6>family name: {(familyName) ? {familyName} : 'not set'} </h6> */}
-                <h6>password: *** </h6>
-                <h8> Do you like this? </h8>
-
-                <br />
-
+                <h6>Email: {props.location.state.customer.email}</h6>
+                <h6>Given name: {name}</h6>
+                <h6>Family name: {familyName}</h6>
+                <h6>Password: *** </h6>
+                <Divider></Divider>
         
                 <Button
                     onClick={() => setOpen(!open)}
@@ -78,7 +75,7 @@ function CustomerProfile(props) {
                     <p>
                     <Form>
                         <br />
-
+                      
                         <Form.Group >
                         <Form.Label>new given name </Form.Label>
                         <FormControl style={{fontSize:10}} type="string" placeholder="Please update you given name"
@@ -95,15 +92,7 @@ function CustomerProfile(props) {
                         <FormControl style={{fontSize:10}} placeholder="Please update your password"
                             onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
-                        {/* <Form.Group controlId="formBasicPassword">
-                        <Form.Label>confirm new password</Form.Label>
-                        <FormControl style={{fontSize:10}} placeholder="Please confirm your password"
-                            onChange={e => setPassword(e.target.value)} />
-                        </Form.Group> */}
-                        {/* <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="I'm not a robot" />
-                        </Form.Group> */}
-
+                        
                     </Form>
                     
                     
@@ -123,8 +112,6 @@ function CustomerProfile(props) {
                     >
                     Cancel
                     </Button>
-
-
                     </p>
                 </Collapse>
 
