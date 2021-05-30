@@ -2,7 +2,8 @@
   "name": "deliverable2",
   "version": "1.0.0",
   "engines": {
-    "node": "14.16.1"
+    "node": "14.16.1",
+    "npm": "6.14.12"
   },
   "description": "**The University of Melbourne** # INFO30005 – Web Information Technologies",
   "main": "src/app.js",
