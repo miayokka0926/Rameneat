@@ -9,8 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useHistory } from 'react-router-dom';
 import OrderList from "../components/OrderList.js";
 
-// NEED TO IMPROVE MENU FROM DROPDOWN BUTTON
-// import Menu from './Menu.js';
 
 export default function Header(props) {
 

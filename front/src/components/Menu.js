@@ -35,7 +35,6 @@ export default function Menu(props) {
       newOrder[index]++;
     }
     setOrder(newOrder);
-    console.log(newOrder);
 
     var submitOrder = [];
     var total  = 0;
@@ -53,11 +52,8 @@ export default function Menu(props) {
     setSubmitOrder(submitOrder);
     setTotal(total);
     
-    console.log(total);
-
-
-
   };
+
 
   //once - is clicked
   const subtractItem = (index, event) => {
@@ -85,12 +81,11 @@ export default function Menu(props) {
     }
     setSubmitOrder(submitOrder);
     setTotal(total);
-    console.log(total);
     
-
   };
 
   let history = useHistory();
+
 
   //place and submit an order
   const onSubmit = () => {
@@ -142,12 +137,8 @@ export default function Menu(props) {
 
     setOpen(!open);
     
-
     setOrder([]);
 
-
-
-    
   };
 
   const snacks = submitOrder.map((snack, index) => (
@@ -165,7 +156,7 @@ export default function Menu(props) {
         eventHandlers={{ click: handleModalShow }}
       ></Marker>
 
-      <Modal show={modalVisible} onHide={handleModalClose}>
+      <Modal show={modalVisible} onHide={ handleModalClose }>
         <Modal.Header
           closeButton
           style={{ color: "orange", display: "flex", justifyContent: "right" }}

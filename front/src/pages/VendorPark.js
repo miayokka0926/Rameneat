@@ -1,4 +1,4 @@
-//像customerMain一样展示地图，vendor可以点击坐标checkin，开始营业
+// render the map for vendor, checkin vendor address, start business
 import React from 'react'
 import LeafletMap from "../components/LeafletMap.js";
 import Header from "../components/Header.js";

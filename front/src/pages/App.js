@@ -73,7 +73,6 @@ function App(props) {
   const onVendorLogin = () => {
     axios.post('/vendor/login', { name: name, password: password }).then(response => {
       if (response.data.success) {
-        // message.success('vendor login sevvess')
         props.history.push('/vendor', {
           vendor: response.data.vendor,
           vendors: [],
@@ -109,18 +108,15 @@ function App(props) {
       axios.post('/customer/register', updateBody).then(response => {
         if (response.data.success) {
           message.success("Customer detail uploaded successfully!")
-          // console.log(registerName);
         } else {
           message.error(response.data.error)
-  
-          // console.log(registerName);
         }
       })
       setRegisterOpen(!registerOpen);
     } else {
       message.error("Enter completed information")
     }
-    
+
   }
   // collapse will open when you click on register
   const registerCollapse = (
