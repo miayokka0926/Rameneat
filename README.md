@@ -101,6 +101,8 @@ you will be able to:
 ## Other information you may find useful:
 Our localhost address: http://localhost:5500/. 
 
+Live server on Heroku: https://rameneat.herokuapp.com/.
+
 To run our code, type 'npm run dev' in the terminal.
 
 To run test, type 'npm run test' in the terminal.
@@ -131,7 +133,7 @@ password: 123;
 
 ## Deploy in Heroku
 In heroku, you can simply type the link with the route presented in the Postman json file after the main route to see how the features have been fulfilled in live page.(you can add path after the main route to check the features' achievement)
-Main Route Link: https://pacific-spire-87195.herokuapp.com
+Main Route Link: https://rameneat.herokuapp.com/
 
 ## Technologies
 
