@@ -8,7 +8,7 @@ import axios from '../commons/axios.js';
 import Menu from './Menu.js';
 
 
-//render map
+// render map
 export default function LeafletMap(props) {
 
     let history = useHistory();
@@ -32,35 +32,24 @@ export default function LeafletMap(props) {
         [],
     )
 
-    //  vendor park
+    // vendor park
     const onPark = () => {
         console.log(props.vendor.id, position)
         console.log(address)
         if (address) {
             console.log(position)
             axios.post('/vendor/park/' + props.vendor.id, {
-                "location" : [position.lat, position.lng],
-                "Address" : address,
+                "location": [position.lat, position.lng],
+                "Address": address,
                 "parked": true,
             }).then(response => {
-                // if (response.data.success) {
-                //     // console.log('Im here');
-                //     message.success("vendor now parked!")
-                //     history.push({ pathname: "/orders", state: { vendor: props.vendor } })
-                // }
-                // else {
-                //     // console.log('Im here');
-                //     message.error("an error occurs when parking");
-                // }
                 message.success("vendor now parked!")
                 history.push({ pathname: "/orders", state: { vendor: props.vendor } })
             })
 
-        } else{
+        } else {
             message.error("Enter a valid address!");
         }
-        // console.log(props.vendor.location)
-
     }
 
     // get nearest five vendor aand render them on map.
@@ -71,14 +60,14 @@ export default function LeafletMap(props) {
         )
     })
 
-    
+    // render customer icon on map.
     const renderCustomerMarker = (
         <Marker position={props.center} iconUrl={"https://static.thenounproject.com/png/780108-200.png"}>
             <Tooltip direction="bottom">Current Location</Tooltip>
         </Marker>
     )
 
-
+    // render vendor icon on map.
     const renderVendorMarker = (
 
         <Marker

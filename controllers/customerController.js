@@ -40,7 +40,7 @@ exports.customerRegisterPost = function (req, res) {
 
 }
 
-
+// customer login and post the information to website and compare to the database
 exports.customerLoginPost = function (req, res) {
     const { email, password } = req.body;
     Customer.findOne({
@@ -69,6 +69,7 @@ exports.customerLoginPost = function (req, res) {
     })
 }
 
+//update customer and post the information to website & database
 exports.customerUpdatePost = function (req, res) {
     bcrypt.genSalt(6, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {

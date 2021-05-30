@@ -20,15 +20,19 @@ export default class TimeCountUp extends Component {
         let secs = ((now - upd) - this.state.min * 60000) / 1000
         this.setState({ sec: parseInt(secs) })
     }
+
+    
     //run tick() every sec
+    //update DOM everySec
     componentDidMount() {
         this.timeID = setInterval(
-            () => this.tick(), 1000); //update DOM everySec
+            () => this.tick(), 1000); 
 
     }
 
+    // tear down timer so that interval start over.
     componentWillUnmount() {
-        clearInterval(this.timeID); // tear down timer so that interval start over.
+        clearInterval(this.timeID); 
     }
 
 

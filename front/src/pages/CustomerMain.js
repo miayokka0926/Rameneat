@@ -30,6 +30,7 @@ function CustomerMain(props) {
       setSnacks(response.data.snacks)
     });
   }, [props.location.state.position, props.location.state.vendors, props.location.state.customer]);
+  
   //render out the page UI
   return (
     <div>

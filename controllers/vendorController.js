@@ -34,7 +34,7 @@ exports.vendorRegisterPost = function (req, res) {
 
 }
 
-
+// vendor login and post the information to website and compare to the database
 exports.vendorLoginPost = function(req,res){
     const{ name, password } = req.body;
     Vendor.findOne({
