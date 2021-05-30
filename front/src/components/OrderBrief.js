@@ -63,12 +63,10 @@ export default class OrderBrief extends React.Component {
   // vendor mark order
   onOrderMark = () => {
     var statusToBeUpdated, discount;
-    // var total = this.props.order.total;
     if (this.props.order.status === "outstanding") {
       statusToBeUpdated = "fulfilled"
       if (this.state.discount) {
         discount = true;
-        // total = total * 0.8
       }
       else {
         discount = false;
@@ -77,7 +75,6 @@ export default class OrderBrief extends React.Component {
         .post("/order/" + this.props.order._id + "/update", {
           status: statusToBeUpdated,
           discount: discount
-          // total: total
         })
         .then((response) => {
           if (response.data.success) {
@@ -121,11 +118,7 @@ export default class OrderBrief extends React.Component {
           "price": this.state.menu[i].price,
         });
         this.state.total += this.state.menu[i].price * this.state.order[i];
-        // this.setState({ total: this.state.menu[i].price * this.state.order[i] });
-        // this.state.total += this.state.menu[i].price * this.state.order[i];
       }
-      console.log(this.state);
-      console.log(this.state.total)
     }
 
     //set up error cases

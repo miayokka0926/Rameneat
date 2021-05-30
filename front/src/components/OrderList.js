@@ -29,8 +29,6 @@ function Orders(props) {
         }
       }).catch(error => {
         setOrders([]);
-        // console.log(error.response.data.error)
-        // message.error(error.response.data.error)
       })
     }
     fetchData()
@@ -48,7 +46,6 @@ function Orders(props) {
   return (
     <div>
       {
-        // can be written
         (orders.length > 0) ? renderOrders
           : <Empty description={<span> Currently no orders</span>} />
       }

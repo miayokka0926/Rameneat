@@ -97,17 +97,19 @@ function CustomerProfile(props) {
                     
                     
                     <Button
-                    style={{ backgroundColor: "orange", marginLeft: "12%" }}
+                    style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6', marginLeft: "20%" }}
                     variant="primary"
+                    key="update"
                     onClick={onUpdate}
                     >
-                    update
+                    Update
                     </Button>
 
 
                     <Button
-                    style={{ backgroundColor: "orange", marginLeft: "30%" }}
+                    style={{ color: '#F4976C', backgroundColor: '#FBE8A6', borderColor: '#FBE8A6', marginLeft: "30%" }}
                     variant="primary"
+                    key="cancel"
                     onClick={() => setOpen(!open)}
                     >
                     Cancel
