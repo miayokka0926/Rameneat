@@ -30,7 +30,7 @@ Remember that _"this document"_ can use `different formats` to **highlight** imp
 | :----------- | :------------------------------: | ---------------------: |
 | Huage Sun    |        Register, vendor orders   |                   Done |
 | Yuxin Ma     |  Customer orders, customer menus |                   Done |
-| Zhirong Piao |  testing, debug, report          | Deliverable 4 Finished |
+| Zhirong Piao |  testing, debug                  | Deliverable 4 Finished |
 
 ## General info
 
@@ -39,48 +39,40 @@ This is project is to build a web app which server for vending car's owner and c
 ## This is a brief explaination os deliverable 4
 The first page ask you to choose your identity.
 
+If you are a customer but do not want to log in:
 
-### Customer side
-- If you are a customer but do not want to log in:
-
-click 'Customer', then 'Proceed without login', you will be able to see vendors near you and their menus, but you are not able to submit order. There is a 'login' button on the top right of the page, that will direct you to login page at anytime.
+click 'Customer', then 'skip', you will be able to see vendors near you and their menu, but you are not able to submit order. There is a 'login' button on the top right of the page, that will direct you to login at anytime.
 
 
-- If your are a non-registered customer but want to log in:
+If your are a non-registered customer but want to log in:
 
-Click 'New user?', submit your information into the form and log in with the new information.
+Click 'Customer', then'sign up', submit your form and log in.
 
 
-- If you are a registered customer and want to log in:
+If you are a registered customer and want to log in:
 
 Click 'Customer', then fillin your email and password, and log in.
 
 
 #### Then, in ../customer:
 you are able to: 
-1. Find the five nearest vendors on the map, or acquire their name  by clicking the drop-downs.
-2. Click on any vendor to view the menu and submit an order.
+1. find the five nearest vendor by clicking the drop-downs, or you can find vendors on map. 
+2. Click on any vendor to submit an order. 
 3. Change profile by clicking on 'My profile' --> ../profile.
-4. View your order details. Edit your order within 10 mins. Rate and comment your order after pick up. 
-5. For any order that takes more than 15 mins to be marked fulfilled, 20% discount badge will be automatically added to vendor and customer's order list.
+4. View your orders. Edit your order within 10 mins. Rate and comment your order after pick up. 
+5.  For any order that takes more than 15 mins to be marked fulfilled, 20% discount badge will be automatically added to vendor and customer's order list.
+
+If your are a vendor and do not want to login:
+
+click 'Vendor', then 'skip', you will be able to see where you are and login at any time.
 
 
-#### Then, in ../profile:
-you are able to:
-1. View your first name, last name and email
-2. Click 'change information' to change your first name, last name and password. 
-    The new information will be updated into the database and the UI display will be updated in the next login
-3. Click 'back' to go back to ../customer page
+If your are a non-registered vendor but want to log in:
+
+Click 'Vendor', then'sign up', submit your form and log in.
 
 
-
-### Vendor side
-- If your are a vendor and do not want to login:
-
-click 'Vendor', then 'Proceed without login', you will be able to see where you are and login at any time.
-
-
-- If you are a registered vendor and want to log in:
+If you are a registered vendor and want to log in:
 
 Click 'Vendor', then fillin your name and password, and log in.
 
@@ -93,8 +85,8 @@ you will be able to:
 
 #### Then, in ../orders:
 you will be able to:
-1. see full order list or list filtered by order status (outstanding, fulfilled and completed) in time order.
-2. mark outstanding order -> fulfilled, fulfilled -> completed, by clicking on that tick button. Customer will be able to see that.
+1. see outstanding, fulfilled and complete orders by time order.
+2. mark outstanding order -> fulfilled, fulfilled -> complete, by clicking on that eye button. Customer will be able to see that.
 3. For any order that takes more than 15 mins to be marked fulfilled, 20% discount badge will be automatically added to vendor and customer's order list.
 
 
@@ -113,16 +105,10 @@ Link: mongodb+srv://ChiZhang:Relax1017@snack.7ro1t.mongodb.net/test?authSource=a
 #### dummy log in detail:
 Customer:
 
-email: alice@123.com;
-password: 123;
-
 email: bobb@abc.com;
 password: abc;
 
-Vendor:
-
-name: big van;
-password: 123;
+vendor:
 
 name: biggg van;
 password: 123;
