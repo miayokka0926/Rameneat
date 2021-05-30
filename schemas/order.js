@@ -6,12 +6,12 @@ const Schema = mongoose.Schema;
 var OrderSchema = new Schema({
 
     customer: {
-        type:Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:'Customer'
     },
     
     vendor: {
-        type:Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:'Vendor'
     },
     
@@ -30,8 +30,17 @@ var OrderSchema = new Schema({
         type: Number,
     },
 
+
     comment: {
         type: String,
+    },
+
+    total: {
+        type: Number,
+    },
+
+    discount: {
+        type: Boolean,
     }
 
 },{timestamps: true});

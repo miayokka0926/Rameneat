@@ -23,7 +23,6 @@ exports.vendorRegisterPost = function (req, res) {
                         res.json({
                             vendor: {
                                 name: vendor.name,
-
                                 password: vendor.password
                             }
                         })
@@ -36,13 +35,45 @@ exports.vendorRegisterPost = function (req, res) {
 }
 
 
+exports.vendorLoginPost = function(req,res){
+    const{ name, password } = req.body;
+    Vendor.findOne({
+        name:name,
+    }).then ((vendor)=>{
+        if (!vendor){
+            res.status(200).json({ success:false, error: "vendor not registered!" });
+        }else {
+            bcrypt.compare(password, vendor.password, (err, match)=>{
+                if (match) {
+                    res.status(200).json({
+                        success: true,
+                        vendor:{
+                            id: vendor.id,
+                            name: vendor.name,
+                            password: password,
+                            Address: vendor.Address
+                        }
+                    })
+
+                }else {
+                    res.status(409).json({ error: "incorrect password!"})
+                }
+            })
+        }
+    })
+}
+
+
 
 //update vendor's parking status
 exports.vendorStatusPost = function (req, res) {
 
-
     Vendor.findByIdAndUpdate(req.params.id,
-        { Address: req.body.Address, parked: req.body.parked, location: { type: "Point", coordinates: req.body.location } },
+        { 
+            Address: req.body.Address, 
+            parked: req.body.parked, 
+            location: { type: "Point", coordinates: req.body.location }
+        },
         { new: true },
         function (err, updated) {
             if (err) {

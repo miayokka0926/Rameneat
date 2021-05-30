@@ -8,8 +8,10 @@
     "dev": "concurrently \"npm run server\" \"npm run front\"",
     "start": "node src/app.js",
     "server": "nodemon src/app.js",
-    "client-install": "npm install --prefix front",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix front && npm run build --prefix front"
+    "client-install": "npm install --prefix client",
+    "client": "npm start --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "test": "mocha --timeout 30000 --exit"
   },
   "keywords": [],
   "author": "",
@@ -19,11 +21,17 @@
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "i": "^0.3.6",
     "mongoose": "^5.12.4",
     "nodemon": "^2.0.7",
-    "path": "^0.12.7"
+    "react-bootstrap": "^1.5.2",
+    "socket.io": "^4.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "request": "^2.88.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/INFO30005-2021-SM1/project-t11-ramen.git"
