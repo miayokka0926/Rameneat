@@ -105,6 +105,7 @@ To run our code, type 'npm run dev' in the terminal.
 
 To run test, type 'npm run test' in the terminal.
 
+If the code cannot run properly on ios system, try to alter line 25: "start": "SET PORT=5500 && react-scripts start" inside front/package.json into "start": "PORT=5500 react-scripts start",
 
 To access the data throught Mongo Compass, please copy the following link and set new connection to the database (You can check the changes in database along with the process of checking the route with the Postman json file).
 
